@@ -128,10 +128,13 @@ function chapterStats(b, chapter) {
 }
 
 function overall() {
-  let r = 0, w = 0;
-  for (const s of Object.values(store.answers)) { r += s.r; w += s.w; }
+  let r = 0, w = 0, tried = 0;
+  for (const s of Object.values(store.answers)) {
+    r += s.r; w += s.w;
+    if (s.r + s.w > 0) tried += 1;
+  }
   const total = r + w;
-  return { total, acc: total ? Math.round((r / total) * 100) : 0 };
+  return { tried, total, acc: total ? Math.round((r / total) * 100) : 0 };
 }
 
 /* ================= 渲染骨架 ================= */
@@ -151,7 +154,7 @@ function renderHero() {
   const best = store.examHistory.length
     ? Math.max(...store.examHistory.map((h) => h.score)) : null;
   document.getElementById("heroChips").innerHTML = [
-    `🗂 已刷 ${o.total} 题`,
+    `🗂 已刷 ${o.tried} 题`,
     `🎯 正确率 ${o.acc}%`,
     `❌ 错题 ${store.wrongBook.length} 题`,
     best !== null ? `🏅 模拟考最高 ${best} 分` : `🏅 还没考过试`,
