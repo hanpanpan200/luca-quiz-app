@@ -13,7 +13,7 @@ Luca（小学三年级）备赛 26A02 未来之星AI挑战赛实物编程组。�
 
 ## 方案（已选定：纯静态单页应用）
 
-- **架构**：1 个 `index.html`（原生 JS，无框架无构建）+ `questions.json`；学习记录存 localStorage；部署到 Vercel（静态）。不用 Supabase / 后端 / 登录。
+- **架构**：`index.html` + `app.js`（原生 JS，无框架无构建）+ `questions.json`；学习记录存 localStorage；部署到 Vercel（静态）。不用 Supabase / 后端 / 登录。
 - **使用设备**：家里 Mac 的浏览器（单设备，localStorage 足够；提供导出/导入 JSON 备份）。
 
 ## 数据
