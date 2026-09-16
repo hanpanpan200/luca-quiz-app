@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>实物编程赛项题库（基础版）</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif; background:#fdf6f0; color:#2c3e50; line-height:1.7; }
+  .wrap { max-width:920px; margin:0 auto; padding:28px 20px 60px; }
+  header { background:linear-gradient(135deg,#ea580c,#f97316); border-radius:18px; padding:34px 32px; color:#fff; box-shadow:0 10px 28px rgba(234,88,12,.25); }
+  header h1 { font-size:28px; letter-spacing:1px; }
+  header .sub { margin-top:10px; font-size:15px; opacity:.92; }
+  header .stat { display:inline-block; margin-top:16px; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:5px 16px; font-size:13px; }
+  nav { margin:22px 0 6px; display:flex; flex-wrap:wrap; gap:10px; }
+  nav a { display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid #f1e4d8; border-radius:999px; padding:8px 16px; text-decoration:none; color:#57534e; font-size:14px; transition:.2s; box-shadow:0 2px 6px rgba(0,0,0,.04); }
+  nav a:hover { border-color:#ea580c; color:#ea580c; }
+  nav a span { background:#fff3e8; color:#ea580c; border-radius:50%; width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; }
+  .chapter { margin-top:30px; }
+  .chapter h2 { display:flex; align-items:center; gap:12px; font-size:21px; color:#9a3412; margin-bottom:16px; padding-bottom:10px; border-bottom:3px solid #ea580c; }
+  .ch-num { background:#ea580c; color:#fff; border-radius:8px; width:34px; height:34px; display:inline-flex; align-items:center; justify-content:center; font-size:17px; flex:none; }
+  .ch-count { margin-left:auto; font-size:13px; color:#78716c; font-weight:400; background:#fff3e8; padding:3px 12px; border-radius:999px; }
+  .q-card { background:#fff; border:1px solid #f2e6da; border-radius:14px; padding:18px 20px; margin-bottom:14px; box-shadow:0 2px 8px rgba(0,0,0,.04); transition:.2s; }
+  .q-card:hover { box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px); }
+  .q-head { display:flex; align-items:flex-start; gap:12px; }
+  .q-no { background:#fff3e8; color:#ea580c; font-weight:700; border-radius:8px; min-width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center; font-size:14px; flex:none; margin-top:2px; }
+  .q-text { flex:1; font-size:16px; color:#1e293b; }
+  .ans-badge { flex:none; background:#ecfdf5; color:#059669; border:1px solid #a7f3d0; font-size:12.5px; border-radius:999px; padding:3px 12px; font-weight:600; white-space:nowrap; }
+  .ans-badge.none { background:#f1f5f9; color:#94a3b8; border-color:#e2e8f0; font-weight:400; }
+  ul.options { list-style:none; margin:12px 0 0 42px; display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; }
+  ul.options li { background:#faf7f4; border:1px solid #f0e9e2; border-radius:9px; padding:8px 12px; font-size:14.5px; color:#57534e; transition:.15s; }
+  ul.options li.correct { background:#ecfdf5; border-color:#6ee7b7; color:#065f46; font-weight:600; }
+  .opt-letter { color:#b8a99c; font-weight:600; }
+  li.correct .opt-letter { color:#059669; }
+  footer { margin-top:36px; text-align:center; color:#a8a29e; font-size:13px; }
+  @media (max-width:640px){
+    header { padding:26px 20px; } header h1 { font-size:22px; }
+    ul.options { grid-template-columns:1fr; margin-left:34px; }
+    .q-head { flex-wrap:wrap; }
+  }
+  @media print {
+    body { background:#fff; }
+    header { box-shadow:none; }
+    nav { display:none; }
+    .q-card { box-shadow:none; break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>实物编程赛项题库（基础版）</h1>
+    <p class="sub">本题库分芯片原理、简单算法思维、传感器基础、生活常识四部分内容，适合1-3年级学生使用。</p>
+    <span class="stat">共 93 道题 · 单选</span>
+  </header>
+  <nav><a href="#ch1"><span>1</span>I、芯片原理</a><a href="#ch2"><span>2</span>II、简单算法思维</a><a href="#ch3"><span>3</span>III、传感器基础</a><a href="#ch4"><span>4</span>IV、生活常识</a></nav>
+  <section class="chapter" id="ch1">
+  <h2><span class="ch-num">1</span>I、芯片原理<span class="ch-count">9 题</span></h2>
+  <div class="q-list"><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">1</span>
+    <span class="q-text">芯片像我们身体的哪个部分？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">像大脑一样会思考</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">像脚一样会走路</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">像头发一样会长长</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">像嘴巴一样会吃东西</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">2</span>
+    <span class="q-text">下面哪个东西里面有芯片？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">手机</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">石头</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">树叶</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">水杯</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">3</span>
+    <span class="q-text">5. 芯片的小脚丫是用来做什么的？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">和其他零件说话</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">用来走路</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">用来跳舞</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">用来跑步</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">4</span>
+    <span class="q-text">6. 芯片最喜欢的食物是什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">电（电能）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">米饭</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">水果</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">牛奶</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">5</span>
+    <span class="q-text">世界上第一块芯片是什么时候发明的？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">几十年前</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">几千年前</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">去年</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">还没发明</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">6</span>
+    <span class="q-text">芯片是用什么做的？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">沙子（硅）做的</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">面粉做的</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">木头做的</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">橡皮泥做的</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">7</span>
+    <span class="q-text">以下不是常见芯片的主要作用是？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">计算与控制（大脑）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">储存与记忆（仓库）</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">感知与连接（五官）</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">提供力量（肌肉）</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">8</span>
+    <span class="q-text">芯片都长了很多脚，哪个功能不是这些脚的作用？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">通讯</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">美化</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">固定</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">供电</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">9</span>
+    <span class="q-text">芯片是什么的简称？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">集成电路</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">电脑屏幕</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">电池</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">喇叭</span></li></ul>
+</div></div>
+</section><section class="chapter" id="ch2">
+  <h2><span class="ch-num">2</span>II、简单算法思维<span class="ch-count">25 题</span></h2>
+  <div class="q-list"><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">1</span>
+    <span class="q-text">或门的逻辑功能是什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">至少一个为真就为真</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">取反</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">相同为假，不同为真</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">全部为真才为真</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">2</span>
+    <span class="q-text">异或门的逻辑功能是什么？</span>
+    <span class="ans-badge">参考答案：C</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">至少一个为真就为真</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">取反</span></li><li class="opt correct"><span class="opt-letter">C.</span> <span class="opt-text">相同为假，不同为真</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">全部为真才为真</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">3</span>
+    <span class="q-text">非门的逻辑功能是什么？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">至少一个为真就为真</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">取反</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">相同为假，不同为真</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">全部为真才为真</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">4</span>
+    <span class="q-text">与门的逻辑功能是什么？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">至少一个为真就为真</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">取反</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">相同为假，不同为真</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">全部为真才为真</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">5</span>
+    <span class="q-text">锁存模块的功能是什么？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">让程序保持一段时间</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">加快程序运行速度</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">存储数据</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">切换并保持输出信号状态</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">6</span>
+    <span class="q-text">延时模块的功能是什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">让程序保持一段时间</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">加快程序运行速度</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">存储数据</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">程序不运行</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">7</span>
+    <span class="q-text">下面哪个是逻辑门电路的基本功能？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">处理数字信号</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">播放音乐</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">显示图像</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">连接网络</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">8</span>
+    <span class="q-text">按下开关灯就亮，这是什么逻辑？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">如果按下就亮（条件判断）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">灯自己决定</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">看心情</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">随机亮</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">9</span>
+    <span class="q-text">你每天起床→刷牙→吃早餐→上学，这是什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">顺序（一步步做）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">跳着做</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">倒着做</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">随便做</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">10</span>
+    <span class="q-text">妈妈说要先写作业才能看电视，这是什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">条件判断</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">循环</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">顺序</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">跳转</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">11</span>
+    <span class="q-text">红灯停，绿灯行，黄灯等一等，这是什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">条件判断</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">循环</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">顺序</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">加速</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">12</span>
+    <span class="q-text">爸爸妈妈有一个人同意，你就可以出去玩了，这叫什么逻辑？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">或（有一个就可以）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">与（都要）</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">非（反过来）</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">跳过</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">13</span>
+    <span class="q-text">爸爸妈妈两个人都要同意，你才能出去玩，这叫什么逻辑？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">或（有一个就可以）</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">与（两个都要）</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">非（反过来）</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">跳过</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">14</span>
+    <span class="q-text">小明最喜欢玩的正反话游戏，要说和别人相反的，这叫什么逻辑？</span>
+    <span class="ans-badge">参考答案：C</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">或（有一个就可以）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">与（两个都要）</span></li><li class="opt correct"><span class="opt-letter">C.</span> <span class="opt-text">非（反过来）</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">跳过</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">15</span>
+    <span class="q-text">实物编程就像用各种电子模块在做什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">像下命令</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">像看电视</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">像睡觉</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">像吃饭</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">16</span>
+    <span class="q-text">密码锁要三个数字全对才能打开，这是什么逻辑？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">与门（全对才行）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">或门（一个就对）</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">非门</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">异或门</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">17</span>
+    <span class="q-text">迷宫出口有两个门，任何一个打开都能出去，这是什么逻辑？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">或门（一个就行）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">与门</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">非门</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">都不行</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">18</span>
+    <span class="q-text">我们给机器人下指令，就像？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">给小狗发出'坐下'的口令</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">给花浇水</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">给墙刷漆</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">给车加油</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">19</span>
+    <span class="q-text">数字信号"0"通常表示什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">关闭或低电平</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">打开或高电平</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">红色</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">快速</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">20</span>
+    <span class="q-text">数字信号"1"通常表示什么？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">关闭或低电平</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">打开或高电平</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">蓝色</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">慢速</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">21</span>
+    <span class="q-text">逻辑门电路可以组成什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">复杂的计算电路</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">音乐播放器</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">电视机</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">游戏机</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">22</span>
+    <span class="q-text">大齿轮带动小齿轮，小齿轮会是以下哪种情况？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">转速加快力量加大</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">转速加快力量变小</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">转速变慢力量加大</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">转速变慢力量加大</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">23</span>
+    <span class="q-text">小齿轮带动大齿轮，大齿轮会是以下哪种情况？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">转速加快力量加大</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">转速加快力量变小</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">转速变慢力量加大</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">转速变慢力量加大</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">24</span>
+    <span class="q-text">编程的作用是什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">给电脑下指令</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">玩游戏</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">看电影</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">画画</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">25</span>
+    <span class="q-text">实物编程使用什么来编程？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">实际的模块和传感器</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">键盘打字</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">鼠标点击</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">语音控制</span></li></ul>
+</div></div>
+</section><section class="chapter" id="ch3">
+  <h2><span class="ch-num">3</span>III、传感器基础<span class="ch-count">46 题</span></h2>
+  <div class="q-list"><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">1</span>
+    <span class="q-text">输入模块的作用是什么？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">供电</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">检测环境输出电信号</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">处理电信号再输出电信号</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">接收电信号输出相应功能</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">2</span>
+    <span class="q-text">输出模块的作用是什么？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">供电</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">检测环境输出电信号</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">处理电信号再输出电信号</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">接收电信号输出相应功能</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">3</span>
+    <span class="q-text">逻辑模块的作用是什么？</span>
+    <span class="ans-badge">参考答案：C</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">供电</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">检测环境输出电信号</span></li><li class="opt correct"><span class="opt-letter">C.</span> <span class="opt-text">处理电信号再输出电信号</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">接收电信号输出相应功能</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">4</span>
+    <span class="q-text">以下不是集线模块的作用是哪个？</span>
+    <span class="ans-badge">参考答案：C</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">供电</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">驱动电机</span></li><li class="opt correct"><span class="opt-letter">C.</span> <span class="opt-text">处理电信号再输出电信号</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">检测环境输出电信号</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">5</span>
+    <span class="q-text">光敏传感器像人的什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">像眼睛，能感受光线</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">像耳朵</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">像鼻子</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">像嘴巴</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">6</span>
+    <span class="q-text">声音传感器像人的什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">像耳朵，能听声音</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">像眼睛</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">像手</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">像脚</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">7</span>
+    <span class="q-text">温度传感器像人的什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">像皮肤，能感觉冷热</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">像头发</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">像牙齿</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">像指甲</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">8</span>
+    <span class="q-text">天黑自动亮的路灯，用了什么传感器？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">光敏传感器（感光）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">温度传感器</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">声音传感器</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">磁控开关</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">9</span>
+    <span class="q-text">拍拍手灯就亮了，用了什么传感器？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">声音传感器</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">光敏传感器</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">温度传感器</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">磁控开关</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">10</span>
+    <span class="q-text">自动门看到人来了就打开，用了什么传感器？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">红外传感器（感应人）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">温度传感器</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">声音传感器</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">雨滴传感器</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">11</span>
+    <span class="q-text">下雨自动关窗户，用了什么传感器？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">雨滴传感器</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">光敏传感器</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">声音传感器</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">温度传感器</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">12</span>
+    <span class="q-text">冰箱门没关好会报警，用了什么传感器？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">磁控开关</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">温度传感器</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">光敏传感器</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">声音传感器</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">13</span>
+    <span class="q-text">按钮开关像什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">像电灯开关一样按</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">像水龙头一样拧</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">像门一样推</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">像窗户一样拉</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">14</span>
+    <span class="q-text">电机像机器人的什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">像肌肉，能让它动</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">像眼睛</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">像耳朵</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">像鼻子</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">15</span>
+    <span class="q-text">LED灯模块收到什么信号会亮？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">收到1（高电平）信号</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">收到0（低电平）信号</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">收到音乐</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">收到图画</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">16</span>
+    <span class="q-text">如果想让电机停转，需要什么信号？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">收到0（低电平）信号</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">收到1（高电平）信号</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">给它唱歌</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">给它讲故事</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">17</span>
+    <span class="q-text">锁存模块像什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">像能记住开关状态的开关</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">像忘记事情</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">像睡觉</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">像跑步</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">18</span>
+    <span class="q-text">电梯的楼层按钮用了什么功能？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">锁存功能（按一下一直记住）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">普通开关</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">声音感应</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">光线感应</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">19</span>
+    <span class="q-text">自动水龙头伸手就出水，用了什么传感器？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">红外传感器</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">温度传感器</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">声音传感器</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">磁控开关</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">20</span>
+    <span class="q-text">扫地机器人碰到墙会转弯，用了什么传感器？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">触碰传感器或红外传感器</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">温度传感器</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">光敏传感器</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">声音传感器</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">21</span>
+    <span class="q-text">声控灯在声音大和光线暗两个条件都满足时才亮，这叫什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">与门逻辑</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">或门逻辑</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">非门逻辑</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">随机逻辑</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">22</span>
+    <span class="q-text">家里空调能自动调节温度，用了什么传感器？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">温度传感器</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">光敏传感器</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">声音传感器</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">磁控开关</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">23</span>
+    <span class="q-text">磁控开关遇到什么会动作？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">遇到磁铁会闭合</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">遇到光会动</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">遇到水会动</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">遇到风会动</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">24</span>
+    <span class="q-text">按钮开关检测的是什么？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">温度变化</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">声音大小</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">光线强度</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">按压动作</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">25</span>
+    <span class="q-text">台灯这课，按压按键，LED不亮，以下哪个原因是不用检查的？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">导线接触不良</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">集线器电源没开</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">锁存模块的接线方向</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">LED模块的接线方向</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">26</span>
+    <span class="q-text">台灯不亮，检查集线器电源、模块的接线方向等都正确后，我们最常用是什么方法来检查传感器模块是不是能正常工作？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">拆开模块观察</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">替代法</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">重复多次插拔原有模块</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">等待传感器自我修复</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">27</span>
+    <span class="q-text">按下按键灯亮了，松开手还亮着，是哪个模块在帮忙？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">按键模块</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">锁存模块</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">光敏模块</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">磁感应模块</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">28</span>
+    <span class="q-text">下列哪个功能是用了电子锁存功能的？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">电梯楼层按键</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">一按一响的门铃按键</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">普通点灯开关</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">普通的风扇按压档位开关</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">29</span>
+    <span class="q-text">电机可以接到集线模块的以下哪组通道？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">通道A和B</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">通道B和C</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">通道A和C</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">三个通道都可以</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">30</span>
+    <span class="q-text">电机的作用主要作用是什么？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">计算与控制（大脑）</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">储存与记忆（仓库）</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">感知与连接（五官）</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">提供力量（肌肉）</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">31</span>
+    <span class="q-text">电机能受控制的转动起来，要用下面的哪个方法？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">只要插上集线器</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">插上集线器且收到信号1</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">随机</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">插上集线器且收到信号0</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">32</span>
+    <span class="q-text">电机能受控制的停下来，要用下面的哪个方法？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">只要插上集线器</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">插上集线器且收到信号1</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">随机</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">插上集线器且收到信号0</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">33</span>
+    <span class="q-text">风扇的自复位开关是怎样做到按一次开，再按一次关的？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">按键模块</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">锁存模块</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">光敏模块</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">磁感应模块</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">34</span>
+    <span class="q-text">电风扇转的时候，我们用按钮控制它，按钮是什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">输入（我们给它指令）</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">输出</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">电池</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">电线</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">35</span>
+    <span class="q-text">红外传感器可以检测到什么变化？</span>
+    <span class="ans-badge">参考答案：C</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">温度变化</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">光线强度</span></li><li class="opt correct"><span class="opt-letter">C.</span> <span class="opt-text">物体距离</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">声音大小</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">36</span>
+    <span class="q-text">声音传感器可以检测到什么变化？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">温度变化</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">光线强度</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">物体距离</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">声音大小</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">37</span>
+    <span class="q-text">光敏传感器可以检测到什么变化？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">温度变化</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">光线强度</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">物体距离</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">声音大小</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">38</span>
+    <span class="q-text">磁控开关可以检测到什么变化？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">温度变化</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">磁铁靠近</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">物体距离</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">声音大小</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">39</span>
+    <span class="q-text">雨滴传感器可以检测到什么变化？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">温度变化</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">感知区有水</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">物体距离</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">声音大小</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">40</span>
+    <span class="q-text">如果想让LED灯亮，需要给模块什么信号？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">高电平信号</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">低电平信号</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">声音信号</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">温度信号</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">41</span>
+    <span class="q-text">如果想让LED灯灭，需要给模块什么信号？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">高电平信号</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">低电平信号</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">光线信号</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">压力信号</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">42</span>
+    <span class="q-text">温度传感器可以检测什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">冷热变化</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">颜色变化</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">形状变化</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">声音变化</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">43</span>
+    <span class="q-text">触摸传感器的功能和以下哪个最像？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">按钮开关</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">灯泡</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">喇叭</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">电池</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">44</span>
+    <span class="q-text">光敏传感器在以下哪个作品里用到的可能性最大？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">自动路灯</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">冰箱</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">洗衣机</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">微波炉</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">45</span>
+    <span class="q-text">声音传感器在以下哪个作品里用到的可能性最大？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">声控灯</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">电视机</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">空调</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">电风扇</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">46</span>
+    <span class="q-text">磁控开关在以下哪个作品里用到的可能性最大？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">门窗报警器</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">台灯</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">电脑</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">手机</span></li></ul>
+</div></div>
+</section><section class="chapter" id="ch4">
+  <h2><span class="ch-num">4</span>IV、生活常识<span class="ch-count">13 题</span></h2>
+  <div class="q-list"><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">1</span>
+    <span class="q-text">下列哪种设备属于智能设备？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">普通铁锅</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">智能电饭煲</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">普通砂锅</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">普通高压锅</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">2</span>
+    <span class="q-text">下列哪种设备属于人工智能设备？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">空调</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">扫地机器人</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">冰箱</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">洗衣机</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">3</span>
+    <span class="q-text">下列哪种设备不属于人工智能设备？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">人形机器人</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">机器狗</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">送餐机器人</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">遥控赛车</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">4</span>
+    <span class="q-text">硬币放在桌上不会自己跳起来，因为它们没有？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">电和程序</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">腿</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">眼睛</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">嘴巴</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">5</span>
+    <span class="q-text">乐高汉堡结构为什么叫汉堡？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">因为像汉堡一样上下夹住中间</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">因为可以吃</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">因为很好吃</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">因为颜色像</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">6</span>
+    <span class="q-text">乐高互锁结构像什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">像砖头交错搭在一起更牢固</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">像叠积木一样简单</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">像堆沙子</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">像堆石头</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">7</span>
+    <span class="q-text">乐高中'轴'的作用像什么？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">像车轮的轴心，让轮子转</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">像墙壁一样挡住</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">像屋顶一样盖住</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">像门一样开关</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">8</span>
+    <span class="q-text">大齿轮带小齿轮，结果会怎样？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">转得很快但力气变小</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">转得慢但力气变大</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">不变</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">不转了</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">9</span>
+    <span class="q-text">小齿轮带大齿轮，结果会怎样？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">转得慢但力气变大</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">转得很快但力气变小</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">不变</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">不转了</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">10</span>
+    <span class="q-text">大齿轮和小齿轮组合使用时，为什么能改变速度？</span>
+    <span class="ans-badge">参考答案：A</span>
+  </div>
+  <ul class="options"><li class="opt correct"><span class="opt-letter">A.</span> <span class="opt-text">不同齿数的齿轮需要匹配齿数</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">齿轮大小不同</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">齿轮颜色不同</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">齿轮材料不同</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">11</span>
+    <span class="q-text">以下不属于常见的人工智能感知方式的是？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">用摄像头看</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">用声音传感器听</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">接收网络信号</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">人工输入</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">12</span>
+    <span class="q-text">以下不属于常见的自复位开关是哪个？</span>
+    <span class="ans-badge">参考答案：D</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">电脑键盘按键</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">鼠标左右键</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">电梯楼层按键</span></li><li class="opt correct"><span class="opt-letter">D.</span> <span class="opt-text">普通照明灯开关</span></li></ul>
+</div><div class="q-card">
+  <div class="q-head">
+    <span class="q-no">13</span>
+    <span class="q-text">常见的送餐机器人是以什么形式行走的？</span>
+    <span class="ans-badge">参考答案：B</span>
+  </div>
+  <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">履带</span></li><li class="opt correct"><span class="opt-letter">B.</span> <span class="opt-text">轮式</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">四足</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">两足</span></li></ul>
+</div></div>
+</section>
+  <footer>实物编程赛项题库（基础版） · 适合一至三年级学生</footer>
+</div>
+</body>
+</html>
