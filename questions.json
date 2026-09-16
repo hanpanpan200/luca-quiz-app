@@ -1,0 +1,2822 @@
+{
+ "generated_at": "2026-09-16",
+ "banks": [
+  {
+   "name": "基础版",
+   "chapters": [
+    "I、芯片原理",
+    "II、简单算法思维",
+    "III、传感器基础",
+    "IV、生活常识"
+   ],
+   "questions": [
+    {
+     "text": "芯片像我们身体的哪个部分？",
+     "options": [
+      "像大脑一样会思考",
+      "像脚一样会走路",
+      "像头发一样会长长",
+      "像嘴巴一样会吃东西"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-1-1",
+     "bank": "基础版",
+     "chapter": "I、芯片原理",
+     "qno": 1
+    },
+    {
+     "text": "下面哪个东西里面有芯片？",
+     "options": [
+      "手机",
+      "石头",
+      "树叶",
+      "水杯"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-1-2",
+     "bank": "基础版",
+     "chapter": "I、芯片原理",
+     "qno": 2
+    },
+    {
+     "text": "芯片的小脚丫是用来做什么的？",
+     "options": [
+      "和其他零件说话",
+      "用来走路",
+      "用来跳舞",
+      "用来跑步"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-1-3",
+     "bank": "基础版",
+     "chapter": "I、芯片原理",
+     "qno": 3
+    },
+    {
+     "text": "芯片最喜欢的食物是什么？",
+     "options": [
+      "电（电能）",
+      "米饭",
+      "水果",
+      "牛奶"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-1-4",
+     "bank": "基础版",
+     "chapter": "I、芯片原理",
+     "qno": 4
+    },
+    {
+     "text": "世界上第一块芯片是什么时候发明的？",
+     "options": [
+      "几十年前",
+      "几千年前",
+      "去年",
+      "还没发明"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-1-5",
+     "bank": "基础版",
+     "chapter": "I、芯片原理",
+     "qno": 5
+    },
+    {
+     "text": "芯片是用什么做的？",
+     "options": [
+      "沙子（硅）做的",
+      "面粉做的",
+      "木头做的",
+      "橡皮泥做的"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-1-6",
+     "bank": "基础版",
+     "chapter": "I、芯片原理",
+     "qno": 6
+    },
+    {
+     "text": "以下不是常见芯片的主要作用是？",
+     "options": [
+      "计算与控制（大脑）",
+      "储存与记忆（仓库）",
+      "感知与连接（五官）",
+      "提供力量（肌肉）"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-1-7",
+     "bank": "基础版",
+     "chapter": "I、芯片原理",
+     "qno": 7
+    },
+    {
+     "text": "芯片都长了很多脚，哪个功能不是这些脚的作用？",
+     "options": [
+      "通讯",
+      "美化",
+      "固定",
+      "供电"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-1-8",
+     "bank": "基础版",
+     "chapter": "I、芯片原理",
+     "qno": 8
+    },
+    {
+     "text": "芯片是什么的简称？",
+     "options": [
+      "集成电路",
+      "电脑屏幕",
+      "电池",
+      "喇叭"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-1-9",
+     "bank": "基础版",
+     "chapter": "I、芯片原理",
+     "qno": 9
+    },
+    {
+     "text": "或门的逻辑功能是什么？",
+     "options": [
+      "至少一个为真就为真",
+      "取反",
+      "相同为假，不同为真",
+      "全部为真才为真"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-1",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 1
+    },
+    {
+     "text": "异或门的逻辑功能是什么？",
+     "options": [
+      "至少一个为真就为真",
+      "取反",
+      "相同为假，不同为真",
+      "全部为真才为真"
+     ],
+     "answer": "C",
+     "correct_idx": 2,
+     "needs_review": false,
+     "id": "基础版-2-2",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 2
+    },
+    {
+     "text": "非门的逻辑功能是什么？",
+     "options": [
+      "至少一个为真就为真",
+      "取反",
+      "相同为假，不同为真",
+      "全部为真才为真"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-2-3",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 3
+    },
+    {
+     "text": "与门的逻辑功能是什么？",
+     "options": [
+      "至少一个为真就为真",
+      "取反",
+      "相同为假，不同为真",
+      "全部为真才为真"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-2-4",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 4
+    },
+    {
+     "text": "锁存模块的功能是什么？",
+     "options": [
+      "让程序保持一段时间",
+      "加快程序运行速度",
+      "存储数据",
+      "切换并保持输出信号状态"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-2-5",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 5
+    },
+    {
+     "text": "延时模块的功能是什么？",
+     "options": [
+      "让程序保持一段时间",
+      "加快程序运行速度",
+      "存储数据",
+      "程序不运行"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-6",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 6
+    },
+    {
+     "text": "下面哪个是逻辑门电路的基本功能？",
+     "options": [
+      "处理数字信号",
+      "播放音乐",
+      "显示图像",
+      "连接网络"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-7",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 7
+    },
+    {
+     "text": "按下开关灯就亮，这是什么逻辑？",
+     "options": [
+      "如果按下就亮（条件判断）",
+      "灯自己决定",
+      "看心情",
+      "随机亮"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-8",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 8
+    },
+    {
+     "text": "你每天起床→刷牙→吃早餐→上学，这是什么？",
+     "options": [
+      "顺序（一步步做）",
+      "跳着做",
+      "倒着做",
+      "随便做"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-9",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 9
+    },
+    {
+     "text": "妈妈说要先写作业才能看电视，这是什么？",
+     "options": [
+      "条件判断",
+      "循环",
+      "顺序",
+      "跳转"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-10",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 10
+    },
+    {
+     "text": "红灯停，绿灯行，黄灯等一等，这是什么？",
+     "options": [
+      "条件判断",
+      "循环",
+      "顺序",
+      "加速"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-11",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 11
+    },
+    {
+     "text": "爸爸妈妈有一个人同意，你就可以出去玩了，这叫什么逻辑？",
+     "options": [
+      "或（有一个就可以）",
+      "与（都要）",
+      "非（反过来）",
+      "跳过"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-12",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 12
+    },
+    {
+     "text": "爸爸妈妈两个人都要同意，你才能出去玩，这叫什么逻辑？",
+     "options": [
+      "或（有一个就可以）",
+      "与（两个都要）",
+      "非（反过来）",
+      "跳过"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-2-13",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 13
+    },
+    {
+     "text": "小明最喜欢玩的正反话游戏，要说和别人相反的，这叫什么逻辑？",
+     "options": [
+      "或（有一个就可以）",
+      "与（两个都要）",
+      "非（反过来）",
+      "跳过"
+     ],
+     "answer": "C",
+     "correct_idx": 2,
+     "needs_review": false,
+     "id": "基础版-2-14",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 14
+    },
+    {
+     "text": "实物编程就像用各种电子模块在做什么？",
+     "options": [
+      "像下命令",
+      "像看电视",
+      "像睡觉",
+      "像吃饭"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-15",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 15
+    },
+    {
+     "text": "密码锁要三个数字全对才能打开，这是什么逻辑？",
+     "options": [
+      "与门（全对才行）",
+      "或门（一个就对）",
+      "非门",
+      "异或门"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-16",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 16
+    },
+    {
+     "text": "迷宫出口有两个门，任何一个打开都能出去，这是什么逻辑？",
+     "options": [
+      "或门（一个就行）",
+      "与门",
+      "非门",
+      "都不行"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-17",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 17
+    },
+    {
+     "text": "我们给机器人下指令，就像？",
+     "options": [
+      "给小狗发出'坐下'的口令",
+      "给花浇水",
+      "给墙刷漆",
+      "给车加油"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-18",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 18
+    },
+    {
+     "text": "数字信号\"0\"通常表示什么？",
+     "options": [
+      "关闭或低电平",
+      "打开或高电平",
+      "红色",
+      "快速"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-19",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 19
+    },
+    {
+     "text": "数字信号\"1\"通常表示什么？",
+     "options": [
+      "关闭或低电平",
+      "打开或高电平",
+      "蓝色",
+      "慢速"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-2-20",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 20
+    },
+    {
+     "text": "逻辑门电路可以组成什么？",
+     "options": [
+      "复杂的计算电路",
+      "音乐播放器",
+      "电视机",
+      "游戏机"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-21",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 21
+    },
+    {
+     "text": "大齿轮带动小齿轮，小齿轮会是以下哪种情况？",
+     "options": [
+      "转速加快力量加大",
+      "转速加快力量变小",
+      "转速变慢力量加大",
+      "转速变慢力量加大"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-2-22",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 22
+    },
+    {
+     "text": "小齿轮带动大齿轮，大齿轮会是以下哪种情况？",
+     "options": [
+      "转速加快力量加大",
+      "转速加快力量变小",
+      "转速变慢力量加大",
+      "转速变慢力量加大"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-2-23",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 23
+    },
+    {
+     "text": "编程的作用是什么？",
+     "options": [
+      "给电脑下指令",
+      "玩游戏",
+      "看电影",
+      "画画"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-24",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 24
+    },
+    {
+     "text": "实物编程使用什么来编程？",
+     "options": [
+      "实际的模块和传感器",
+      "键盘打字",
+      "鼠标点击",
+      "语音控制"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-2-25",
+     "bank": "基础版",
+     "chapter": "II、简单算法思维",
+     "qno": 25
+    },
+    {
+     "text": "输入模块的作用是什么？",
+     "options": [
+      "供电",
+      "检测环境输出电信号",
+      "处理电信号再输出电信号",
+      "接收电信号输出相应功能"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-1",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 1
+    },
+    {
+     "text": "输出模块的作用是什么？",
+     "options": [
+      "供电",
+      "检测环境输出电信号",
+      "处理电信号再输出电信号",
+      "接收电信号输出相应功能"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-3-2",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 2
+    },
+    {
+     "text": "逻辑模块的作用是什么？",
+     "options": [
+      "供电",
+      "检测环境输出电信号",
+      "处理电信号再输出电信号",
+      "接收电信号输出相应功能"
+     ],
+     "answer": "C",
+     "correct_idx": 2,
+     "needs_review": false,
+     "id": "基础版-3-3",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 3
+    },
+    {
+     "text": "以下不是集线模块的作用是哪个？",
+     "options": [
+      "供电",
+      "驱动电机",
+      "处理电信号再输出电信号",
+      "检测环境输出电信号"
+     ],
+     "answer": "C",
+     "correct_idx": 2,
+     "needs_review": false,
+     "id": "基础版-3-4",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 4
+    },
+    {
+     "text": "光敏传感器像人的什么？",
+     "options": [
+      "像眼睛，能感受光线",
+      "像耳朵",
+      "像鼻子",
+      "像嘴巴"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-5",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 5
+    },
+    {
+     "text": "声音传感器像人的什么？",
+     "options": [
+      "像耳朵，能听声音",
+      "像眼睛",
+      "像手",
+      "像脚"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-6",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 6
+    },
+    {
+     "text": "温度传感器像人的什么？",
+     "options": [
+      "像皮肤，能感觉冷热",
+      "像头发",
+      "像牙齿",
+      "像指甲"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-7",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 7
+    },
+    {
+     "text": "天黑自动亮的路灯，用了什么传感器？",
+     "options": [
+      "光敏传感器（感光）",
+      "温度传感器",
+      "声音传感器",
+      "磁控开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-8",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 8
+    },
+    {
+     "text": "拍拍手灯就亮了，用了什么传感器？",
+     "options": [
+      "声音传感器",
+      "光敏传感器",
+      "温度传感器",
+      "磁控开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-9",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 9
+    },
+    {
+     "text": "自动门看到人来了就打开，用了什么传感器？",
+     "options": [
+      "红外传感器（感应人）",
+      "温度传感器",
+      "声音传感器",
+      "雨滴传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-10",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 10
+    },
+    {
+     "text": "下雨自动关窗户，用了什么传感器？",
+     "options": [
+      "雨滴传感器",
+      "光敏传感器",
+      "声音传感器",
+      "温度传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-11",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 11
+    },
+    {
+     "text": "冰箱门没关好会报警，用了什么传感器？",
+     "options": [
+      "磁控开关",
+      "温度传感器",
+      "光敏传感器",
+      "声音传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-12",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 12
+    },
+    {
+     "text": "按钮开关像什么？",
+     "options": [
+      "像电灯开关一样按",
+      "像水龙头一样拧",
+      "像门一样推",
+      "像窗户一样拉"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-13",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 13
+    },
+    {
+     "text": "电机像机器人的什么？",
+     "options": [
+      "像肌肉，能让它动",
+      "像眼睛",
+      "像耳朵",
+      "像鼻子"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-14",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 14
+    },
+    {
+     "text": "LED灯模块收到什么信号会亮？",
+     "options": [
+      "收到1（高电平）信号",
+      "收到0（低电平）信号",
+      "收到音乐",
+      "收到图画"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-15",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 15
+    },
+    {
+     "text": "如果想让电机停转，需要什么信号？",
+     "options": [
+      "收到0（低电平）信号",
+      "收到1（高电平）信号",
+      "给它唱歌",
+      "给它讲故事"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-16",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 16
+    },
+    {
+     "text": "锁存模块像什么？",
+     "options": [
+      "像能记住开关状态的开关",
+      "像忘记事情",
+      "像睡觉",
+      "像跑步"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-17",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 17
+    },
+    {
+     "text": "电梯的楼层按钮用了什么功能？",
+     "options": [
+      "锁存功能（按一下一直记住）",
+      "普通开关",
+      "声音感应",
+      "光线感应"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-18",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 18
+    },
+    {
+     "text": "自动水龙头伸手就出水，用了什么传感器？",
+     "options": [
+      "红外传感器",
+      "温度传感器",
+      "声音传感器",
+      "磁控开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-19",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 19
+    },
+    {
+     "text": "扫地机器人碰到墙会转弯，用了什么传感器？",
+     "options": [
+      "触碰传感器或红外传感器",
+      "温度传感器",
+      "光敏传感器",
+      "声音传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-20",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 20
+    },
+    {
+     "text": "声控灯在声音大和光线暗两个条件都满足时才亮，这叫什么？",
+     "options": [
+      "与门逻辑",
+      "或门逻辑",
+      "非门逻辑",
+      "随机逻辑"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-21",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 21
+    },
+    {
+     "text": "家里空调能自动调节温度，用了什么传感器？",
+     "options": [
+      "温度传感器",
+      "光敏传感器",
+      "声音传感器",
+      "磁控开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-22",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 22
+    },
+    {
+     "text": "磁控开关遇到什么会动作？",
+     "options": [
+      "遇到磁铁会闭合",
+      "遇到光会动",
+      "遇到水会动",
+      "遇到风会动"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-23",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 23
+    },
+    {
+     "text": "按钮开关检测的是什么？",
+     "options": [
+      "温度变化",
+      "声音大小",
+      "光线强度",
+      "按压动作"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-3-24",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 24
+    },
+    {
+     "text": "台灯这课，按压按键，LED不亮，以下哪个原因是不用检查的？",
+     "options": [
+      "导线接触不良",
+      "集线器电源没开",
+      "锁存模块的接线方向",
+      "LED模块的接线方向"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-3-25",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 25
+    },
+    {
+     "text": "台灯不亮，检查集线器电源、模块的接线方向等都正确后，我们最常用是什么方法来检查传感器模块是不是能正常工作？",
+     "options": [
+      "拆开模块观察",
+      "替代法",
+      "重复多次插拔原有模块",
+      "等待传感器自我修复"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-26",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 26
+    },
+    {
+     "text": "按下按键灯亮了，松开手还亮着，是哪个模块在帮忙？",
+     "options": [
+      "按键模块",
+      "锁存模块",
+      "光敏模块",
+      "磁感应模块"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-27",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 27
+    },
+    {
+     "text": "下列哪个功能是用了电子锁存功能的？",
+     "options": [
+      "电梯楼层按键",
+      "一按一响的门铃按键",
+      "普通点灯开关",
+      "普通的风扇按压档位开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-28",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 28
+    },
+    {
+     "text": "电机可以接到集线模块的以下哪组通道？",
+     "options": [
+      "通道A和B",
+      "通道B和C",
+      "通道A和C",
+      "三个通道都可以"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-29",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 29
+    },
+    {
+     "text": "电机的作用主要作用是什么？",
+     "options": [
+      "计算与控制（大脑）",
+      "储存与记忆（仓库）",
+      "感知与连接（五官）",
+      "提供力量（肌肉）"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-30",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 30
+    },
+    {
+     "text": "电机能受控制的转动起来，要用下面的哪个方法？",
+     "options": [
+      "只要插上集线器",
+      "插上集线器且收到信号1",
+      "随机",
+      "插上集线器且收到信号0"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-31",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 31
+    },
+    {
+     "text": "电机能受控制的停下来，要用下面的哪个方法？",
+     "options": [
+      "只要插上集线器",
+      "插上集线器且收到信号1",
+      "随机",
+      "插上集线器且收到信号0"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-3-32",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 32
+    },
+    {
+     "text": "风扇的自复位开关是怎样做到按一次开，再按一次关的？",
+     "options": [
+      "按键模块",
+      "锁存模块",
+      "光敏模块",
+      "磁感应模块"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-33",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 33
+    },
+    {
+     "text": "电风扇转的时候，我们用按钮控制它，按钮是什么？",
+     "options": [
+      "输入（我们给它指令）",
+      "输出",
+      "电池",
+      "电线"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-34",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 34
+    },
+    {
+     "text": "红外传感器可以检测到什么变化？",
+     "options": [
+      "温度变化",
+      "光线强度",
+      "物体距离",
+      "声音大小"
+     ],
+     "answer": "C",
+     "correct_idx": 2,
+     "needs_review": false,
+     "id": "基础版-3-35",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 35
+    },
+    {
+     "text": "声音传感器可以检测到什么变化？",
+     "options": [
+      "温度变化",
+      "光线强度",
+      "物体距离",
+      "声音大小"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-3-36",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 36
+    },
+    {
+     "text": "光敏传感器可以检测到什么变化？",
+     "options": [
+      "温度变化",
+      "光线强度",
+      "物体距离",
+      "声音大小"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-37",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 37
+    },
+    {
+     "text": "磁控开关可以检测到什么变化？",
+     "options": [
+      "温度变化",
+      "磁铁靠近",
+      "物体距离",
+      "声音大小"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-38",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 38
+    },
+    {
+     "text": "雨滴传感器可以检测到什么变化？",
+     "options": [
+      "温度变化",
+      "感知区有水",
+      "物体距离",
+      "声音大小"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-39",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 39
+    },
+    {
+     "text": "如果想让LED灯亮，需要给模块什么信号？",
+     "options": [
+      "高电平信号",
+      "低电平信号",
+      "声音信号",
+      "温度信号"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-40",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 40
+    },
+    {
+     "text": "如果想让LED灯灭，需要给模块什么信号？",
+     "options": [
+      "高电平信号",
+      "低电平信号",
+      "光线信号",
+      "压力信号"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-3-41",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 41
+    },
+    {
+     "text": "温度传感器可以检测什么？",
+     "options": [
+      "冷热变化",
+      "颜色变化",
+      "形状变化",
+      "声音变化"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-42",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 42
+    },
+    {
+     "text": "触摸传感器的功能和以下哪个最像？",
+     "options": [
+      "按钮开关",
+      "灯泡",
+      "喇叭",
+      "电池"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-43",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 43
+    },
+    {
+     "text": "光敏传感器在以下哪个作品里用到的可能性最大？",
+     "options": [
+      "自动路灯",
+      "冰箱",
+      "洗衣机",
+      "微波炉"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-44",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 44
+    },
+    {
+     "text": "声音传感器在以下哪个作品里用到的可能性最大？",
+     "options": [
+      "声控灯",
+      "电视机",
+      "空调",
+      "电风扇"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-45",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 45
+    },
+    {
+     "text": "磁控开关在以下哪个作品里用到的可能性最大？",
+     "options": [
+      "门窗报警器",
+      "台灯",
+      "电脑",
+      "手机"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-3-46",
+     "bank": "基础版",
+     "chapter": "III、传感器基础",
+     "qno": 46
+    },
+    {
+     "text": "下列哪种设备属于智能设备？",
+     "options": [
+      "普通铁锅",
+      "智能电饭煲",
+      "普通砂锅",
+      "普通高压锅"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-4-1",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 1
+    },
+    {
+     "text": "下列哪种设备属于人工智能设备？",
+     "options": [
+      "空调",
+      "扫地机器人",
+      "冰箱",
+      "洗衣机"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-4-2",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 2
+    },
+    {
+     "text": "下列哪种设备不属于人工智能设备？",
+     "options": [
+      "人形机器人",
+      "机器狗",
+      "送餐机器人",
+      "遥控赛车"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-4-3",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 3
+    },
+    {
+     "text": "硬币放在桌上不会自己跳起来，因为它们没有？",
+     "options": [
+      "电和程序",
+      "腿",
+      "眼睛",
+      "嘴巴"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-4-4",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 4
+    },
+    {
+     "text": "乐高汉堡结构为什么叫汉堡？",
+     "options": [
+      "因为像汉堡一样上下夹住中间",
+      "因为可以吃",
+      "因为很好吃",
+      "因为颜色像"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-4-5",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 5
+    },
+    {
+     "text": "乐高互锁结构像什么？",
+     "options": [
+      "像砖头交错搭在一起更牢固",
+      "像叠积木一样简单",
+      "像堆沙子",
+      "像堆石头"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-4-6",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 6
+    },
+    {
+     "text": "乐高中'轴'的作用像什么？",
+     "options": [
+      "像车轮的轴心，让轮子转",
+      "像墙壁一样挡住",
+      "像屋顶一样盖住",
+      "像门一样开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-4-7",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 7
+    },
+    {
+     "text": "大齿轮带小齿轮，结果会怎样？",
+     "options": [
+      "转得很快但力气变小",
+      "转得慢但力气变大",
+      "不变",
+      "不转了"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-4-8",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 8
+    },
+    {
+     "text": "小齿轮带大齿轮，结果会怎样？",
+     "options": [
+      "转得慢但力气变大",
+      "转得很快但力气变小",
+      "不变",
+      "不转了"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-4-9",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 9
+    },
+    {
+     "text": "大齿轮和小齿轮组合使用时，为什么能改变速度？",
+     "options": [
+      "不同齿数的齿轮需要匹配齿数",
+      "齿轮大小不同",
+      "齿轮颜色不同",
+      "齿轮材料不同"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "基础版-4-10",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 10
+    },
+    {
+     "text": "以下不属于常见的人工智能感知方式的是？",
+     "options": [
+      "用摄像头看",
+      "用声音传感器听",
+      "接收网络信号",
+      "人工输入"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-4-11",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 11
+    },
+    {
+     "text": "以下不属于常见的自复位开关是哪个？",
+     "options": [
+      "电脑键盘按键",
+      "鼠标左右键",
+      "电梯楼层按键",
+      "普通照明灯开关"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "基础版-4-12",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 12
+    },
+    {
+     "text": "常见的送餐机器人是以什么形式行走的？",
+     "options": [
+      "履带",
+      "轮式",
+      "四足",
+      "两足"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "基础版-4-13",
+     "bank": "基础版",
+     "chapter": "IV、生活常识",
+     "qno": 13
+    }
+   ]
+  },
+  {
+   "name": "进阶版",
+   "chapters": [
+    "I、逻辑门基础",
+    "II、算法基础逻辑",
+    "III、传感器基础应用",
+    "IV、生活常识"
+   ],
+   "questions": [
+    {
+     "text": "1、要让两个条件都满足才执行，应该用什么逻辑门？",
+     "options": [
+      "与门",
+      "或门",
+      "非门",
+      "异或门"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-1-1",
+     "bank": "进阶版",
+     "chapter": "I、逻辑门基础",
+     "qno": 1
+    },
+    {
+     "text": "2、只要一个条件满足就执行，应该用什么逻辑门？",
+     "options": [
+      "与门",
+      "或门",
+      "非门",
+      "异或门"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "进阶版-1-2",
+     "bank": "进阶版",
+     "chapter": "I、逻辑门基础",
+     "qno": 2
+    },
+    {
+     "text": "3、想让输出信号和输入信号相反，应该用什么逻辑门？",
+     "options": [
+      "与门",
+      "或门",
+      "非门",
+      "异或门"
+     ],
+     "answer": "C",
+     "correct_idx": 2,
+     "needs_review": false,
+     "id": "进阶版-1-3",
+     "bank": "进阶版",
+     "chapter": "I、逻辑门基础",
+     "qno": 3
+    },
+    {
+     "text": "两个输入相同时输出0，不同时输出1，这是什么门？",
+     "options": [
+      "与门",
+      "或门",
+      "非门",
+      "异或门"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "进阶版-1-4",
+     "bank": "进阶版",
+     "chapter": "I、逻辑门基础",
+     "qno": 4
+    },
+    {
+     "text": "芯片上的数字信号1和0像什么？",
+     "options": [
+      "像开关的开和关",
+      "像红灯和绿灯",
+      "像大和小",
+      "像高和矮"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-1-5",
+     "bank": "进阶版",
+     "chapter": "I、逻辑门基础",
+     "qno": 5
+    },
+    {
+     "text": "如果把芯片比作一个家，那么电路像什么？",
+     "options": [
+      "像家里的路和管道",
+      "像家里的墙纸",
+      "像家里的窗帘",
+      "像家里的地毯"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-1-6",
+     "bank": "进阶版",
+     "chapter": "I、逻辑门基础",
+     "qno": 6
+    },
+    {
+     "text": "设计可变光控灯时，和现实生活最符合的亮灯条件是什么？",
+     "options": [
+      "按钮按下且光线暗",
+      "按钮抬起且光线暗",
+      "按钮抬起且光线亮",
+      "按钮按下且光线亮"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-2-1",
+     "bank": "进阶版",
+     "chapter": "II、算法基础逻辑",
+     "qno": 1
+    },
+    {
+     "text": "设计走廊灯时，和现实生活最符合的亮灯条件是什么？",
+     "options": [
+      "按下任意按钮",
+      "不按按钮",
+      "按下两个按钮",
+      "按下特定按钮"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-2-2",
+     "bank": "进阶版",
+     "chapter": "II、算法基础逻辑",
+     "qno": 2
+    },
+    {
+     "text": "设计节能台灯时，和现实生活最符合的亮灯条件是什么？",
+     "options": [
+      "光线暗且无人",
+      "光线亮且有人",
+      "光线亮且无人",
+      "光线暗且有人"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "进阶版-2-3",
+     "bank": "进阶版",
+     "chapter": "II、算法基础逻辑",
+     "qno": 3
+    },
+    {
+     "text": "程序执行到某处保持一段时间叫什么？",
+     "options": [
+      "延时",
+      "加速",
+      "停止",
+      "重启"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-2-4",
+     "bank": "进阶版",
+     "chapter": "II、算法基础逻辑",
+     "qno": 4
+    },
+    {
+     "text": "设计一个自动门，有人靠近时打开，应该用什么传感器？",
+     "options": [
+      "红外传感器",
+      "温度传感器",
+      "声音传感器",
+      "磁控开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-1",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 1
+    },
+    {
+     "text": "设计一个下雨自动关窗装置，应该用什么传感器？",
+     "options": [
+      "雨水传感器",
+      "光线传感器",
+      "声音传感器",
+      "温度传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-2",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 2
+    },
+    {
+     "text": "一个天黑自动开灯装置，应该用什么传感器？",
+     "options": [
+      "光敏传感器",
+      "声音传感器",
+      "温度传感器",
+      "压力传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-3",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 3
+    },
+    {
+     "text": "一个声控灯，拍手就亮，应该用什么传感器？",
+     "options": [
+      "声音传感器",
+      "光线传感器",
+      "温度传感器",
+      "红外传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-4",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 4
+    },
+    {
+     "text": "自动扶梯有人时才运行，用了什么传感器？",
+     "options": [
+      "红外或压力传感器",
+      "温度传感器",
+      "声音传感器",
+      "光线传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-5",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 5
+    },
+    {
+     "text": "触摸开关像什么？",
+     "options": [
+      "像用手指轻轻一点",
+      "像用力拍打",
+      "像用脚踩",
+      "像用头顶"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-6",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 6
+    },
+    {
+     "text": "土壤湿度传感器可以帮我们做什么？",
+     "options": [
+      "检测花盆土是不是干了",
+      "检测天气热不热",
+      "检测有没有声音",
+      "检测有没有光"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-7",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 7
+    },
+    {
+     "text": "人体红外传感器最喜欢检测什么？",
+     "options": [
+      "检测有没有人走过",
+      "检测有没有猫",
+      "检测有没有树",
+      "检测有没有水"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-8",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 8
+    },
+    {
+     "text": "你观察到的送餐机器人可以识别前面有人，用的是什么传感器？",
+     "options": [
+      "距离传感器",
+      "温度传感器",
+      "声音传感器",
+      "光线传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-9",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 9
+    },
+    {
+     "text": "感应出水的水龙头用了什么传感器？",
+     "options": [
+      "红外传感器",
+      "温度传感器",
+      "声音传感器",
+      "磁控开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-10",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 10
+    },
+    {
+     "text": "想要做一个'夜晚人来灯亮'的智能灯，需要什么？",
+     "options": [
+      "光敏传感器+红外传感器+LED灯",
+      "只有灯泡",
+      "只有电池",
+      "只有开"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-11",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 11
+    },
+    {
+     "text": "做'声控灯'最少需要哪些模块？",
+     "options": [
+      "声音传感器+控制模块+LED灯",
+      "只有灯泡",
+      "只有电池",
+      "只有开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-12",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 12
+    },
+    {
+     "text": "自动门感应到有人靠近，发出什么信号让门打开？",
+     "options": [
+      "发出1（高电平）信号给电机",
+      "发出0信号",
+      "喊一声开门",
+      "什么都不做"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-13",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 13
+    },
+    {
+     "text": "做'触碰报警器'，手碰到就响，用什么传感器？",
+     "options": [
+      "触摸传感器",
+      "光敏传感器",
+      "温度传感器",
+      "声音传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-14",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 14
+    },
+    {
+     "text": "温室的自动遮阳帘，太阳太大时自动拉上，用什么传感器？",
+     "options": [
+      "光敏传感器",
+      "温度传感器",
+      "声音传感器",
+      "磁控开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-15",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 15
+    },
+    {
+     "text": "一个按钮控制灯，按一下亮，再按一下灭，这用了什么？",
+     "options": [
+      "锁存模块（记住状态）",
+      "普通开关",
+      "声音感应",
+      "光感应"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-16",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 16
+    },
+    {
+     "text": "自动干手器手一伸就吹风，用了什么？",
+     "options": [
+      "红外传感器检测到人手",
+      "温度传感器",
+      "声音传感器",
+      "光敏传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-17",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 17
+    },
+    {
+     "text": "做'防撞小车'，快要撞到时会自动停下来，需要什么？",
+     "options": [
+      "红外传感器检测距离",
+      "温度传感器",
+      "光敏传感器",
+      "声音传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-18",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 18
+    },
+    {
+     "text": "空调能自动调节温度，靠什么知道温度？",
+     "options": [
+      "温度传感器",
+      "光敏传感器",
+      "声音传感器",
+      "磁控开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-19",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 19
+    },
+    {
+     "text": "下雨自动收衣服，靠什么传感器？",
+     "options": [
+      "雨滴传感器",
+      "光敏传感器",
+      "声音传感器",
+      "磁控开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-20",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 20
+    },
+    {
+     "text": "在智能系统中，传感器相当于人的什么？",
+     "options": [
+      "感官",
+      "大脑",
+      "手脚",
+      "心脏"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-3-21",
+     "bank": "进阶版",
+     "chapter": "III、传感器基础应用",
+     "qno": 21
+    },
+    {
+     "text": "人工智能设备和智能设备主要区别？",
+     "options": [
+      "能感知",
+      "会思考",
+      "能执行",
+      "可控制"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "进阶版-4-1",
+     "bank": "进阶版",
+     "chapter": "IV、生活常识",
+     "qno": 1
+    },
+    {
+     "text": "搭乐高和搭实物编程电子模块编程序有什么一样的地方？",
+     "options": [
+      "都要一步一步按顺序搭",
+      "没有一样的",
+      "都靠运气",
+      "都靠力气"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-4-2",
+     "bank": "进阶版",
+     "chapter": "IV、生活常识",
+     "qno": 2
+    },
+    {
+     "text": "扫地机器人遇到障碍物会转向，用了什么传感器？",
+     "options": [
+      "红外或超声波测距传感器",
+      "温度传感器",
+      "声音传感器",
+      "湿度传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-4-3",
+     "bank": "进阶版",
+     "chapter": "IV、生活常识",
+     "qno": 3
+    },
+    {
+     "text": "小齿轮带动大齿轮，输出的转速和力量分别如何变化？",
+     "options": [
+      "转速变慢，力量变大",
+      "转速变快，力量变大",
+      "转速变慢，力量变小",
+      "转速变快，力量变小"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "进阶版-4-4",
+     "bank": "进阶版",
+     "chapter": "IV、生活常识",
+     "qno": 4
+    },
+    {
+     "text": "下列哪种设备属于人工智能设备？",
+     "options": [
+      "空调",
+      "扫地机器人",
+      "冰箱",
+      "洗衣机"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "进阶版-4-5",
+     "bank": "进阶版",
+     "chapter": "IV、生活常识",
+     "qno": 5
+    }
+   ]
+  },
+  {
+   "name": "高阶版",
+   "chapters": [
+    "I、芯片工作原理",
+    "II、问题解决策略",
+    "III、传感器综合应用",
+    "IV、生活常识"
+   ],
+   "questions": [
+    {
+     "text": "1、芯片中的逻辑门电路最基本的通讯信号是什么？",
+     "options": [
+      "数字信号",
+      "光信号",
+      "声音信号",
+      "模拟信号"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-1-1",
+     "bank": "高阶版",
+     "chapter": "I、芯片工作原理",
+     "qno": 1
+    },
+    {
+     "text": "模拟信号和数字信号的主要区别是什么？",
+     "options": [
+      "模拟信号连续变化",
+      "模拟信号更准确",
+      "数字信号速度慢",
+      "没有区别"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-1-2",
+     "bank": "高阶版",
+     "chapter": "I、芯片工作原理",
+     "qno": 2
+    },
+    {
+     "text": "8位二进制数最大可以表示多少？",
+     "options": [
+      "128",
+      "255",
+      "256",
+      "512"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "高阶版-1-3",
+     "bank": "高阶版",
+     "chapter": "I、芯片工作原理",
+     "qno": 3
+    },
+    {
+     "text": "CPU的中文名称是什么？",
+     "options": [
+      "中央处理器",
+      "图形处理器",
+      "内存",
+      "硬盘"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-1-4",
+     "bank": "高阶版",
+     "chapter": "I、芯片工作原理",
+     "qno": 4
+    },
+    {
+     "text": "以下哪种材料是半导体？",
+     "options": [
+      "铜",
+      "硅",
+      "铁",
+      "铝"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "高阶版-1-5",
+     "bank": "高阶版",
+     "chapter": "I、芯片工作原理",
+     "qno": 5
+    },
+    {
+     "text": "芯片里的电信号跑得有多快？",
+     "options": [
+      "接近光速，超级快",
+      "像走路一样慢",
+      "像自行车一样",
+      "像乌龟爬"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-1-6",
+     "bank": "高阶版",
+     "chapter": "I、芯片工作原理",
+     "qno": 6
+    },
+    {
+     "text": "芯片工作时发热的主要原因是？",
+     "options": [
+      "电流通过电阻产生热量",
+      "环境温度高",
+      "阳光照射",
+      "风扇散热弱"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-1-7",
+     "bank": "高阶版",
+     "chapter": "I、芯片工作原理",
+     "qno": 7
+    },
+    {
+     "text": "多个逻辑门组合起来可以形成什么？",
+     "options": [
+      "复杂的逻辑电路",
+      "简单的开关",
+      "电源",
+      "显示器"
+     ],
+     "answer": null,
+     "correct_idx": null,
+     "needs_review": true,
+     "id": "高阶版-1-8",
+     "bank": "高阶版",
+     "chapter": "I、芯片工作原理",
+     "qno": 8
+    },
+    {
+     "text": "实际设计中，第一步\"问题分析\"的主要作用是什么？",
+     "options": [
+      "理解问题需求",
+      "优化性能",
+      "逻辑编程",
+      "测试功能"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-2-1",
+     "bank": "高阶版",
+     "chapter": "II、问题解决策略",
+     "qno": 1
+    },
+    {
+     "text": "设计一个完整的智能家居系统，第一步应该做什么？",
+     "options": [
+      "分析需求和功能",
+      "购买设备",
+      "编写程序",
+      "测试系统"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-2-2",
+     "bank": "高阶版",
+     "chapter": "II、问题解决策略",
+     "qno": 2
+    },
+    {
+     "text": "在程序设计中，\"调试\"是什么意思？",
+     "options": [
+      "查找和修复错误",
+      "加快程序速度",
+      "美化界面",
+      "添加功能"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-2-3",
+     "bank": "高阶版",
+     "chapter": "II、问题解决策略",
+     "qno": 3
+    },
+    {
+     "text": "乐高用24齿齿轮和8齿齿轮各两个做成二级加速，最高可以增加几倍的转速？",
+     "options": [
+      "8倍",
+      "9倍",
+      "3倍",
+      "6倍"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "高阶版-2-4",
+     "bank": "高阶版",
+     "chapter": "II、问题解决策略",
+     "qno": 4
+    },
+    {
+     "text": "找问题时一件一件试过，这叫什么方法？",
+     "options": [
+      "排除法",
+      "猜谜法",
+      "跳跃法",
+      "睡觉法"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-2-5",
+     "bank": "高阶版",
+     "chapter": "II、问题解决策略",
+     "qno": 5
+    },
+    {
+     "text": "什么是\"算法优化\"？",
+     "options": [
+      "改进程序效率",
+      "增加功能",
+      "改变颜色",
+      "扩大尺寸"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-2-6",
+     "bank": "高阶版",
+     "chapter": "II、问题解决策略",
+     "qno": 6
+    },
+    {
+     "text": "设计一个智能垃圾桶，满时自动提醒，需要什么传感器？",
+     "options": [
+      "超声波或红外传感器",
+      "温度传感器",
+      "声音传感器",
+      "光线传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-2-7",
+     "bank": "高阶版",
+     "chapter": "II、问题解决策略",
+     "qno": 7
+    },
+    {
+     "text": "设计一个植物自动浇水系统，需要监测什么？",
+     "options": [
+      "土壤湿度",
+      "空气温度",
+      "光照强度",
+      "声音大小"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-2-8",
+     "bank": "高阶版",
+     "chapter": "II、问题解决策略",
+     "qno": 8
+    },
+    {
+     "text": "设计一个停车场空位指示系统，需要什么技术？",
+     "options": [
+      "传感器和显示技术",
+      "声音技术",
+      "温度技术",
+      "压力技术"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-2-9",
+     "bank": "高阶版",
+     "chapter": "II、问题解决策略",
+     "qno": 9
+    },
+    {
+     "text": "小明想设计一个智能小夜灯，要求：天黑自动亮，天亮自动灭，还能手动开关。他需要哪些组件？",
+     "options": [
+      "光敏传感器、按钮、LED灯、控制模块",
+      "温度传感器、喇叭、电池、开关",
+      "声音传感器、电机、轮子、遥控器",
+      "红外传感器、屏幕、键盘、鼠标"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-1",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 1
+    },
+    {
+     "text": "小红要设计一个自动浇花系统，当土壤干燥时自动浇水。她应该选择什么传感器？",
+     "options": [
+      "土壤湿度传感器",
+      "温度传感器",
+      "光线传感器",
+      "声音传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-2",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 2
+    },
+    {
+     "text": "一个智能书包，忘记带书时会提醒。需要什么传感器？",
+     "options": [
+      "重量传感器和RFID标签",
+      "温度传感器",
+      "光线传感器",
+      "声音传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-3",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 3
+    },
+    {
+     "text": "要让机器人沿着黑线走，需要什么传感器？",
+     "options": [
+      "巡线传感器",
+      "超声波传感器",
+      "温度传感器",
+      "声音传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-4",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 4
+    },
+    {
+     "text": "设计一个自动计数装置，统计经过的人数。用什么传感器？",
+     "options": [
+      "红外对射传感器",
+      "温度传感器",
+      "湿度传感器",
+      "压力传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-5",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 5
+    },
+    {
+     "text": "智能冰箱在门没关好时会报警。用了什么传感器？",
+     "options": [
+      "磁控开关",
+      "温度传感器",
+      "重量传感器",
+      "光线传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-6",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 6
+    },
+    {
+     "text": "电梯超载时会报警并停止运行。用了什么传感器？",
+     "options": [
+      "压力传感器",
+      "红外传感器",
+      "声音传感器",
+      "光线传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-7",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 7
+    },
+    {
+     "text": "汽车倒车雷达用了什么传感器？",
+     "options": [
+      "超声波传感器",
+      "温度传感器",
+      "湿度传感器",
+      "光线传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-8",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 8
+    },
+    {
+     "text": "智能手环能知道你走了多少步，用了什么？",
+     "options": [
+      "加速度传感器",
+      "温度传感器",
+      "声音传感器",
+      "光敏传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-9",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 9
+    },
+    {
+     "text": "公交卡一刷就能上车，里面有什么？",
+     "options": [
+      "芯片和天线",
+      "电池",
+      "灯泡",
+      "电机"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-10",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 10
+    },
+    {
+     "text": "烟感报警器闻到烟就响，用了什么传感器？",
+     "options": [
+      "烟雾传感器",
+      "温度传感器",
+      "光敏传感器",
+      "声音传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-11",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 11
+    },
+    {
+     "text": "遥控器对着电视按，电视就换台，怎么做到的？",
+     "options": [
+      "发出红外线信号",
+      "发出声音",
+      "发出味道",
+      "发出风"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-12",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 12
+    },
+    {
+     "text": "超声波传感器像什么动物？",
+     "options": [
+      "像蝙蝠用回声定位",
+      "像鸟儿飞",
+      "像鱼儿游",
+      "像兔子跳"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-13",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 13
+    },
+    {
+     "text": "颜色传感器可以分辨什么？",
+     "options": [
+      "分辨红色、蓝色等颜色",
+      "分辨轻重",
+      "分辨大小",
+      "分辨软硬"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-14",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 14
+    },
+    {
+     "text": "做智能浇花器，土壤干了就浇水，需要什么传感器？",
+     "options": [
+      "土壤湿度传感器",
+      "光敏传感器",
+      "声音传感器",
+      "磁控开关"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-15",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 15
+    },
+    {
+     "text": "智能垃圾桶盖子能自己打开，怎么做到的？",
+     "options": [
+      "红外感应到人靠近就打开",
+      "用脚踢开",
+      "用手推开",
+      "用头顶开"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-16",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 16
+    },
+    {
+     "text": "智能鱼缸需要监测什么？",
+     "options": [
+      "水温、水位、水质",
+      "声音大小",
+      "光线颜色",
+      "风速大小"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-17",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 17
+    },
+    {
+     "text": "电梯超重了会报警，用了什么传感器？",
+     "options": [
+      "重量/压力传感器",
+      "光敏传感器",
+      "温度传感器",
+      "声音传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-18",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 18
+    },
+    {
+     "text": "做'小鸡孵蛋'模拟，需要监测什么？",
+     "options": [
+      "温度（保持温暖）",
+      "光线",
+      "声音",
+      "重量"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-19",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 19
+    },
+    {
+     "text": "下面哪个传感器能帮我们'看到'黑暗中的东西？",
+     "options": [
+      "红外传感器",
+      "声音传感器",
+      "温度传感器",
+      "雨滴传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-20",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 20
+    },
+    {
+     "text": "智能手机的自动亮度调节用了什么传感器？",
+     "options": [
+      "光线传感器",
+      "温度传感器",
+      "距离传感器",
+      "重力传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-3-21",
+     "bank": "高阶版",
+     "chapter": "III、传感器综合应用",
+     "qno": 21
+    },
+    {
+     "text": "8位二进制数最大可以表示多少？",
+     "options": [
+      "128",
+      "255",
+      "256",
+      "512"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "高阶版-4-1",
+     "bank": "高阶版",
+     "chapter": "IV、生活常识",
+     "qno": 1
+    },
+    {
+     "text": "风扇摇头功能是利用了什么？",
+     "options": [
+      "齿轮传动+电机控制",
+      "光敏传感器",
+      "温度传感器",
+      "声音传感器"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-4-2",
+     "bank": "高阶版",
+     "chapter": "IV、生活常识",
+     "qno": 2
+    },
+    {
+     "text": "人工智能设备和普通智能设备主要区别？",
+     "options": [
+      "可以人工控制",
+      "可以自主思考和运行",
+      "可以按设定的程序运行",
+      "可以感知环境变化"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "高阶版-4-3",
+     "bank": "高阶版",
+     "chapter": "IV、生活常识",
+     "qno": 3
+    },
+    {
+     "text": "下列哪个功能是用了机械锁存功能的？",
+     "options": [
+      "电梯楼层按键",
+      "一按一响的门铃按键",
+      "普通点灯开关",
+      "普通的风扇按压调速开关"
+     ],
+     "answer": "D",
+     "correct_idx": 3,
+     "needs_review": false,
+     "id": "高阶版-4-4",
+     "bank": "高阶版",
+     "chapter": "IV、生活常识",
+     "qno": 4
+    },
+    {
+     "text": "大齿轮带小齿轮，为什么能让扇叶转得更快？",
+     "options": [
+      "两个齿轮要走同样多的齿数",
+      "电机转的更快",
+      "扇叶的阻力变小了",
+      "结构更稳固了"
+     ],
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
+     "id": "高阶版-4-5",
+     "bank": "高阶版",
+     "chapter": "IV、生活常识",
+     "qno": 5
+    },
+    {
+     "text": "乐高搭建里不是汉堡结构的功能是什么？",
+     "options": [
+      "锁紧",
+      "堆砌",
+      "转90度方向搭建",
+      "稳固"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "高阶版-4-6",
+     "bank": "高阶版",
+     "chapter": "IV、生活常识",
+     "qno": 6
+    },
+    {
+     "text": "以下哪个不是乐高汉堡结构搭建的孔距？",
+     "options": [
+      "两个乐高单位",
+      "三个乐高单位",
+      "四个乐高单位",
+      "六个乐高单位"
+     ],
+     "answer": "B",
+     "correct_idx": 1,
+     "needs_review": false,
+     "id": "高阶版-4-7",
+     "bank": "高阶版",
+     "chapter": "IV、生活常识",
+     "qno": 7
+    }
+   ]
+  }
+ ]
+}
