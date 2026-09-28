@@ -8,11 +8,15 @@ globalThis.document = { getElementById: () => ({ style: {}, innerHTML: "" }) };
 globalThis.window = { scrollTo: () => {} };
 globalThis.localStorage = { getItem: () => null, setItem: () => {} };
 const realData = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "questions.json"), "utf8"));
-globalThis.fetch = () => Promise.resolve({ ok: true, json: () => Promise.resolve(realData) });
+const realCircuits = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "circuits.json"), "utf8"));
+globalThis.fetch = (url) => {
+  const data = String(url).includes("circuits") ? realCircuits : realData;
+  return Promise.resolve({ ok: true, json: () => Promise.resolve(data) });
+};
 
 const src = fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8");
 vm.runInThisContext(
-  src + "\n;globalThis.__app = { get view() { return view; }, enterCompetition, goHome, renderHome, renderChip };",
+  src + "\n;globalThis.__app = { get view() { return view; }, enterCompetition, goHome, renderHome, renderChipStudy };",
   { filename: "app.js" },
 );
 const app = globalThis.__app;
@@ -57,11 +61,12 @@ async function t(name, fn) {
     if (app.view.screen !== "home") throw new Error(`期望 screen=home，实际 ${JSON.stringify(app.view)}`);
   });
 
-  await t("电子创芯赛页只显示电路创新设计，不出现另外两个子赛项", () => {
+  await t("电子创芯赛页进入学习tab，只含电路创新设计考点", () => {
     app.enterCompetition("chip");
     if (app.view.screen !== "chip") throw new Error(`期望 screen=chip，实际 ${JSON.stringify(app.view)}`);
-    const html = app.renderChip();
-    if (!html.includes("电路创新设计")) throw new Error("缺少电路创新设计标题");
+    if (app.view.tab !== "chipStudy") throw new Error(`期望 tab=chipStudy，实际 ${JSON.stringify(app.view)}`);
+    const html = app.renderChipStudy();
+    if (!html.includes("考点")) throw new Error("缺少考点列表");
     for (const banned of ["程控电路设计", "未来遗迹探测"]) {
       if (html.includes(banned)) throw new Error(`不应出现子赛项「${banned}」`);
     }

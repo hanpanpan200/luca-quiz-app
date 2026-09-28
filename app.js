@@ -21,7 +21,9 @@ const EXAM_SIZE = Object.values(EXAM_QUOTA).reduce((s, n) => s + n, 0);
 const PASS_SCORE = 60;
 
 let DATA = null;          // {banks:[{name,chapters,questions}]}
+let CHIP_DATA = null;     // {time_limit_sec, categories, questions}
 let store = null;         // 持久化状态
+let chipStore = null;     // 电子创芯赛持久化状态（独立键）
 let view = { screen: "home" }; // 当前视图状态：screen = home | ai | chip
 
 /* ================= 存储层 ================= */
@@ -143,6 +145,15 @@ function overall() {
 
 function renderTabs() {
   const el = document.getElementById("tabs");
+  if (view.screen === "chip") {
+    el.innerHTML = CHIP_TABS.map((t) => {
+      const badge = t.id === "chipWrong" && chipStore && chipStore.wrongBook.length
+        ? `<span class="badge">${chipStore.wrongBook.length}</span>` : "";
+      const cls = view.tab === t.id ? "on" : "";
+      return `<button class="${cls}" onclick="go('${t.id}')">${t.label}${badge}</button>`;
+    }).join("");
+    return;
+  }
   el.innerHTML = TABS.map((t) => {
     const badge = t.id === "wrong" && store.wrongBook.length
       ? `<span class="badge">${store.wrongBook.length}</span>` : "";
@@ -166,8 +177,9 @@ function renderHero() {
 function render() {
   const app = document.getElementById("app");
   const inAiApp = view.screen === "ai";
+  const inChip = view.screen === "chip";
   document.getElementById("hero").style.display = inAiApp ? "" : "none";
-  document.getElementById("homeBtn").style.display = inAiApp ? "" : "none";
+  document.getElementById("homeBtn").style.display = inAiApp || inChip ? "" : "none";
   if (inAiApp) {
     renderTabs();
     renderHero();
@@ -176,9 +188,17 @@ function render() {
       wrong: renderWrong, stats: renderStats,
     }[view.tab];
     app.innerHTML = fn();
+  } else if (inChip) {
+    renderTabs();
+    const fn = {
+      chipStudy: renderChipStudy, chipPractice: renderChipPractice,
+      chipExam: renderChipExam, chipWrong: renderChipWrong, chipStats: renderChipStats,
+    }[view.tab] || renderChipStudy;
+    app.innerHTML = CHIP_DATA ? fn() : renderChipLoading();
+    chipRenderSideEffects();
   } else {
     document.getElementById("tabs").innerHTML = "";
-    app.innerHTML = view.screen === "chip" ? renderChip() : renderHome();
+    app.innerHTML = renderHome();
   }
   window.scrollTo(0, 0);
 }
@@ -186,7 +206,9 @@ function render() {
 /* ================= 比赛选择层 ================= */
 
 function enterCompetition(id) {
-  view = id === "ai" ? { screen: "ai", tab: "study" } : { screen: id };
+  view = id === "ai" ? { screen: "ai", tab: "study" }
+    : id === "chip" ? { screen: "chip", tab: "chipStudy" }
+    : { screen: id };
   render();
 }
 
@@ -214,22 +236,467 @@ function renderHome() {
   </div>`;
 }
 
-function renderChip() {
+/* ================= 电子创芯赛模块 ================= */
+
+const CHIP_TABS = [
+  { id: "chipStudy", label: "📖 学习" },
+  { id: "chipPractice", label: "✏️ 练习" },
+  { id: "chipExam", label: "🏆 模拟考" },
+  { id: "chipWrong", label: "⏰ 超时本" },
+  { id: "chipStats", label: "📊 统计" },
+];
+
+const CHIP_STORE_KEY = "swcode_chip_v1";
+
+function freshChipStore() {
+  return { v: 1, attempts: {}, wrongBook: [], mic_enabled: false, exam_history: [] };
+}
+
+function loadChipStore() {
+  try {
+    const raw = localStorage.getItem(CHIP_STORE_KEY);
+    if (!raw) return freshChipStore();
+    const s = JSON.parse(raw);
+    if (!s || typeof s !== "object" || typeof s.attempts !== "object" || !Array.isArray(s.wrongBook)) {
+      return freshChipStore();
+    }
+    return { ...freshChipStore(), ...s };
+  } catch { return freshChipStore(); }
+}
+
+function saveChip() { localStorage.setItem(CHIP_STORE_KEY, JSON.stringify(chipStore)); }
+
+/* ---- 纯逻辑（可测试） ---- */
+
+function chipLimitMs() { return ((CHIP_DATA && CHIP_DATA.time_limit_sec) || 180) * 1000; }
+
+function chipTimerStart(qid, now) {
+  return { qid, phase: "timing", startAt: now, elapsedMs: 0 };
+}
+
+function chipTimerStop(st, now) {
+  const ms = Math.max(0, now - st.startAt);
+  return { qid: st.qid, ms, overtime: ms > chipLimitMs() };
+}
+
+/** 语音触发词匹配：忽略空格与常见标点后做子串命中 */
+function matchPhrase(transcript, phrases) {
+  const norm = (s) => String(s).replace(/[\s，。！？!?.,、]/g, "");
+  const t = norm(transcript);
+  return phrases.some((p) => t.includes(norm(p)));
+}
+
+function sampleCircuitExam(qs, n) { return shuffle(qs).slice(0, n); }
+
+/** 记录一次练习：超时进超时本；连续 2 次达标毕业 */
+function recordChipAttempt(s, qid, ms) {
+  const overtime = ms > chipLimitMs();
+  const a = s.attempts[qid] || (s.attempts[qid] = { best_ms: null, count: 0, streak: 0 });
+  a.count += 1;
+  if (a.best_ms === null || ms < a.best_ms) a.best_ms = ms;
+  let graduated = false;
+  if (overtime) {
+    a.streak = 0;
+    if (!s.wrongBook.includes(qid)) s.wrongBook.push(qid);
+  } else {
+    a.streak += 1;
+    if (a.streak >= 2 && s.wrongBook.includes(qid)) {
+      s.wrongBook = s.wrongBook.filter((x) => x !== qid);
+      graduated = true;
+    }
+  }
+  return { overtime, graduated };
+}
+
+/* ---- 语音控制（Web Speech API，按钮永远可用） ---- */
+
+const VOICE_START = ["现在开始", "开始计时", "开始"];
+const VOICE_STOP = ["我做完了", "做完了", "完成", "结束"];
+let chipVoice = { rec: null, on: false, mode: "start", lastFire: 0, fails: 0 };
+
+function voiceSupported() {
+  return typeof window !== "undefined" && !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+}
+
+function voiceToggle() {
+  if (!voiceSupported()) { alert("这个浏览器不支持语音识别，用按钮也很好用哦 🙂"); return; }
+  chipStore.mic_enabled = !chipStore.mic_enabled;
+  saveChip();
+  if (!chipStore.mic_enabled) voiceHalt();
+  render();
+}
+
+function voiceHalt() {
+  chipVoice.on = false;
+  if (chipVoice.rec) {
+    try { chipVoice.rec.onend = null; chipVoice.rec.stop(); } catch { /* 已停止 */ }
+  }
+  chipVoice.rec = null;
+}
+
+function voiceArm() {
+  const ses = view.chipSes;
+  const want = chipStore.mic_enabled && voiceSupported() && view.screen === "chip" && ses && !ses.finished;
+  if (!want) { if (chipVoice.on) voiceHalt(); return; }
+  chipVoice.mode = ses.timer ? "stop" : "start";
+  if (chipVoice.on) return;
+  const Ctor = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const rec = new Ctor();
+  rec.lang = "zh-CN"; rec.continuous = true; rec.interimResults = true;
+  rec.onresult = (e) => {
+    const phrases = chipVoice.mode === "stop" ? VOICE_STOP : VOICE_START;
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (matchPhrase(e.results[i][0].transcript, phrases)) {
+        if (Date.now() - chipVoice.lastFire > 1500) { // 一句话只触发一次
+          chipVoice.lastFire = Date.now();
+          chipVoice.mode === "stop" ? chipFinishTimer() : chipStartTimer();
+        }
+        return;
+      }
+    }
+  };
+  rec.onend = () => { // 浏览器静音会自动停，重启续听
+    chipVoice.on = false;
+    if (chipStore.mic_enabled && view.chipSes && !view.chipSes.finished) setTimeout(voiceArm, 300);
+  };
+  rec.onerror = () => { if (++chipVoice.fails >= 5) { voiceHalt(); chipStore.mic_enabled = false; saveChip(); render(); } };
+  try { rec.start(); chipVoice.on = true; chipVoice.fails = 0; } catch { /* 端口占用等 */ }
+}
+
+/* ---- 计时运行时 ---- */
+
+let chipClockId = null;
+
+function chipClockRun() {
+  clearInterval(chipClockId);
+  chipClockId = setInterval(() => {
+    const el = document.getElementById("chipClock");
+    const ses = view.chipSes;
+    if (!el || !ses || !ses.timer) { clearInterval(chipClockId); return; }
+    const ms = Date.now() - ses.timer.startAt;
+    el.textContent = fmtChipMs(ms);
+    el.classList.toggle("over", ms > chipLimitMs());
+  }, 200);
+}
+
+/** 每次 chip 渲染后调用：挂语音、挂时钟 */
+function chipRenderSideEffects() {
+  if (view.chipSes && view.chipSes.timer) chipClockRun();
+  else clearInterval(chipClockId);
+  voiceArm();
+}
+
+function chipStartTimer() {
+  const ses = view.chipSes;
+  if (!ses || ses.timer || ses.finished) return;
+  ses.timer = chipTimerStart(ses.qs[ses.i].id, Date.now());
+  ses.lastDone = null;
+  render();
+}
+
+function chipFinishTimer() {
+  const ses = view.chipSes;
+  if (!ses || !ses.timer) return;
+  const q = ses.qs[ses.i];
+  const r = chipTimerStop(ses.timer, Date.now());
+  const rec = recordChipAttempt(chipStore, q.id, r.ms);
+  saveChip();
+  ses.times[ses.i] = r.ms;
+  ses.timer = null;
+  ses.lastDone = { ms: r.ms, overtime: r.overtime, graduated: rec.graduated };
+  render();
+}
+
+function chipAbandonTimer() {
+  const ses = view.chipSes;
+  if (!ses || !ses.timer) return;
+  ses.timer = null;
+  render();
+}
+
+function chipNext() {
+  const ses = view.chipSes;
+  if (!ses) return;
+  if (ses.i + 1 >= ses.qs.length) {
+    if (ses.mode === "exam") {
+      chipStore.exam_history.push({
+        d: new Date().toLocaleDateString("zh-CN", { month: "numeric", day: "numeric" }),
+        qids: ses.qs.map((q) => q.id),
+        times_ms: ses.times.map((t) => t ?? null),
+      });
+      if (chipStore.exam_history.length > 20) chipStore.exam_history = chipStore.exam_history.slice(-20);
+      saveChip();
+    }
+    ses.finished = true;
+    voiceHalt();
+  } else {
+    ses.i += 1;
+    ses.lastDone = null;
+  }
+  render();
+}
+
+function chipExitSession() { voiceHalt(); view = { screen: "chip", tab: "chipPractice" }; render(); }
+
+function startChipSession(questions, mode) {
+  view = {
+    screen: "chip", tab: mode === "exam" ? "chipExam" : "chipPractice",
+    chipSes: { mode, qs: questions, i: 0, times: [], timer: null, lastDone: null, finished: false },
+  };
+  render();
+}
+
+/* ---- 渲染 ---- */
+
+function renderChipLoading() {
+  return `<div class="card empty"><span class="big">⏳</span>电路题库加载中…<br>
+    <span style="font-size:15px">若一直加载失败，请检查 circuits.json 与 assets/circuits/ 是否部署</span></div>`;
+}
+
+function chipCat(id) { return CHIP_DATA.categories.find((c) => c.id === id) || { name: id, emoji: "❓" }; }
+
+function chipQ(qid) { return CHIP_DATA.questions.find((q) => q.id === qid); }
+
+function fmtChipMs(ms) {
+  const s = Math.floor(ms / 1000);
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+}
+
+function chipImage(q, big) {
+  if (q.image) {
+    return `<img src="${q.image}" alt="第${q.no}题电路图" loading="lazy"
+      style="width:100%;max-width:${big ? 460 : 380}px;border-radius:12px;border:1.5px solid var(--line);background:#fff">`;
+  }
+  return `<div class="empty" style="padding:18px 8px;font-size:16px"><span class="big">📐</span>本题无独立电路图（按题意在前一题电路上改装）</div>`;
+}
+
+function chipMicBtn() {
+  if (!voiceSupported()) return "";
+  const on = chipStore.mic_enabled;
+  return `<button class="btn small ${on ? "" : "ghost"}" onclick="voiceToggle()">
+    🎤 ${on ? "语音已开（说「现在开始 / 我做完了」）" : "语音未开"}
+  </button>`;
+}
+
+function chipSessionCard() {
+  const ses = view.chipSes;
+  const q = ses.qs[ses.i];
+  const limitS = chipLimitMs() / 1000;
+  const head = ses.mode === "exam"
+    ? `🏆 模拟考 · 第 ${ses.i + 1} / ${ses.qs.length} 题`
+    : `✏️ 练习 · 第 ${ses.i + 1} / ${ses.qs.length} 题（${esc(chipCat(q.category).name)}）`;
+  let body;
+  if (ses.timer) {
+    body = `
+      <div class="score-hero" style="padding:10px 0">
+        <div class="num" id="chipClock">0:00</div>
+        <div style="font-size:15px;color:var(--ink-soft)">目标 ${limitS / 60} 分钟内完成，超时数字会变红</div>
+      </div>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn warn" onclick="chipFinishTimer()">✅ 我做完了</button>
+        <button class="btn ghost" onclick="chipAbandonTimer()">放弃（不计时间）</button>
+      </div>`;
+  } else if (ses.lastDone) {
+    const d = ses.lastDone;
+    body = `
+      <div class="feedback ${d.overtime ? "no" : "ok"}" style="text-align:center">
+        ${d.overtime ? `⏰ 用时 ${fmtChipMs(d.ms)}，超过 ${limitS / 60} 分钟，已进超时本` : `🎉 ${fmtChipMs(d.ms)} 完成！`}
+        ${d.graduated ? "<br>连续 2 次达标，这道题从超时本毕业啦 🎓" : ""}
+      </div>
+      <div style="font-size:15px;color:var(--ink-soft);text-align:center;margin-top:8px">
+        对照题目检查一下效果对不对，不对就再拼一次
+      </div>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn" onclick="chipNext()">${ses.i + 1 >= ses.qs.length ? "看结果 📋" : "下一题 ➡️"}</button>
+      </div>`;
+  } else {
+    body = `
+      <div class="score-hero" style="padding:10px 0">
+        <div style="font-size:19px;color:var(--ink-soft)">看懂电路图，准备好元件后开始计时</div>
+      </div>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn warn" onclick="chipStartTimer()">▶️ 开始计时</button>
+      </div>`;
+  }
   return `<div class="card">
-    <h2 class="sec">⚡ 电子创芯赛 <small>电路创新设计</small></h2>
-    <div style="font-size:18px;line-height:2">
-      <div>📝 现场抽 4 个指定电路，限时完成设计、改造与创新</div>
-      <div>🔊 以声、光、电稳定演示电路功能</div>
-      <div>🏆 答对多者列前；答对数相同，比总用时</div>
-      <div>⚠️ 拼装不平整、导线相邻层交叉、极性接反、子母扣不牢都会判错</div>
-    </div>
-    <div class="empty" style="padding:26px 10px"><span class="big">🔨</span>训练模块建设中，敬请期待</div>
-    <button class="back" onclick="goHome()">⬅️ 返回选择比赛</button>
+    <h2 class="sec">${head} ${chipMicBtn()}</h2>
+    <div class="progress"><i style="width:${(ses.i / ses.qs.length) * 100}%"></i></div>
+    <div class="q-meta">第 ${q.no} 题 · ${esc(chipCat(q.category).name)}</div>
+    <div class="q-text" style="font-size:19px">${esc(q.text)}</div>
+    <div style="margin:14px 0;text-align:center">${chipImage(q, true)}</div>
+    ${body}
+    <button class="back" onclick="chipExitSession()">⬅️ 退出${ses.mode === "exam" ? "考试" : "练习"}</button>
   </div>`;
 }
 
-function go(tab) { view = { screen: "ai", tab }; render(); }
-function back(restore) { view = { screen: "ai", ...restore }; render(); }
+function chipExamSummary() {
+  const ses = view.chipSes;
+  const done = ses.times.filter((t) => t != null);
+  const over = ses.times.filter((t) => t != null && t > chipLimitMs()).length;
+  const total = done.reduce((s, t) => s + t, 0);
+  return `<div class="card">
+    <h2 class="sec">📋 模拟考成绩单 <small>按真实规则：完成数 + 用时</small></h2>
+    <div class="score-hero">
+      <span class="confetti">${over === 0 ? "🎉🎓🎊" : "💪"}</span>
+      <div class="num ${over === 0 ? "" : "fail"}">${ses.qs.length - over}<span style="font-size:24px"> / ${ses.qs.length} 题</span></div>
+      <div class="verdict">总用时 ${fmtChipMs(total)} · 超时 ${over} 题${over ? "（已进超时本）" : ""}</div>
+    </div>
+    ${ses.qs.map((q, i) => {
+      const t = ses.times[i];
+      const row = t == null ? "未完成" : `${fmtChipMs(t)}${t > chipLimitMs() ? " ⏰" : ""}`;
+      return `<div class="study-q"><div class="q-head"><span class="no">${q.no}</span>
+        <div>${esc(chipCat(q.category).name)} · <b style="color:${t != null && t <= chipLimitMs() ? "var(--green-deep)" : "var(--red)"}">${row}</b></div>
+      </div></div>`;
+    }).join("")}
+    <div class="btn-row">
+      <button class="btn" onclick="startChipExamAgain()">🔁 再来一场</button>
+      <button class="btn ghost" onclick="chipExitSession()">返回</button>
+    </div>
+  </div>`;
+}
+
+function startChipExamAgain() {
+  startChipSession(sampleCircuitExam(CHIP_DATA.questions, 4), "exam");
+}
+
+function renderChipExam() {
+  const ses = view.chipSes;
+  if (ses && ses.mode === "exam") return ses.finished ? chipExamSummary() : chipSessionCard();
+  return `<div class="card">
+    <h2 class="sec">🏆 模拟考 <small>完全按真实赛制</small></h2>
+    <div style="font-size:18px;line-height:2">
+      <div>📝 从 60 题随机抽 <b>4 题</b>，逐题计时</div>
+      <div>⏱ 每题目标 <b>3 分钟</b>，超时会进超时本</div>
+      <div>🏆 真实排名规则：<b>完成数 + 总用时</b></div>
+      <div>✅ 拼完自己对照题目检查效果，点「我做完了」结束计时</div>
+    </div>
+    <div class="btn-row"><button class="btn warn" onclick="startChipExamAgain()">🚀 开始考试</button></div>
+  </div>`;
+}
+
+function renderChipStudy() {
+  if (view.chipCat) {
+    const qs = CHIP_DATA.questions.filter((q) => q.category === view.chipCat);
+    const cat = chipCat(view.chipCat);
+    return `<div class="card">
+      <h2 class="sec">${cat.emoji} ${esc(cat.name)} <small>${qs.length} 题</small></h2>
+      ${qs.map((q) => `
+        <div class="study-q">
+          <div class="q-head"><span class="no">${q.no}</span>
+            <div class="q-text" style="font-size:17px">${esc(q.text)}</div>
+          </div>
+          <div style="margin:10px 0 4px 34px;text-align:left">${chipImage(q)}</div>
+        </div>`).join("")}
+      <button class="back" onclick="back({tab:'chipStudy'})">⬅️ 返回考点列表</button>
+    </div>`;
+  }
+  return `<div class="card">
+    <h2 class="sec">📖 电路考点 <small>先看懂图，再记套路</small></h2>
+    <div class="grid">
+      ${CHIP_DATA.categories.map((c) => {
+        const qs = CHIP_DATA.questions.filter((q) => q.category === c.id);
+        const tried = qs.filter((q) => chipStore.attempts[q.id]).length;
+        return `<button class="tile" onclick="view.chipCat='${c.id}';render()">
+          <span class="emoji">${c.emoji}</span><b>${esc(c.name)}</b>
+          <div class="sub">${qs.length} 题 · 已练 ${tried} 题</div>
+        </button>`;
+      }).join("")}
+    </div>
+  </div>`;
+}
+
+function renderChipPractice() {
+  const ses = view.chipSes;
+  if (ses && ses.mode === "practice") {
+    if (ses.finished) {
+      const done = ses.times.filter((t) => t != null);
+      const over = ses.times.filter((t) => t != null && t > chipLimitMs()).length;
+      return `<div class="card">
+        <h2 class="sec">✏️ 本轮练习完成</h2>
+        <div class="score-hero"><div class="num">${done.length}<span style="font-size:24px"> / ${ses.qs.length} 题</span></div>
+          <div class="verdict">超时 ${over} 题${over ? "，去超时本再战 💪" : "，全部达标 🎉"}</div></div>
+        <div class="btn-row" style="justify-content:center">
+          <button class="btn" onclick="chipExitSession()">返回</button>
+        </div>
+      </div>`;
+    }
+    return chipSessionCard();
+  }
+  return `<div class="card">
+    <h2 class="sec">✏️ 练习 <small>选一个考点开练</small></h2>
+    <div class="grid">
+      ${CHIP_DATA.categories.map((c) => {
+        const qs = CHIP_DATA.questions.filter((q) => q.category === c.id);
+        const wrong = qs.filter((q) => chipStore.wrongBook.includes(q.id)).length;
+        return `<button class="tile" onclick="startChipSession(shuffle(CHIP_QS('${c.id}')),'practice')">
+          <span class="emoji">${c.emoji}</span><b>${esc(c.name)}</b>
+          <div class="sub">${qs.length} 题${wrong ? ` · ⏰${wrong} 题超时中` : ""}</div>
+        </button>`;
+      }).join("")}
+    </div>
+    <div style="font-size:15px;color:var(--ink-soft);margin-top:12px">
+      每题 3 分钟内拼完并演示；超时自动进超时本，可反复练到达标毕业
+    </div>
+  </div>`;
+}
+
+/** 全局 helper：onclick 内联字符串里拿考点题目（避免模板串里拼数组） */
+function CHIP_QS(catId) { return CHIP_DATA.questions.filter((q) => q.category === catId); }
+
+function renderChipWrong() {
+  const qs = chipStore.wrongBook.map(chipQ).filter(Boolean);
+  if (!qs.length) {
+    return `<div class="card empty"><span class="big">🎉</span>超时本是空的！<br>
+      <span style="font-size:16px">练习和模拟考里超时的题会自动收进来，连对 2 次就能毕业</span></div>`;
+  }
+  return `<div class="card">
+    <h2 class="sec">⏰ 超时本 <small>${qs.length} 题待征服</small></h2>
+    ${qs.map((q) => {
+      const a = chipStore.attempts[q.id];
+      return `<div class="study-q"><div class="q-head"><span class="no">${q.no}</span>
+        <div>${esc(chipCat(q.category).name)} · ${a && a.best_ms != null ? `最快 ${fmtChipMs(a.best_ms)}` : "还没完成过"}
+          <span class="mini-badge">连击 ${a ? a.streak : 0}/2</span></div>
+      </div>
+      <div style="margin:6px 0 4px 34px;font-size:16px;color:var(--ink-soft)">${esc(q.text.slice(0, 50))}…</div></div>`;
+    }).join("")}
+    <div class="btn-row"><button class="btn warn" onclick="startChipSession(shuffle(CHIP_QS_W()),'practice')">💪 开练这 ${qs.length} 题</button></div>
+  </div>`;
+}
+
+function CHIP_QS_W() { return chipStore.wrongBook.map(chipQ).filter(Boolean); }
+
+function renderChipStats() {
+  const rows = CHIP_DATA.categories.map((c) => {
+    const qs = CHIP_DATA.questions.filter((q) => q.category === c.id);
+    const tried = qs.filter((q) => chipStore.attempts[q.id]);
+    const bests = tried.map((q) => chipStore.attempts[q.id].best_ms).filter((t) => t != null);
+    const avg = bests.length ? bests.reduce((s, t) => s + t, 0) / bests.length : null;
+    const wrong = qs.filter((q) => chipStore.wrongBook.includes(q.id)).length;
+    return `<div class="stat-row">
+      <span class="name">${c.emoji} ${esc(c.name)}</span>
+      <span class="bar"><i style="width:${(tried.length / qs.length) * 100}%"></i></span>
+      <span class="val">${tried.length}/${qs.length} 题 · ${avg ? `平均最快 ${fmtChipMs(avg)}` : "未练"}${wrong ? ` · ⏰${wrong}` : ""}</span>
+    </div>`;
+  }).join("");
+  const hist = chipStore.exam_history.slice(-5).reverse().map((h) => {
+    const done = h.times_ms.filter((t) => t != null);
+    const over = h.times_ms.filter((t) => t != null && t > chipLimitMs()).length;
+    const total = done.reduce((s, t) => s + t, 0);
+    const pct = Math.round(((h.qids.length - over) / h.qids.length) * 100);
+    const color = over === 0 ? "var(--green)" : "var(--orange)";
+    return `<div class="exam-hist"><span class="d">${h.d}</span>
+      <div class="bar"><i style="width:${pct}%;background:${color}"></i></div>
+      <b style="color:${color}">${h.qids.length - over}/${h.qids.length} 达标</b>
+      <span>${fmtChipMs(total)}</span></div>`;
+  }).join("");
+  return `<div class="card">
+    <h2 class="sec">📊 各考点进度</h2>${rows}
+    ${hist ? `<h2 class="sec" style="margin-top:20px">🏆 最近模拟考</h2>${hist}` : ""}
+  </div>`;
+}
+
+function go(tab) { view = { screen: view.screen, tab }; render(); }
+function back(restore) { view = { screen: view.screen, ...restore }; render(); }
 
 /* ================= 学习模式 ================= */
 
@@ -643,10 +1110,15 @@ function wipeData() {
 
 async function boot() {
   try {
-    const res = await fetch("questions.json");
+    const [res, chipRes] = await Promise.all([
+      fetch("questions.json"),
+      fetch("circuits.json").catch(() => null), // 电子创芯赛数据缺失不影响 AI 应用
+    ]);
     if (!res.ok) throw new Error(res.status);
     DATA = await res.json();
+    if (chipRes && chipRes.ok) CHIP_DATA = await chipRes.json();
     store = loadStore();
+    chipStore = loadChipStore();
     render();
   } catch {
     document.getElementById("app").innerHTML =

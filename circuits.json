@@ -1,0 +1,468 @@
+{
+ "generated_at": "2026-09-28",
+ "time_limit_sec": 180,
+ "categories": [
+  {
+   "id": "switch-logic",
+   "name": "电键组合逻辑",
+   "emoji": "🔀"
+  },
+  {
+   "id": "sensor",
+   "name": "传感器触发",
+   "emoji": "🧲"
+  },
+  {
+   "id": "sound-light",
+   "name": "声光电路",
+   "emoji": "🔊"
+  },
+  {
+   "id": "capacitor",
+   "name": "电容延时",
+   "emoji": "🔋"
+  },
+  {
+   "id": "potentiometer",
+   "name": "电位器调节",
+   "emoji": "🎚️"
+  },
+  {
+   "id": "oscillator",
+   "name": "振荡与闪灯",
+   "emoji": "💡"
+  },
+  {
+   "id": "amplifier",
+   "name": "功放与话筒",
+   "emoji": "🎤"
+  },
+  {
+   "id": "comprehensive",
+   "name": "综合识图",
+   "emoji": "🧩"
+  }
+ ],
+ "questions": [
+  {
+   "id": "c01",
+   "no": 1,
+   "text": "1.识图拼搭，完成实验，并演示效果。接通开关，只有（）LED亮，再按下电键只有（）亮。",
+   "category": "switch-logic",
+   "image": "q01.jpg"
+  },
+  {
+   "id": "c02",
+   "no": 2,
+   "text": "2、识图拼搭，完成实验，并演示效果。接通开关，（），按下电键S1，只有（）亮，按下电键S2只有（）LED亮，同时按下电键S1和S2只有（）亮。",
+   "category": "switch-logic",
+   "image": "q02.jpg"
+  },
+  {
+   "id": "c03",
+   "no": 3,
+   "text": "3、识图拼搭，完成实验，并演示效果。接通开关，（）LED亮，按下S1（）LED亮。合上开关，只按下S2只有（）亮。1",
+   "category": "switch-logic",
+   "image": "q03.jpg"
+  },
+  {
+   "id": "c04",
+   "no": 4,
+   "text": "4.识图拼搭，完成实验，并演示效果。接通开关，都不亮。按下电键S1只有（）亮。按下电键S2只有（）亮。同时按下电键S1和S2只有（）亮。",
+   "category": "switch-logic",
+   "image": "q04.jpg"
+  },
+  {
+   "id": "c05",
+   "no": 5,
+   "text": "5.识图拼搭，完成实验，并演示效果。接通开关，()，按下电键S1只有（）LED亮，按下电键S2只有（）LED亮，同时按下电键S1和S2，（）亮。",
+   "category": "switch-logic",
+   "image": "q05.jpg"
+  },
+  {
+   "id": "c06",
+   "no": 6,
+   "text": "6.识图搭建，完成实验，并演示效果。接通开关，只有绿色LED亮，再按下电键或磁铁靠近干簧管只有红色LED亮。（图中标出红绿）",
+   "category": "sensor",
+   "image": "q06.jpg"
+  },
+  {
+   "id": "c07",
+   "no": 7,
+   "text": "7.识图搭建，完成实验，并演示效果。接通开关，只有绿色LED亮，再按下电键和磁铁靠近干簧管只有红色LED亮。（图中标出红绿）",
+   "category": "sensor",
+   "image": "q07.jpg"
+  },
+  {
+   "id": "c08",
+   "no": 8,
+   "text": "8.识图拼搭，完成实验，并演示效果。接通开关，（）亮，再按下电键（）亮。",
+   "category": "switch-logic",
+   "image": "q08.jpg"
+  },
+  {
+   "id": "c09",
+   "no": 9,
+   "text": "9.识图拼搭，完成实验，并演示效果。接通开关，()。按下电键S1只有（）LED亮，按下电键S2只有（）LED亮。同时按下电键S1和S2，（）亮。2",
+   "category": "switch-logic",
+   "image": "q09.jpg"
+  },
+  {
+   "id": "c10",
+   "no": 10,
+   "text": "10.按下图拼搭，完成实验并显示效果，接通开关发出（）音乐，再接通干簧管发出（）音乐，按下电键发出（）",
+   "category": "sound-light",
+   "image": "q10.jpg"
+  },
+  {
+   "id": "c11",
+   "no": 11,
+   "text": "11.按下图拼搭，完成实验并显示效果。合上开关，磁铁每靠近干簧管一次喇叭发出一种声音(大约有八种)。",
+   "category": "sensor",
+   "image": "q11.jpg"
+  },
+  {
+   "id": "c12",
+   "no": 12,
+   "text": "12.接通开关，报警声响起；按下电键换成第二种报警声；按下另一个电键换成第三种报警声。",
+   "category": "sound-light",
+   "image": "q12.jpg"
+  },
+  {
+   "id": "c13",
+   "no": 13,
+   "text": "13.按下图拼搭，完成实验，并演示效果。",
+   "category": "comprehensive",
+   "image": "q13.jpg"
+  },
+  {
+   "id": "c14",
+   "no": 14,
+   "text": "14.识图搭建，完成实验，并演示效果。接通开关，LED亮红光，同时喇叭会发出（）的警笛声；当电键被按住时“光灭声息”3",
+   "category": "sound-light",
+   "image": "q14.jpg"
+  },
+  {
+   "id": "c15",
+   "no": 15,
+   "text": "15.识图搭建，完成实验。并演示效果。接通电源，喇叭无声(光强时)，手遮住光敏电阻时喇叭响起音乐声。",
+   "category": "sensor",
+   "image": "q15.jpg"
+  },
+  {
+   "id": "c16",
+   "no": 16,
+   "text": "16.识图搭建，完成实验，并演示效果。接通开关，LED亮绿光，同时喇叭会发出（）的警笛声；当电键被按住时“光灭声息”。",
+   "category": "sound-light",
+   "image": "q16.jpg"
+  },
+  {
+   "id": "c17",
+   "no": 17,
+   "text": "17.识图搭建，完成实验，并演示效果。接通开关，再按下电键，电容器充电，（）LED亮一下熄灭；放开电键，电容器（），（）LED亮一下熄灭。",
+   "category": "sound-light",
+   "image": "q17.jpg"
+  },
+  {
+   "id": "c18",
+   "no": 18,
+   "text": "18.识图搭建，完成实验，并演示效果。接通开关，红色、绿色LED（），按住电键红色、绿色LED（），放开电键（）LED立刻熄灭，（）LED延时熄灭。",
+   "category": "capacitor",
+   "image": "q18.jpg"
+  },
+  {
+   "id": "c19",
+   "no": 19,
+   "text": "19.按图完成电路搭建并正确演示电路效果连续操作演示步骤如下:闭合开关，绿色发光二极管（）,按住电键，绿色发光二极管点（）。4",
+   "category": "comprehensive",
+   "image": "q19.jpg"
+  },
+  {
+   "id": "c20",
+   "no": 20,
+   "text": "20、按下图拼搭，完成实验并演示效果。接通开关，电位器滑动杆向（）移动绿色LED和6V灯泡慢慢亮起,向（）滑动绿色LED和6V灯泡熄灭。",
+   "category": "potentiometer",
+   "image": "q20.jpg"
+  },
+  {
+   "id": "c21",
+   "no": 21,
+   "text": "21.按下图拼搭，完成实验，并演示效果。接通开关，（）LED亮，手遮住光敏电阻，（）亮。",
+   "category": "sensor",
+   "image": "q21.jpg"
+  },
+  {
+   "id": "c22",
+   "no": 22,
+   "text": "22.按下图拼搭，完成实验，并演示效果。按下电键6V灯泡亮一下就熄灭,过几秒后再按下电键6V灯泡又会亮一下熄灭。",
+   "category": "capacitor",
+   "image": "q22.jpg"
+  },
+  {
+   "id": "c23",
+   "no": 23,
+   "text": "23、按下图拼搭，完成实验并演示效果。接通开关，按下电键电风扇（）转，放开电键电风扇延迟后停止。（更换一个元器件，延迟时间变长）",
+   "category": "capacitor",
+   "image": null
+  },
+  {
+   "id": "c24",
+   "no": 24,
+   "text": "24.识图拼装，演示实验效果。延时熄灭的LED灯。5",
+   "category": "capacitor",
+   "image": "q24.jpg"
+  },
+  {
+   "id": "c25",
+   "no": 25,
+   "text": "25、按下图拼搭，完成实验并演示效果。接通开关，通过电位器调整绿色LED亮、电机正转或绿色LED不亮、电机不转。",
+   "category": "potentiometer",
+   "image": "q25.jpg"
+  },
+  {
+   "id": "c26",
+   "no": 26,
+   "text": "26.识图拼装，天黑时绿色发光二极管（），按下电键时，不管天黑还是天亮，发光二极管都（）。",
+   "category": "sensor",
+   "image": "q26.jpg"
+  },
+  {
+   "id": "c27",
+   "no": 27,
+   "text": "27.请按电路图所示搭建实验电路，并按下列步骤进行演示，接通开关，灯泡不亮，按住电键，灯泡点亮；松开电键后，灯泡缓缓熄灭。",
+   "category": "capacitor",
+   "image": null
+  },
+  {
+   "id": "c28",
+   "no": 28,
+   "text": "28.识图拼装，完成实验，并演示效果，延时熄灭的绿色LED灯。",
+   "category": "capacitor",
+   "image": "q28.jpg"
+  },
+  {
+   "id": "c29",
+   "no": 29,
+   "text": "29.识图搭建，按要求演示出电路产生的现象：①接通开关并保持导通状态时，灯泡明亮；②慢慢推动47K滑杆，灯泡由明亮逐渐变暗至熄灭。",
+   "category": "potentiometer",
+   "image": "q29.jpg"
+  },
+  {
+   "id": "c30",
+   "no": 30,
+   "text": "30.按下图拼搭，完成实验，并演示效果。按下电键喇叭发出振荡声。（再更换不同的电容器，听听声音的变化。）6",
+   "category": "oscillator",
+   "image": "q30.jpg"
+  },
+  {
+   "id": "c31",
+   "no": 31,
+   "text": "31.识图搭建，并演示电路功能，可调延时闪发电路。",
+   "category": "oscillator",
+   "image": "q31.jpg"
+  },
+  {
+   "id": "c32",
+   "no": 32,
+   "text": "32.识图搭建并演示具有如下功能的电路。接通开关后，当无光照时灯泡会闪亮。未标参数的元器件，请合理选用。",
+   "category": "oscillator",
+   "image": "q32.jpg"
+  },
+  {
+   "id": "c33",
+   "no": 33,
+   "text": "33.识图拼装，完成实验并演示效果。一个带LED指示灯的电机调速电路。接通电源红色LED亮，电机不转。通过调节电位器，电机反转，但红色LED不亮。",
+   "category": "potentiometer",
+   "image": "q33.jpg"
+  },
+  {
+   "id": "c34",
+   "no": 34,
+   "text": "34.识图搭建，完成实验，并演示效果。接通开关，再按下电键，喇叭发出振荡声，绿色LED同时亮。",
+   "category": "oscillator",
+   "image": "q34.jpg"
+  },
+  {
+   "id": "c35",
+   "no": 35,
+   "text": "35.识图拼一个电喇叭电路。",
+   "category": "amplifier",
+   "image": "q35.jpg"
+  },
+  {
+   "id": "c36",
+   "no": 36,
+   "text": "36.识图搭建并演示。7",
+   "category": "comprehensive",
+   "image": "q36.jpg"
+  },
+  {
+   "id": "c37",
+   "no": 37,
+   "text": "37.识图拼装，完成实验,并演示效果。接通电源，按下电键喇叭响起门铃声。",
+   "category": "sound-light",
+   "image": "q37.jpg"
+  },
+  {
+   "id": "c38",
+   "no": 38,
+   "text": "38、识图搭建，按要求演示电路的功能。接通开关并保持导通状态，将磁铁靠近干簧管时，喇叭会发出数秒的音乐声。电路图中若有未标定参数的元器件，合理选用。",
+   "category": "sensor",
+   "image": "q38.jpg"
+  },
+  {
+   "id": "c39",
+   "no": 39,
+   "text": "39.接通开关，按下电键，喇叭响起振荡声。",
+   "category": "oscillator",
+   "image": "q39.jpg"
+  },
+  {
+   "id": "c40",
+   "no": 40,
+   "text": "40.识图搭建并演示电路功能：接通开关，用嘴对着话筒说话或吹气，喇叭会发出经过功率放大集成电路放大后的声音。",
+   "category": "amplifier",
+   "image": "q40.jpg"
+  },
+  {
+   "id": "c41",
+   "no": 41,
+   "text": "41、按电路图完成拼装。并演示电路功能。接通开关再按下电键S灯泡亮、喇叭有声。过数秒钟后再按电键S又有光和声（有声电光枪电路）。",
+   "category": "capacitor",
+   "image": "q41.jpg"
+  },
+  {
+   "id": "c42",
+   "no": 42,
+   "text": "42.识图搭建并演示电路功能：接通开关，用嘴对着话筒说话或吹气，喇叭会8",
+   "category": "amplifier",
+   "image": "q42.jpg"
+  },
+  {
+   "id": "c43",
+   "no": 43,
+   "text": "43.识图搭建并演示电路功能：接通开关，按一下电键，喇叭会发出短暂的振荡声。",
+   "category": "oscillator",
+   "image": "q43.jpg"
+  },
+  {
+   "id": "c44",
+   "no": 44,
+   "text": "44.识图搭建并演示电路功能：按住电键，红、绿LED亮一会儿就自动熄灭；放开电键，等待一会儿，再次按住电键，红、绿LED又亮一会儿自动熄灭。可重复上述操作。",
+   "category": "capacitor",
+   "image": "q44.jpg"
+  },
+  {
+   "id": "c45",
+   "no": 45,
+   "text": "45.识图完成拼搭，显示电路功能。3V电源点亮两只反接、串联的发光二极管。",
+   "category": "comprehensive",
+   "image": "q45.jpg"
+  },
+  {
+   "id": "c46",
+   "no": 46,
+   "text": "46.要求：接通电源，这时按下任意一个电键，都只有一个发光二极管点亮。若2只电键都按下，2只发光二极管都不会亮，但电动机会转动。",
+   "category": "switch-logic",
+   "image": "q46.jpg"
+  },
+  {
+   "id": "c47",
+   "no": 47,
+   "text": "47.识图完成拼搭，显示电路功能。9",
+   "category": "comprehensive",
+   "image": "q47.jpg"
+  },
+  {
+   "id": "c48",
+   "no": 48,
+   "text": "48.识图完成拼搭，显示电路功能。",
+   "category": "comprehensive",
+   "image": "q48.jpg"
+  },
+  {
+   "id": "c49",
+   "no": 49,
+   "text": "49、接通开关，可变电阻向下滑动，两个发光二极管（），往上滑动，两个发光二极管会（）。",
+   "category": "potentiometer",
+   "image": "q49.jpg"
+  },
+  {
+   "id": "c50",
+   "no": 50,
+   "text": "50、接通开关，两个灯泡（），电动机（）；再接通干簧管，（）；合上开关，再按下电键，（）。",
+   "category": "switch-logic",
+   "image": "q50.jpg"
+  },
+  {
+   "id": "c51",
+   "no": 51,
+   "text": "51、识图搭建并演示电路功能：接通开关，将手在光敏电阻上方快速不停地晃动，喇叭会随之发出不同的音调。",
+   "category": "sensor",
+   "image": "q51.jpg"
+  },
+  {
+   "id": "c52",
+   "no": 52,
+   "text": "52、识图搭建并演示电路功能：按住电键，红、绿LED亮一会儿就自动熄灭；放开电键等待一会儿再次按住电键，红、绿LED又亮一会儿自动熄灭。可重复上述操作。10",
+   "category": "capacitor",
+   "image": "q52.jpg"
+  },
+  {
+   "id": "c53",
+   "no": 53,
+   "text": "53、识图搭建，完成实验，并演示效果(闪闪红星)。接通开关，红色LED闪闪发光。",
+   "category": "oscillator",
+   "image": "q53.jpg"
+  },
+  {
+   "id": "c54",
+   "no": 54,
+   "text": "54、识图搭建具有所述功能的电路，并演示电路效果。接通开关后，先将A、B接触，给电容充电；再将A、C接触，灯泡亮一会儿熄灭。",
+   "category": "capacitor",
+   "image": "q54.jpg"
+  },
+  {
+   "id": "c55",
+   "no": 55,
+   "text": "55、请按电路图所示搭建实验电路，并按下列步骤进行演示1.接通开关，喇叭发出声音。2.光敏电阻的环境亮度有改变后(可以是盖住的手移开一次)，喇叭就会播放另一种声太空音。",
+   "category": "sensor",
+   "image": "q55.jpg"
+  },
+  {
+   "id": "c56",
+   "no": 56,
+   "text": "56、识图搭建，按要求演示并说出电路产生了怎样的现象？①接通开关并保持导通状态，现象是？②只按住电键S1，现象是？③只磁铁靠近干簧管，现象是？④按住电键S1、磁铁靠近干簧管的现象是？",
+   "category": "switch-logic",
+   "image": "q56.jpg"
+  },
+  {
+   "id": "c57",
+   "no": 57,
+   "text": "57、识图搭建，按要求演示并说出电路产生了怎样的现象？11",
+   "category": "comprehensive",
+   "image": null
+  },
+  {
+   "id": "c58",
+   "no": 58,
+   "text": "58、识图搭建并演示两灯的切换功能。",
+   "category": "comprehensive",
+   "image": "q58.jpg"
+  },
+  {
+   "id": "c59",
+   "no": 59,
+   "text": "59、识图搭建并演示延时电路。",
+   "category": "capacitor",
+   "image": "q59.jpg"
+  },
+  {
+   "id": "c60",
+   "no": 60,
+   "text": "60、识图搭建并演示电路效果。",
+   "category": "comprehensive",
+   "image": "q60.jpg"
+  }
+ ]
+}
