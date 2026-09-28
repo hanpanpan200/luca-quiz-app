@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-16",
+ "generated_at": "2026-09-28",
  "banks": [
   {
    "name": "基础版",
@@ -1026,8 +1026,8 @@
       "感知与连接（五官）",
       "提供力量（肌肉）"
      ],
-     "answer": "B",
-     "correct_idx": 1,
+     "answer": "D",
+     "correct_idx": 3,
      "needs_review": false,
      "id": "基础版-3-30",
      "bank": "基础版",
@@ -2216,9 +2216,9 @@
       "电源",
       "显示器"
      ],
-     "answer": null,
-     "correct_idx": null,
-     "needs_review": true,
+     "answer": "A",
+     "correct_idx": 0,
+     "needs_review": false,
      "id": "高阶版-1-8",
      "bank": "高阶版",
      "chapter": "I、芯片工作原理",

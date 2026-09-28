@@ -42,12 +42,48 @@ def test_stale_number_prefix_cleaned():
     assert not any(t[:2].rstrip(".").isdigit() for t in texts), "所有题干不应残留编号前缀"
 
 
-def test_unanswered_question_flagged():
+def test_no_unanswered_questions():
+    """源数据修复后不应再有未标注答案的题目。"""
     banks = load_all()
     review = [q for b in banks for q in b["questions"] if q["needs_review"]]
-    assert len(review) == 1
-    assert review[0]["text"] == "多个逻辑门组合起来可以形成什么？"
-    assert review[0]["answer"] is None
+    assert review == []
+
+
+def test_unanswered_badge_flagged():
+    """提取器仍应能识别"未标注"徽标并置 needs_review（内联样例验证）。"""
+    html = """
+    <section class="chapter" id="ch1">
+      <h2><span class="ch-num">1</span>I、测试<span class="ch-count">1 题</span></h2>
+      <div class="q-list"><div class="q-card">
+      <div class="q-head">
+        <span class="q-no">1</span>
+        <span class="q-text">测试题？</span>
+        <span class="ans-badge none">未标注</span>
+      </div>
+      <ul class="options"><li class="opt"><span class="opt-letter">A.</span> <span class="opt-text">甲</span></li><li class="opt"><span class="opt-letter">B.</span> <span class="opt-text">乙</span></li><li class="opt"><span class="opt-letter">C.</span> <span class="opt-text">丙</span></li><li class="opt"><span class="opt-letter">D.</span> <span class="opt-text">丁</span></li></ul>
+    </div></div>
+    </section>
+    """
+    q = extract.parse_bank(html, "测试版")["questions"][0]
+    assert q["needs_review"] is True
+    assert q["answer"] is None
+    assert q["correct_idx"] is None
+
+
+def test_corrected_answers_spotcheck():
+    """人工核实的两处答案修正：电机→D（提供力量），逻辑门组合→A（复杂逻辑电路）。"""
+    banks = load_all()
+    questions = {q["id"]: q for b in banks for q in b["questions"]}
+    motor = questions["基础版-3-30"]
+    assert motor["text"] == "电机的作用主要作用是什么？"
+    assert motor["answer"] == "D"
+    assert motor["correct_idx"] == 3
+    assert motor["needs_review"] is False
+    gates = questions["高阶版-1-8"]
+    assert gates["text"] == "多个逻辑门组合起来可以形成什么？"
+    assert gates["answer"] == "A"
+    assert gates["correct_idx"] == 0
+    assert gates["needs_review"] is False
 
 
 def test_answer_letter_matches_correct_option():
