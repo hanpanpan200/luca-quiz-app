@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>实物编程小课堂 · 题库闯关</title>
+<title>Luca 的比赛训练营</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
 <style>
   /* ============ 护眼 · 活泼 设计系统 ============ */
@@ -228,11 +228,13 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="hero">
+  <div class="hero" id="hero">
     <h1>🌱 实物编程小课堂</h1>
     <p>Luca 的市赛入场券闯关 · 三套题库 174 题</p>
     <div class="chips" id="heroChips"></div>
   </div>
+
+  <button class="back" id="homeBtn" style="display:none;margin:12px 0 0" onclick="goHome()">⬅️ 换个比赛</button>
 
   <nav class="tabs" id="tabs"></nav>
   <main id="app"><div class="card empty"><span class="big">⏳</span>题库加载中…</div></main>
@@ -240,6 +242,6 @@
   <footer>数据存在这台电脑的浏览器里 · 记得在「统计」页定期导出备份哦</footer>
 </div>
 
-<script src="app.js"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>

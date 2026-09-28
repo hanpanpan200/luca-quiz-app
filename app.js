@@ -22,7 +22,7 @@ const PASS_SCORE = 60;
 
 let DATA = null;          // {banks:[{name,chapters,questions}]}
 let store = null;         // 持久化状态
-let view = { tab: "study" }; // 当前视图状态
+let view = { screen: "home" }; // 当前视图状态：screen = home | ai | chip
 
 /* ================= 存储层 ================= */
 
@@ -164,19 +164,72 @@ function renderHero() {
 }
 
 function render() {
-  renderTabs();
-  renderHero();
   const app = document.getElementById("app");
-  const fn = {
-    study: renderStudy, practice: renderPractice, exam: renderExam,
-    wrong: renderWrong, stats: renderStats,
-  }[view.tab];
-  app.innerHTML = fn();
+  const inAiApp = view.screen === "ai";
+  document.getElementById("hero").style.display = inAiApp ? "" : "none";
+  document.getElementById("homeBtn").style.display = inAiApp ? "" : "none";
+  if (inAiApp) {
+    renderTabs();
+    renderHero();
+    const fn = {
+      study: renderStudy, practice: renderPractice, exam: renderExam,
+      wrong: renderWrong, stats: renderStats,
+    }[view.tab];
+    app.innerHTML = fn();
+  } else {
+    document.getElementById("tabs").innerHTML = "";
+    app.innerHTML = view.screen === "chip" ? renderChip() : renderHome();
+  }
   window.scrollTo(0, 0);
 }
 
-function go(tab) { view = { tab }; render(); }
-function back(restore) { view = { ...restore }; render(); }
+/* ================= 比赛选择层 ================= */
+
+function enterCompetition(id) {
+  view = id === "ai" ? { screen: "ai", tab: "study" } : { screen: id };
+  render();
+}
+
+function goHome() {
+  view = { screen: "home" };
+  render();
+}
+
+function renderHome() {
+  return `<div class="card">
+    <h2 class="sec">🏆 今天练哪个比赛？</h2>
+    <div class="grid">
+      <button class="tile" onclick="enterCompetition('chip')">
+        <span class="emoji">⚡</span>
+        <b>电子创芯赛</b>
+        <div class="sub">电路创新设计 · 现场搭 4 个电路</div>
+        <div class="sub"><span class="tag-review">建设中</span></div>
+      </button>
+      <button class="tile" onclick="enterCompetition('ai')">
+        <span class="emoji">🤖</span>
+        <b>AI 实物编程</b>
+        <div class="sub">三套题库 174 题 · 学习 / 练习 / 模拟考</div>
+      </button>
+    </div>
+  </div>`;
+}
+
+function renderChip() {
+  return `<div class="card">
+    <h2 class="sec">⚡ 电子创芯赛 <small>电路创新设计</small></h2>
+    <div style="font-size:18px;line-height:2">
+      <div>📝 现场抽 4 个指定电路，限时完成设计、改造与创新</div>
+      <div>🔊 以声、光、电稳定演示电路功能</div>
+      <div>🏆 答对多者列前；答对数相同，比总用时</div>
+      <div>⚠️ 拼装不平整、导线相邻层交叉、极性接反、子母扣不牢都会判错</div>
+    </div>
+    <div class="empty" style="padding:26px 10px"><span class="big">🔨</span>训练模块建设中，敬请期待</div>
+    <button class="back" onclick="goHome()">⬅️ 返回选择比赛</button>
+  </div>`;
+}
+
+function go(tab) { view = { screen: "ai", tab }; render(); }
+function back(restore) { view = { screen: "ai", ...restore }; render(); }
 
 /* ================= 学习模式 ================= */
 
