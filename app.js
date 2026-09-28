@@ -15,7 +15,9 @@ const TABS = [
 ];
 const BANK_EMOJI = { 基础版: "🧱", 进阶版: "🚀", 高阶版: "👑" };
 const LETTERS = ["A", "B", "C", "D"];
-const EXAM_SIZE = 20;
+/* 模拟考分层配额：各题库抽题数（按竞赛难度金字塔 5:3:2 配置；改这里即可，计分自动适配满分 100） */
+const EXAM_QUOTA = { "基础版": 10, "进阶版": 6, "高阶版": 4 };
+const EXAM_SIZE = Object.values(EXAM_QUOTA).reduce((s, n) => s + n, 0);
 const PASS_SCORE = 60;
 
 let DATA = null;          // {banks:[{name,chapters,questions}]}
@@ -345,7 +347,7 @@ function renderExam() {
     return `<div class="card">
       <h2 class="sec">🏆 模拟考 <small>完全按真实规则</small></h2>
       <div style="font-size:18px;line-height:2">
-        <div>📝 从三套题库随机抽 <b>20 题</b>，每题 <b>5 分</b>，满分 100</div>
+        <div>📝 三套题库固定配额抽 <b>${EXAM_SIZE} 题</b>（${DATA.banks.map((b) => `${BANK_EMOJI[b.name] || ""}${b.name} ${EXAM_QUOTA[b.name] ?? 0}`).join(" · ")}），满分 100</div>
         <div>⏱ 不限时，但要像真考试一样认真哦</div>
         <div>✅ <b>60 分</b> = 拿到市赛现场赛入场券</div>
         <div>❌ 答错的题会自动进错题本</div>
@@ -368,9 +370,26 @@ function renderExam() {
   return renderExamPaper(exam);
 }
 
+/** 分层抽题：每库各抽配额数；某库可用题不足时从全局剩余题补齐，整体洗牌出卷 */
+function sampleExamQuestions(banks, quota) {
+  const unknown = Object.keys(quota).filter((k) => !banks.some((b) => b.name === k));
+  const missing = banks.filter((b) => quota[b.name] === undefined).map((b) => b.name);
+  if (unknown.length || missing.length) {
+    console.warn(`[模拟考] 配额键与题库名不匹配：多余 ${JSON.stringify(unknown)}，缺少 ${JSON.stringify(missing)}`);
+  }
+  const picked = [];
+  const rest = [];
+  for (const b of banks) {
+    const pool = shuffle(answerable(b.questions));
+    const n = quota[b.name] ?? 0;
+    picked.push(...pool.slice(0, n));
+    rest.push(...pool.slice(n));
+  }
+  return shuffle([...picked, ...shuffle(rest).slice(0, EXAM_SIZE - picked.length)]);
+}
+
 function startExam() {
-  const pool = answerable(DATA.banks.flatMap((b) => b.questions));
-  const qs = shuffle(pool).slice(0, EXAM_SIZE);
+  const qs = sampleExamQuestions(DATA.banks, EXAM_QUOTA);
   view = { tab: "exam", exam: { qs, i: 0, answers: Array(qs.length).fill(null), finished: false, submitted: false } };
   render();
 }
@@ -411,14 +430,15 @@ function submitExam() {
   const exam = view.exam;
   const blank = exam.answers.filter((a) => a === null).length;
   if (blank > 0 && !confirm(`还有 ${blank} 题没答，确定交卷吗？`)) return;
-  let score = 0;
+  let correctCount = 0;
   exam.qs.forEach((q, i) => {
     const a = exam.answers[i];
     if (a === null) return; // 未作答不计入统计，也不给分
     const correct = LETTERS[a] === q.answer;
-    if (correct) score += 5;
+    if (correct) correctCount += 1;
     recordAnswer(q.id, correct);
   });
+  const score = Math.round((correctCount * 100) / exam.qs.length); // 满分恒为 100，与配额总题数解耦
   exam.finished = true;
   exam.score = score;
   store.examHistory.push({
