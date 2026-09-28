@@ -161,8 +161,9 @@ def main() -> None:
         src = qimg.get(no, (None, 0))[0]
         image = None
         if src:
-            image = f"q{no:02d}.jpg"
-            shutil.copyfile(src, OUT_DIR / image)
+            # 存完整可服务路径（页面 <img src> 直接引用），文件名 qNN.jpg
+            image = f"assets/circuits/q{no:02d}.jpg"
+            shutil.copyfile(src, PROJECT / image)
         questions.append({"id": f"c{no:02d}", "no": no, "text": text, "category": CATEGORY_BY_NO[no], "image": image})
 
     data = {

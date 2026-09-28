@@ -118,6 +118,17 @@ const bootDone = new Promise((r) => setImmediate(r));
     vm.runInThisContext("go('chipStats')");
   });
 
+  await t("数据完整性：image 字段为可服务的完整路径且文件存在", () => {
+    for (const q of realCircuits.questions) {
+      if (!q.image) continue;
+      if (!q.image.startsWith("assets/circuits/")) {
+        throw new Error(`q${q.no} 的 image 不是完整路径：${q.image}`);
+      }
+      const f = path.join(__dirname, "..", q.image);
+      if (!fs.existsSync(f)) throw new Error(`q${q.no} 引用的文件不存在：${q.image}`);
+    }
+  });
+
   console.log(failed ? `\n${failed} 个测试失败` : "\n全部通过");
   process.exit(failed ? 1 : 0);
 })();
