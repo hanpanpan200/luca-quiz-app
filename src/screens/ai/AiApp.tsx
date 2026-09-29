@@ -1,21 +1,22 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import SectionToggle from "../../components/SectionToggle";
 import TabBar from "../../components/TabBar";
 import { overall } from "../../domain/aiRecords";
 import { loadAiStore, saveAiStore } from "../../storage";
 import type { AiStore } from "../../types";
 import ExamScreen from "./ExamScreen";
 import PracticeScreen from "./PracticeScreen";
-import ProgrammingScreen from "./ProgrammingScreen";
+import { ProgExam, ProgPractice, ProgTaskBrowser, ProgWrongBook } from "./ProgrammingScreen";
 import StatsScreen from "./StatsScreen";
 import StudyScreen from "./StudyScreen";
 import WrongScreen from "./WrongScreen";
+import { ProgProvider } from "./progStore";
 
 const TABS = [
   { id: "study", label: "📖 学习" },
   { id: "practice", label: "✏️ 练习" },
   { id: "exam", label: "🏆 模拟考" },
-  { id: "prog", label: "💻 编程题" },
   { id: "wrong", label: "❌ 错题本" },
   { id: "stats", label: "📊 统计" },
 ];
@@ -29,23 +30,50 @@ export function useAiStore() {
 }
 
 /** AI 模块容器：顶部横幅 + tab 路由 + 存储上下文。
+ * 学习/练习/模拟考/错题本四个 tab 内各有「选择题 / 编程题」子模块切换。
  * 路由形如 /ai/:tab[/study/:bank/:chapter | /practice/:bank]。 */
+const SECTIONS = [
+  { id: "quiz", label: "📘 选择题" },
+  { id: "prog", label: "💻 编程题" },
+] as const;
+
 export default function AiApp() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [store, setStore] = useState<AiStore>(() => loadAiStore());
+  const [section, setSection] = useState<"quiz" | "prog">("quiz");
   useEffect(() => { saveAiStore(store); }, [store]);
 
   const segs = pathname.replace(/^\/ai\/?/, "").split("/").filter(Boolean);
   const tab = TABS.some((t) => t.id === segs[0]) ? segs[0] : "study";
-  const bank = tab === "study" ? segs[1] : segs[1]; // study/practice 都用第二段作题库
+  const bank = segs[1]; // study/practice 都用第二段作题库
   const chapter = segs[2];
+
+  // 切换 tab 时回到选择题子模块
+  const prevTab = useRef(tab);
+  useEffect(() => {
+    if (prevTab.current !== tab) {
+      prevTab.current = tab;
+      setSection("quiz");
+    }
+  }, [tab]);
+
+  const hasProg = tab !== "stats"; // 统计页不分子模块
+  const active = hasProg ? section : "quiz" as const;
 
   const o = overall(store);
   const best = store.examHistory.length ? Math.max(...store.examHistory.map((h) => h.score)) : null;
 
+  const progView = {
+    study: <ProgTaskBrowser />,
+    practice: <ProgPractice />,
+    exam: <ProgExam />,
+    wrong: <ProgWrongBook />,
+  }[tab];
+
   return (
     <AiStoreContext.Provider value={{ store, setStore }}>
+      <ProgProvider>
       <div className="hero">
         <h1>🌱 实物编程小课堂</h1>
         <p>Luca 的市赛入场券闯关 · 三套题库 174 题</p>
@@ -65,12 +93,19 @@ export default function AiApp() {
         onSelect={(id) => navigate(`/ai/${id}`)}
       />
 
-      {tab === "study" && <StudyScreen bank={bank} chapter={chapter} />}
-      {tab === "practice" && <PracticeScreen bank={bank} />}
-      {tab === "exam" && <ExamScreen />}
-      {tab === "prog" && <ProgrammingScreen />}
-      {tab === "wrong" && <WrongScreen />}
-      {tab === "stats" && <StatsScreen />}
+      {hasProg && <SectionToggle options={SECTIONS} value={active} onChange={(id) => setSection(id as "quiz" | "prog")} />}
+
+      {active === "prog" && progView}
+      {active === "quiz" && (
+        <>
+          {tab === "study" && <StudyScreen bank={bank} chapter={chapter} />}
+          {tab === "practice" && <PracticeScreen bank={bank} />}
+          {tab === "exam" && <ExamScreen />}
+          {tab === "wrong" && <WrongScreen />}
+          {tab === "stats" && <StatsScreen />}
+        </>
+      )}
+      </ProgProvider>
     </AiStoreContext.Provider>
   );
 }
