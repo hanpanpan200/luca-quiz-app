@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SectionToggle from "../../components/SectionToggle";
 import TabBar from "../../components/TabBar";
@@ -41,7 +41,7 @@ export default function AiApp() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [store, setStore] = useState<AiStore>(() => loadAiStore());
-  const [section, setSection] = useState<"quiz" | "prog">("quiz");
+  const [sections, setSections] = useState<Record<string, "quiz" | "prog">>({});
   useEffect(() => { saveAiStore(store); }, [store]);
 
   const segs = pathname.replace(/^\/ai\/?/, "").split("/").filter(Boolean);
@@ -49,17 +49,12 @@ export default function AiApp() {
   const bank = segs[1]; // study/practice 都用第二段作题库
   const chapter = segs[2];
 
-  // 切换 tab 时回到选择题子模块
-  const prevTab = useRef(tab);
-  useEffect(() => {
-    if (prevTab.current !== tab) {
-      prevTab.current = tab;
-      setSection("quiz");
-    }
-  }, [tab]);
+  const section = sections[tab] ?? "quiz"; // 各 tab 记住自己的子模块选择
+  const setSection = (id: string) =>
+    setSections((s) => ({ ...s, [tab]: id === "prog" ? "prog" : "quiz" }));
 
-  const hasProg = tab !== "stats"; // 统计页不分子模块
-  const active = hasProg ? section : "quiz" as const;
+  const hasProg = tab !== "stats"; // 统计页不分子模块（内部自带编程题板块）
+  const active = hasProg ? section : ("quiz" as const);
 
   const o = overall(store);
   const best = store.examHistory.length ? Math.max(...store.examHistory.map((h) => h.score)) : null;

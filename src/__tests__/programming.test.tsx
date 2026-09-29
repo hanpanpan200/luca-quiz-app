@@ -90,4 +90,22 @@ describe("AI 编程题子模块（挂在各 tab 下）", () => {
     expect(screen.getByRole("button", { name: /开始计时/ })).toBeInTheDocument();
     vi.useRealTimers();
   });
+
+  it("统计页：包含编程题任务板块，超时任务可见", () => {
+    vi.useFakeTimers();
+    const { unmount } = render(<MemoryRouter initialEntries={["/ai/practice"]}><AiApp /></MemoryRouter>);
+    gotoProg();
+    fireEvent.click(screen.getByRole("button", { name: /节能台灯/ }));
+    fireEvent.click(screen.getByRole("button", { name: /开始计时/ }));
+    act(() => { vi.advanceTimersByTime(11 * 60_000); });
+    fireEvent.click(screen.getByRole("button", { name: /我做完了/ }));
+    unmount();
+    vi.useRealTimers();
+
+    render(<MemoryRouter initialEntries={["/ai/stats"]}><AiApp /></MemoryRouter>);
+    expect(screen.getByText(/编程题任务/)).toBeInTheDocument();
+    expect(screen.getByText(/已练 1\/6/)).toBeInTheDocument();
+    expect(screen.getByText(/节能台灯/)).toBeInTheDocument();
+    expect(screen.getAllByText(/⏰ 超时中/).length).toBeGreaterThan(0);
+  });
 });

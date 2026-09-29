@@ -5,6 +5,9 @@ import { fmtMs } from "../../domain/utils";
 import { useProgStore } from "./progStore";
 
 const LIMIT_MS = PROG_TIME_LIMIT_SEC * 1000;
+/** 时限文案：整分钟显示「N 分钟」，否则显示「N 秒」（便于临时改短测试） */
+const LIMIT_LABEL = PROG_TIME_LIMIT_SEC % 60 === 0
+  ? `${PROG_TIME_LIMIT_SEC / 60} 分钟` : `${PROG_TIME_LIMIT_SEC} 秒`;
 
 /** 学习页的编程题浏览：任务卡 + 任务描述/考察重点/结构考察 */
 export function ProgTaskBrowser() {
@@ -39,7 +42,7 @@ export function ProgTaskBrowser() {
   );
 }
 
-/** 练习页的编程题子模块：任务列表 → 10 分钟计时练习 */
+/** 练习页的编程题子模块：任务列表 → 计时练习 */
 export function ProgPractice() {
   const { store } = useProgStore();
   const [active, setActive] = useState<ProgrammingTask | null>(null);
@@ -64,7 +67,7 @@ export function ProgPractice() {
 
   return (
     <div className="card">
-      <h2 className="sec">💻 编程题 <small>10 分钟限时搭建 · 超时进错题本</small></h2>
+      <h2 className="sec">💻 编程题 <small>{LIMIT_LABEL}限时搭建 · 超时进错题本</small></h2>
       <h2 className="sec" style={{ marginTop: 10, fontSize: 17 }}>🌱 基础任务（5）</h2>
       <div className="grid">{basics.map(row)}</div>
       <h2 className="sec" style={{ marginTop: 16, fontSize: 17 }}>🚀 进阶任务（1）</h2>
@@ -76,7 +79,7 @@ export function ProgPractice() {
   );
 }
 
-/** 模拟考页的编程题子模块：随机抽 1 个任务，10 分钟计时 */
+/** 模拟考页的编程题子模块：随机抽 1 个任务，限时计时 */
 export function ProgExam() {
   const [task, setTask] = useState<ProgrammingTask | null>(null);
   const [seed, setSeed] = useState(0);
@@ -88,7 +91,7 @@ export function ProgExam() {
       <h2 className="sec">💻 编程模拟考 <small>像现场一样抽题</small></h2>
       <div style={{ fontSize: 18, lineHeight: 2 }}>
         <div>🎲 从 6 个任务随机抽 <b>1 个</b>（基础或进阶都可能）</div>
-        <div>⏱ <b>10 分钟</b>限时搭建并演示，超时进错题本</div>
+        <div>⏱ <b>{LIMIT_LABEL}</b>限时搭建并演示，超时进错题本</div>
       </div>
       <div className="btn-row">
         <button className="btn warn" onClick={() => { setSeed((s) => s + 1); setTask(sampleCircuitExam(PROGRAMMING_TASKS, 1)[0]); }}>
@@ -197,7 +200,7 @@ function Session({ task, onExit }: { task: ProgrammingTask; onExit: () => void }
         <>
           <div className="score-hero" style={{ padding: "10px 0" }}>
             <div className={`num ${now - timer.startAt > LIMIT_MS ? "over" : ""}`}>{fmtMs(now - timer.startAt)}</div>
-            <div style={{ fontSize: 15, color: "var(--ink-soft)" }}>目标 10 分钟内完成，超时数字会变红</div>
+            <div style={{ fontSize: 15, color: "var(--ink-soft)" }}>目标{` ${LIMIT_LABEL} `}内完成，超时数字会变红</div>
           </div>
           <div className="btn-row" style={{ justifyContent: "center" }}>
             <button className="btn warn" onClick={finishTimer}>✅ 我做完了</button>
@@ -207,7 +210,7 @@ function Session({ task, onExit }: { task: ProgrammingTask; onExit: () => void }
       ) : lastDone ? (
         <>
           <div className={`feedback ${lastDone.overtime ? "no" : "ok"}`} style={{ textAlign: "center" }}>
-            {lastDone.overtime ? `⏰ 用时 ${fmtMs(lastDone.ms)}，超过 10 分钟，已进错题本` : `🎉 ${fmtMs(lastDone.ms)} 完成！`}
+            {lastDone.overtime ? `⏰ 用时 ${fmtMs(lastDone.ms)}，超过 ${LIMIT_LABEL}，已进错题本` : `🎉 ${fmtMs(lastDone.ms)} 完成！`}
             {lastDone.graduated && <br />}
             {lastDone.graduated && "连续 2 次达标，这个任务从错题本毕业啦 🎓"}
           </div>

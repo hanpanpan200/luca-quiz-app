@@ -1,16 +1,23 @@
 import { useRef } from "react";
 import { BANK_EMOJI, QUESTIONS } from "../../data";
+import { PROGRAMMING_TASKS } from "../../data/programming";
 import { PASS_SCORE } from "../../domain/aiExam";
 import { chapterStats, overall } from "../../domain/aiRecords";
+import { fmtMs } from "../../domain/utils";
 import { freshAiStore } from "../../storage";
 import { useAiStore } from "./AiApp";
+import { useProgStore } from "./progStore";
 import type { AiStore } from "../../types";
 
 export default function StatsScreen() {
   const { store, setStore } = useAiStore();
+  const { store: progStore } = useProgStore();
   const fileRef = useRef<HTMLInputElement>(null);
   const o = overall(store);
   const examRows = store.examHistory.slice(-10).reverse();
+
+  const progTried = PROGRAMMING_TASKS.filter((t) => progStore.attempts[t.id]).length;
+  const progWrong = progStore.wrongBook.length;
 
   function exportData() {
     const blob = new Blob([JSON.stringify(store, null, 2)], { type: "application/json" });
@@ -63,6 +70,26 @@ export default function StatsScreen() {
           })}
         </div>
       ))}
+      <h2 className="sec" style={{ marginTop: 20 }}>💻 编程题任务 <small>已练 {progTried}/{PROGRAMMING_TASKS.length} · ⏰ 超时中 {progWrong}</small></h2>
+      {PROGRAMMING_TASKS.map((t) => {
+        const a = progStore.attempts[t.id];
+        const status = progStore.wrongBook.includes(t.id)
+          ? "⏰ 超时中" : a ? "✅ 达标" : "未练";
+        return (
+          <div className="stat-row" key={t.id}>
+            <span className="name">{t.tier === "advanced" ? "🚀" : "🧩"} {t.name}</span>
+            <div className="bar">
+              <i style={{
+                width: a ? "100%" : "0%",
+                background: progStore.wrongBook.includes(t.id) ? "var(--red)" : undefined,
+              }} />
+            </div>
+            <span className="val">
+              {status}{a && a.best_ms != null ? ` · 最快 ${fmtMs(a.best_ms)}` : ""}
+            </span>
+          </div>
+        );
+      })}
       {examRows.length > 0 && (
         <>
           <h2 className="sec" style={{ marginTop: 20 }}>🏆 模拟考成绩</h2>
