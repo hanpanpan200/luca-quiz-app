@@ -242,3 +242,6 @@
   background: #fff; color: var(--ink); font-weight: 600;
   box-shadow: 0 1px 4px rgba(75, 110, 80, .20);
 }
+
+/* 徽标不内部折行 */
+.mini-badge { white-space: nowrap; }

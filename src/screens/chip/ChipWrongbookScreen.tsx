@@ -34,7 +34,7 @@ export default function ChipWrongbookScreen() {
         return (
           <div className="study-q" key={q.id}>
             <div className="q-head"><span className="no">{q.no}</span>
-              <div>
+              <div style={{ whiteSpace: "nowrap" }}>
                 {cat?.name} · {a && a.best_ms != null ? `最快 ${fmtMs(a.best_ms)}` : "还没完成过"}
                 <span className="mini-badge">连击 {a ? a.streak : 0}/2</span>
               </div>

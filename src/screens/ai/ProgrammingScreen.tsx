@@ -130,7 +130,7 @@ export function ProgWrongBook() {
         return (
           <div className="stat-row" key={t.id}>
             <span className="name" style={{ flex: 2 }}>🧩 {t.name}</span>
-            <span className="val">
+            <span className="val" style={{ width: "auto", whiteSpace: "nowrap" }}>
               {a && a.best_ms != null ? `最快 ${fmtMs(a.best_ms)}` : "还没完成过"}
               <span className="mini-badge">连击 {a ? a.streak : 0}/2</span>
             </span>
