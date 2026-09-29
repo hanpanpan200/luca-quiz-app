@@ -1,6 +1,6 @@
 """从官方题库 HTML 提取结构化题目数据。
 
-用法：python tools/extract.py  → 在项目根生成 questions.json
+用法：python tools/extract.py  → 生成 src/data/questions.json
 测试见 tests/test_extract.py。
 """
 import json
@@ -89,7 +89,7 @@ def main() -> None:
         "generated_at": date.today().isoformat(),
         "banks": banks,
     }
-    out = project / "questions.json"
+    out = project / "src" / "data" / "questions.json"
     out.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
     total = sum(len(b["questions"]) for b in banks)
     review = sum(1 for b in banks for q in b["questions"] if q["needs_review"])

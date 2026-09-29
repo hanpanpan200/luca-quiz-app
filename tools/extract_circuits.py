@@ -1,7 +1,7 @@
 """从老师发的电路拼装 PDF 提取 60 题的题目文本、电路图与考点分类。
 
 用法：python tools/extract_circuits.py [pdf路径]
-输出：assets/circuits/qNN.jpg + circuits.json（项目根）
+输出：public/assets/circuits/qNN.jpg + src/data/circuits.json
 
 原理：pdftohtml -xml 提供每段文字/每张图的坐标。
 - 同一物理行的文字 run 先按坐标合并成逻辑行（题号可能被拆成独立 run）
@@ -20,7 +20,7 @@ from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parent.parent
 DEFAULT_PDF = Path("/Users/grace/Downloads/2024电路基础拼装(1-3年级）.pdf")
-OUT_DIR = PROJECT / "assets" / "circuits"
+OUT_DIR = PROJECT / "public" / "assets" / "circuits"
 
 TIME_LIMIT_SEC = 180
 
@@ -162,8 +162,8 @@ def main() -> None:
         image = None
         if src:
             # 存完整可服务路径（页面 <img src> 直接引用），文件名 qNN.jpg
-            image = f"assets/circuits/q{no:02d}.jpg"
-            shutil.copyfile(src, PROJECT / image)
+            image = f"assets/circuits/q{no:02d}.jpg"  # 相对 web 根（public/），<img src> 直接引用
+            shutil.copyfile(src, OUT_DIR / Path(image).name)
         questions.append({"id": f"c{no:02d}", "no": no, "text": text, "category": CATEGORY_BY_NO[no], "image": image})
 
     data = {
@@ -172,7 +172,7 @@ def main() -> None:
         "categories": CATEGORIES,
         "questions": questions,
     }
-    out = PROJECT / "circuits.json"
+    out = PROJECT / "src" / "data" / "circuits.json"
     out.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
 
     with_img = sum(1 for q in questions if q["image"])
