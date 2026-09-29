@@ -9,8 +9,8 @@ beforeEach(() => {
 
 /** 进入某 tab 后切换到编程题子模块 */
 function gotoProg() {
-  fireEvent.click(screen.getByRole("button", { name: /编程题/ }));
-  expect(screen.getByRole("button", { name: /选择题/ })).toBeInTheDocument();
+  fireEvent.click(screen.getByRole("tab", { name: /编程题/ }));
+  expect(screen.getByRole("tab", { name: /选择题/ })).toBeInTheDocument();
 }
 
 describe("AI 编程题子模块（挂在各 tab 下）", () => {
