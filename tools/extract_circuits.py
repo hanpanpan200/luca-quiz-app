@@ -1,7 +1,7 @@
 """从老师发的电路拼装 PDF 提取 60 题的题目文本、电路图与考点分类。
 
 用法：python tools/extract_circuits.py [pdf路径]
-输出：public/assets/circuits/qNN.jpg + src/data/circuits.json
+输出：public/assets/circuits/qNN.png（按渲染页裁剪，天然应用变换矩阵）+ src/data/circuits.json
 
 原理：pdftohtml -xml 提供每段文字/每张图的坐标。
 - 同一物理行的文字 run 先按坐标合并成逻辑行（题号可能被拆成独立 run）
@@ -74,30 +74,44 @@ def merge_lines(texts: list) -> list:
 
 
 def parse_pdf(pdf: Path) -> list:
-    """跑 pdftohtml，返回每页 {headers, lines, images}。"""
+    """跑 pdftohtml 取几何 + pdftoppm 渲染页面，返回每页 {headers, lines, images}。
+
+    图片一律从渲染页按 XML 坐标裁剪：渲染天然应用全部变换矩阵
+    （pdftohtml 对负高度等复杂变换对象写出的嵌入流与实际绘制内容不符）。
+    """
     tmp = Path(tempfile.mkdtemp(prefix="circuits_xml_"))
     subprocess.run(["pdftohtml", "-xml", str(pdf), str(tmp / "doc")], check=True, capture_output=True)
     root = ET.parse(next(tmp.glob("doc*.xml"))).getroot()
+    dpi = 200
+    subprocess.run(
+        ["pdftoppm", "-png", "-r", str(dpi), str(pdf), str(tmp / "page")],
+        check=True, capture_output=True,
+    )
     pages = []
-    for page in root.findall("page"):
+    for pno, page in enumerate(root.findall("page"), start=1):
         mid = int(page.get("width")) / 2
+        pw, ph = int(page.get("width")), int(page.get("height"))
         texts, images = [], []
         for el in page:
+            if el.tag != "image":
+                continue
             col = "L" if int(el.get("left", 0)) < mid else "R"
-            if el.tag == "text":
-                content = "".join(el.itertext()).strip()
-                if content:
-                    texts.append({"top": int(el.get("top")), "left": int(el.get("left")), "col": col, "text": content})
-            elif el.tag == "image":
-                h = int(el.get("height"))
-                images.append({
-                    "top": int(el.get("top")), "col": col,
-                    "w": int(el.get("width")), "h": h,
-                    # PDF 变换矩阵翻转：负高度=上下颠倒、负宽度=左右镜像，
-                    # pdfimages 提取的是未应用变换的原始图，需要翻回来
-                    "flip_v": h < 0, "flip_h": int(el.get("width")) < 0,
-                    "src": el.get("src"),
-                })
+            left, top = int(el.get("left")), int(el.get("top"))
+            w, h = int(el.get("width")), int(el.get("height"))
+            images.append({
+                "top": top, "col": col,
+                "w": abs(w), "h": abs(h),
+                "left": left, "page_no": pno,
+            })
+        # 文字单独一轮（保持原有顺序处理）
+        for el in page:
+            if el.tag != "text":
+                continue
+            col = "L" if int(el.get("left", 0)) < mid else "R"
+            content = "".join(el.itertext()).strip()
+            # 页脚页码（top>1150 的纯数字行）不是题文
+            if content and not (int(el.get("top")) > 1150 and re.fullmatch(r"\d{1,2}", content)):
+                texts.append({"top": int(el.get("top")), "left": int(el.get("left")), "col": col, "text": content})
         headers = []
         for ln in merge_lines(texts):
             m = HEADER_RE.match(ln["text"].replace(" ", ""))
@@ -109,7 +123,10 @@ def parse_pdf(pdf: Path) -> list:
             if h["no"] not in seen:
                 seen.add(h["no"])
                 dedup.append(h)
-        pages.append({"headers": dedup, "lines": merge_lines(texts), "texts": texts, "images": images, "tmp": tmp})
+        pages.append({
+            "headers": dedup, "lines": merge_lines(texts), "texts": texts,
+            "images": images, "tmp": tmp, "dpi": dpi, "pw": pw, "ph": ph,
+        })
     return pages
 
 
@@ -128,8 +145,7 @@ def main() -> None:
     # 图片归属：全文档按 (页, 栏, top) 视作连续栏流（题块可跨页跨栏延伸，
     # 如 q12 的图溢出到下一页栏顶）。顺序遍历，图归属于流中最近的上一个标题。
     qimg = {}
-    flipped = {}  # src -> 最终落盘是否翻转（同题多图时以被选中的为准）
-    orphan_srcs = []
+    orphan_cnt = 0
     last_header = None
     for page in pages:
         for col in ("L", "R"):
@@ -144,38 +160,53 @@ def main() -> None:
                     last_header = item["no"]
                 else:
                     if last_header is None:
-                        orphan_srcs.append(item["src"])
+                        orphan_cnt += 1
                         continue
                     area = item["w"] * item["h"]
-                    if last_header not in qimg or area > qimg[last_header][1]:
-                        qimg[last_header] = (item["src"], area)
-                        flipped[item["src"]] = item["flip_v"] or item["flip_h"]
+                    if last_header not in qimg or area > qimg[last_header]["w"] * qimg[last_header]["h"]:
+                        qimg[last_header] = item
 
-    # 文字：每题 = 标题行之后、下一标题行之前的所有 run（同栏、按 top/left 排序）
+    # 文字归属：与图片相同的全栏流逻辑（页→栏→top 连续遍历，行归流中最近的上一个
+    # 标题）——题块可跨页跨栏延伸，页内几何法会把跨界的尾行分错给邻题
     texts = {no: [] for no in all_nos}
+    last_header = None
     for page in pages:
-        for ln in page["lines"]:
-            cands = [h for h in page["headers"] if h["col"] == ln["col"] and h["top"] <= ln["top"]]
-            if cands:
-                owner = max(cands, key=lambda h: h["top"])["no"]
-                texts[owner].append(ln["text"])
+        for col in ("L", "R"):
+            col_headers = sorted([h for h in page["headers"] if h["col"] == col], key=lambda h: h["top"])
+            col_lines = sorted([ln for ln in page["lines"] if ln["col"] == col], key=lambda ln: ln["top"])
+            items = sorted(
+                [{"kind": "h", **h} for h in col_headers] + [{"kind": "t", **ln} for ln in col_lines],
+                key=lambda x: x["top"],
+            )
+            for item in items:
+                if item["kind"] == "h":
+                    last_header = item["no"]
+                elif last_header is not None:
+                    texts[last_header].append(item["text"])
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    flipped_nos = []
+    from PIL import Image
+
+    rendered: dict[int, Image.Image] = {}
     questions = []
     for no in all_nos:
         text = re.sub(r"\s+", "", "".join(texts[no]))
-        src = qimg.get(no, (None, 0))[0]
+        img = qimg.get(no)
         image = None
-        if src:
-            # 存完整可服务路径（页面 <img src> 直接引用），文件名 qNN.jpg
-            image = f"assets/circuits/q{no:02d}.jpg"  # 相对 web 根（public/），<img src> 直接引用
-            dest = OUT_DIR / Path(image).name
-            if flipped.get(src):
-                flip_image(src, dest)
-                flipped_nos.append(no)
-            else:
-                shutil.copyfile(src, dest)
+        if img:
+            # 从渲染页按 XML 坐标裁剪（变换矩阵已由渲染正确应用）
+            if img["page_no"] not in rendered:
+                rendered[img["page_no"]] = Image.open(
+                    tmp / f"page-{img['page_no']:02d}.png" if (tmp / f"page-{img['page_no']:02d}.png").exists()
+                    else tmp / f"page-{img['page_no']}.png"
+                )
+            page_im = rendered[img["page_no"]]
+            pw, ph = pages[img["page_no"] - 1]["pw"], pages[img["page_no"] - 1]["ph"]
+            sx, sy = page_im.width / pw, page_im.height / ph
+            box = (int(img["left"] * sx), int(img["top"] * sy),
+                   int((img["left"] + img["w"]) * sx), int((img["top"] + img["h"]) * sy))
+            page_im.crop(box).save(OUT_DIR / f"q{no:02d}.png")
+            image = f"assets/circuits/q{no:02d}.png"
         questions.append({"id": f"c{no:02d}", "no": no, "text": text, "category": CATEGORY_BY_NO[no], "image": image})
 
     data = {
@@ -189,17 +220,8 @@ def main() -> None:
 
     with_img = sum(1 for q in questions if q["image"])
     print(f"✅ {out.name}：{len(questions)} 题，配图 {with_img}，无图 {len(questions) - with_img}")
-    print(f"   未归属图片 {len(orphan_srcs)} 张；无图题号 {[q['no'] for q in questions if not q['image']]}")
-    print(f"   已翻转修正 {len(flipped_nos)} 张：q{flipped_nos}（PDF 负高度变换）")
+    print(f"   未归属图片 {orphan_cnt} 张；无图题号 {[q['no'] for q in questions if not q['image']]}")
     shutil.rmtree(tmp, ignore_errors=True)
-
-
-def flip_image(src: str, dest: Path) -> None:
-    """按 XML 变换矩阵把上下颠倒的图翻回来后保存（本册 PDF 只出现负高度）。"""
-    from PIL import Image, ImageOps
-
-    with Image.open(src) as im:
-        ImageOps.flip(im).save(dest, quality=92)
 
 
 if __name__ == "__main__":
