@@ -48,6 +48,7 @@ export default function ChipSessionScreen({ session, onExit, onRestart }: Props)
 
   function startTimer() {
     if (timer || finished) return;
+    setNow(Date.now()); // 同步刷新：否则首帧用过期的 now 减新 startAt 会闪负数
     setTimer(chipTimerStart(session.qs[i].id, Date.now()));
     setLastDone(null);
   }

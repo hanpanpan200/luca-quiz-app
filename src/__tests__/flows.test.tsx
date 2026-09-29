@@ -75,6 +75,19 @@ describe("chip 模块交互流", () => {
     expect(screen.getByText(/^第 1 题 ·/)).toBeInTheDocument(); // 当前显示第1题
   });
 
+  it("开始计时首帧即 0:00，不闪负数（准备 60 秒后再开始）", () => {
+    vi.useFakeTimers();
+    render(<MemoryRouter initialEntries={["/chip/chipPractice"]}><ChipApp /></MemoryRouter>);
+
+    fireEvent.click(screen.getByRole("button", { name: /电容延时/ }));
+    act(() => { vi.advanceTimersByTime(60_000); }); // 孩子看题准备 60 秒，期间 now 状态过期
+
+    fireEvent.click(screen.getByRole("button", { name: /开始计时/ }));
+    const clock = document.querySelector(".score-hero .num");
+    expect(clock?.textContent).toBe("0:00"); // 首帧必须是 0:00，而不是 -1:57 之类的负数
+    vi.useRealTimers();
+  });
+
   it("练习：题号范围非法时开始按钮禁用", () => {
     render(<MemoryRouter initialEntries={["/chip/chipPractice"]}><ChipApp /></MemoryRouter>);
 
