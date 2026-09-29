@@ -89,9 +89,13 @@ def parse_pdf(pdf: Path) -> list:
                 if content:
                     texts.append({"top": int(el.get("top")), "left": int(el.get("left")), "col": col, "text": content})
             elif el.tag == "image":
+                h = int(el.get("height"))
                 images.append({
                     "top": int(el.get("top")), "col": col,
-                    "w": int(el.get("width")), "h": int(el.get("height")),
+                    "w": int(el.get("width")), "h": h,
+                    # PDF 变换矩阵翻转：负高度=上下颠倒、负宽度=左右镜像，
+                    # pdfimages 提取的是未应用变换的原始图，需要翻回来
+                    "flip_v": h < 0, "flip_h": int(el.get("width")) < 0,
                     "src": el.get("src"),
                 })
         headers = []
@@ -124,6 +128,7 @@ def main() -> None:
     # 图片归属：全文档按 (页, 栏, top) 视作连续栏流（题块可跨页跨栏延伸，
     # 如 q12 的图溢出到下一页栏顶）。顺序遍历，图归属于流中最近的上一个标题。
     qimg = {}
+    flipped = {}  # src -> 最终落盘是否翻转（同题多图时以被选中的为准）
     orphan_srcs = []
     last_header = None
     for page in pages:
@@ -144,6 +149,7 @@ def main() -> None:
                     area = item["w"] * item["h"]
                     if last_header not in qimg or area > qimg[last_header][1]:
                         qimg[last_header] = (item["src"], area)
+                        flipped[item["src"]] = item["flip_v"] or item["flip_h"]
 
     # 文字：每题 = 标题行之后、下一标题行之前的所有 run（同栏、按 top/left 排序）
     texts = {no: [] for no in all_nos}
@@ -155,6 +161,7 @@ def main() -> None:
                 texts[owner].append(ln["text"])
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    flipped_nos = []
     questions = []
     for no in all_nos:
         text = re.sub(r"\s+", "", "".join(texts[no]))
@@ -163,7 +170,12 @@ def main() -> None:
         if src:
             # 存完整可服务路径（页面 <img src> 直接引用），文件名 qNN.jpg
             image = f"assets/circuits/q{no:02d}.jpg"  # 相对 web 根（public/），<img src> 直接引用
-            shutil.copyfile(src, OUT_DIR / Path(image).name)
+            dest = OUT_DIR / Path(image).name
+            if flipped.get(src):
+                flip_image(src, dest)
+                flipped_nos.append(no)
+            else:
+                shutil.copyfile(src, dest)
         questions.append({"id": f"c{no:02d}", "no": no, "text": text, "category": CATEGORY_BY_NO[no], "image": image})
 
     data = {
@@ -178,7 +190,16 @@ def main() -> None:
     with_img = sum(1 for q in questions if q["image"])
     print(f"✅ {out.name}：{len(questions)} 题，配图 {with_img}，无图 {len(questions) - with_img}")
     print(f"   未归属图片 {len(orphan_srcs)} 张；无图题号 {[q['no'] for q in questions if not q['image']]}")
+    print(f"   已翻转修正 {len(flipped_nos)} 张：q{flipped_nos}（PDF 负高度变换）")
     shutil.rmtree(tmp, ignore_errors=True)
+
+
+def flip_image(src: str, dest: Path) -> None:
+    """按 XML 变换矩阵把上下颠倒的图翻回来后保存（本册 PDF 只出现负高度）。"""
+    from PIL import Image, ImageOps
+
+    with Image.open(src) as im:
+        ImageOps.flip(im).save(dest, quality=92)
 
 
 if __name__ == "__main__":
