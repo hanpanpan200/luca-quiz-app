@@ -62,4 +62,26 @@ describe("chip 模块交互流", () => {
     expect(wrongTab2?.textContent).not.toContain("1");
     vi.useRealTimers();
   });
+
+  it("练习：按题号 1~2 练习，顺序出题", () => {
+    render(<MemoryRouter initialEntries={["/chip/chipPractice"]}><ChipApp /></MemoryRouter>);
+
+    fireEvent.click(screen.getByRole("button", { name: /按题号/ }));
+    fireEvent.change(screen.getByLabelText(/起始题号/), { target: { value: "1" } });
+    fireEvent.change(screen.getByLabelText(/结束题号/), { target: { value: "2" } });
+    fireEvent.click(screen.getByRole("button", { name: /开始练习/ }));
+
+    expect(screen.getByText(/第 1 \/ 2 题/)).toBeInTheDocument();
+    expect(screen.getByText(/^第 1 题 ·/)).toBeInTheDocument(); // 当前显示第1题
+  });
+
+  it("练习：题号范围非法时开始按钮禁用", () => {
+    render(<MemoryRouter initialEntries={["/chip/chipPractice"]}><ChipApp /></MemoryRouter>);
+
+    fireEvent.click(screen.getByRole("button", { name: /按题号/ }));
+    fireEvent.change(screen.getByLabelText(/起始题号/), { target: { value: "5" } });
+    fireEvent.change(screen.getByLabelText(/结束题号/), { target: { value: "3" } }); // 起>止
+
+    expect(screen.getByRole("button", { name: /开始练习/ })).toBeDisabled();
+  });
 });
