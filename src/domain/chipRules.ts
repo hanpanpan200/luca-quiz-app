@@ -1,4 +1,4 @@
-import type { ChipStore } from "../types";
+import type { ChipAttempt } from "../types";
 import { shuffle } from "./utils";
 
 export const TIME_LIMIT_SEC = 180;
@@ -44,8 +44,14 @@ export function sampleCircuitExam<T>(qs: readonly T[], n: number): T[] {
   return shuffle(qs).slice(0, n);
 }
 
+/** 超时本规则的宿主结构（ChipStore 与 ProgStore 均满足） */
+export interface WrongBookStore {
+  attempts: Record<string, ChipAttempt>;
+  wrongBook: string[];
+}
+
 /** 记录一次练习：超时进超时本；连续 2 次达标毕业。就地修改 store。 */
-export function recordChipAttempt(s: ChipStore, qid: string, ms: number, limitMs: number) {
+export function recordChipAttempt(s: WrongBookStore, qid: string, ms: number, limitMs: number) {
   const overtime = ms > limitMs;
   const a = s.attempts[qid] || (s.attempts[qid] = { best_ms: null, count: 0, streak: 0 });
   a.count += 1;

@@ -1,7 +1,8 @@
-import type { AiStore, ChipStore } from "./types";
+import type { AiStore, ChipStore, ProgStore } from "./types";
 
 const AI_KEY = "swcode_quiz_v1";
 const CHIP_KEY = "swcode_chip_v1";
+const PROG_KEY = "swcode_prog_v1";
 
 export function freshAiStore(): AiStore {
   return { answers: {}, wrongBook: [], graduated: [], examHistory: [], v: 1 };
@@ -40,4 +41,18 @@ export function saveAiStore(store: AiStore): void {
 
 export function saveChipStore(store: ChipStore): void {
   localStorage.setItem(CHIP_KEY, JSON.stringify(store));
+}
+
+/** AI 模块·编程题：结构与 chipStore 相同（attempts + wrongBook） */
+export function freshProgStore(): ProgStore {
+  return { v: 1, attempts: {}, wrongBook: [] };
+}
+
+export function loadProgStore(): ProgStore {
+  return load(PROG_KEY, freshProgStore, (s) =>
+    typeof (s as ProgStore).attempts === "object" && Array.isArray((s as ProgStore).wrongBook));
+}
+
+export function saveProgStore(store: ProgStore): void {
+  localStorage.setItem(PROG_KEY, JSON.stringify(store));
 }

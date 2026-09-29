@@ -86,3 +86,10 @@ export interface ChipStore {
   mic_enabled: boolean;
   exam_history: ChipExamHistoryEntry[];
 }
+
+/** 持久化：AI 模块·编程题（超时本） */
+export interface ProgStore {
+  v: 1;
+  attempts: Record<string, ChipAttempt>;
+  wrongBook: string[];
+}

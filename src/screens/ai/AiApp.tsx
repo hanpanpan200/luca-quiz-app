@@ -6,6 +6,7 @@ import { loadAiStore, saveAiStore } from "../../storage";
 import type { AiStore } from "../../types";
 import ExamScreen from "./ExamScreen";
 import PracticeScreen from "./PracticeScreen";
+import ProgrammingScreen from "./ProgrammingScreen";
 import StatsScreen from "./StatsScreen";
 import StudyScreen from "./StudyScreen";
 import WrongScreen from "./WrongScreen";
@@ -14,6 +15,7 @@ const TABS = [
   { id: "study", label: "📖 学习" },
   { id: "practice", label: "✏️ 练习" },
   { id: "exam", label: "🏆 模拟考" },
+  { id: "prog", label: "💻 编程题" },
   { id: "wrong", label: "❌ 错题本" },
   { id: "stats", label: "📊 统计" },
 ];
@@ -66,6 +68,7 @@ export default function AiApp() {
       {tab === "study" && <StudyScreen bank={bank} chapter={chapter} />}
       {tab === "practice" && <PracticeScreen bank={bank} />}
       {tab === "exam" && <ExamScreen />}
+      {tab === "prog" && <ProgrammingScreen />}
       {tab === "wrong" && <WrongScreen />}
       {tab === "stats" && <StatsScreen />}
     </AiStoreContext.Provider>
