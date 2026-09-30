@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-29",
+ "generated_at": "2026-09-30",
  "time_limit_sec": 180,
  "categories": [
   {
@@ -406,7 +406,7 @@
    "no": 52,
    "text": "52、识图搭建并演示电路功能：按住电键，红、绿LED亮一会儿就自动熄灭；放开电键等待一会儿再次按住电键，红、绿LED又亮一会儿自动熄灭。可重复上述操作。",
    "category": "capacitor",
-   "image": "assets/circuits/q52.png"
+   "image": null
   },
   {
    "id": "c53",

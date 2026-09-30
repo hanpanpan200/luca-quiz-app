@@ -19,7 +19,7 @@ from datetime import date
 from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parent.parent
-DEFAULT_PDF = Path("/Users/grace/Downloads/2024电路基础拼装(1-3年级）.pdf")
+DEFAULT_PDF = PROJECT / "raw" / "2024电路基础拼装(1-3年级）.pdf"
 OUT_DIR = PROJECT / "public" / "assets" / "circuits"
 
 TIME_LIMIT_SEC = 180
@@ -98,10 +98,14 @@ def parse_pdf(pdf: Path) -> list:
             col = "L" if int(el.get("left", 0)) < mid else "R"
             left, top = int(el.get("left")), int(el.get("top"))
             w, h = int(el.get("width")), int(el.get("height"))
+            # 负高度=图绘制在 (top-|h|, top)；负宽度同理左右翻（本册未出现）
+            draw_top = top - abs(h) if h < 0 else top
+            draw_left = left - abs(w) if w < 0 else left
             images.append({
-                "top": top, "col": col,
+                "top": draw_top, "col": col,
                 "w": abs(w), "h": abs(h),
-                "left": left, "page_no": pno,
+                "left": draw_left, "page_no": pno,
+                "bottom": draw_top + abs(h),
             })
         # 文字单独一轮（保持原有顺序处理）
         for el in page:
@@ -155,6 +159,7 @@ def main() -> None:
                 [{"kind": "h", **h} for h in col_headers] + [{"kind": "i", **i} for i in col_images],
                 key=lambda x: x["top"],
             )
+            col_text_tops = sorted(ln["top"] for ln in page["lines"] if ln["col"] == col)
             for item in items:
                 if item["kind"] == "h":
                     last_header = item["no"]
@@ -162,9 +167,18 @@ def main() -> None:
                     if last_header is None:
                         orphan_cnt += 1
                         continue
+                    # 「图上文下」版式判据（双条件，避免误伤正常文上图下）：
+                    # ① 图底与下方标题紧贴（≤16px）；② 图顶与上方文本明显脱离（≥60px）
+                    owner = last_header
+                    below_hdr = min((h for h in col_headers if h["top"] >= item["bottom"]), key=lambda h: h["top"], default=None)
+                    if below_hdr and 0 <= below_hdr["top"] - item["bottom"] <= 16:
+                        prev_text_bottom = max((t + 21 for t in col_text_tops if t < item["top"]), default=-10**9)
+                        gap_up = item["top"] - prev_text_bottom
+                        if gap_up >= 60:
+                            owner = below_hdr["no"]
                     area = item["w"] * item["h"]
-                    if last_header not in qimg or area > qimg[last_header]["w"] * qimg[last_header]["h"]:
-                        qimg[last_header] = item
+                    if owner not in qimg or area > qimg[owner]["w"] * qimg[owner]["h"]:
+                        qimg[owner] = item
 
     # 文字归属：与图片相同的全栏流逻辑（页→栏→top 连续遍历，行归流中最近的上一个
     # 标题）——题块可跨页跨栏延伸，页内几何法会把跨界的尾行分错给邻题
