@@ -40,6 +40,15 @@ raw/            题库 HTML 源数据（提取流水线输入）
 | Cloudflare Pages | `npm run build` | `dist` |
 | EdgeOne Pages | `npm run build` | `dist` |
 
+## 本地通过CLI部署到EdgeOne Pages
+
+```bash
+npm install -g edgeone
+edgeone login          # 浏览器扫码登录
+edgeone pages deploy ./dist --name luca-quiz-app
+```
+然后访问：https://luca-quiz-app-dpjrbhmd1t72.edgeone.cool
+
 ## 数据更新（老师发新题库时）
 
 ```bash

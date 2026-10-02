@@ -6,3 +6,9 @@ __pycache__/
 .pytest_cache/
 node_modules/
 dist/
+
+# Tencent Cloud EdgeOne
+.env
+.edgeone/*
+.tef_dist/*
+  
