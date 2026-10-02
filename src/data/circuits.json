@@ -203,7 +203,7 @@
    "no": 23,
    "text": "23、按下图拼搭，完成实验并演示效果。接通开关，按下电键电风扇（）转，放开电键电风扇延迟后停止。（更换一个元器件，延迟时间变长）",
    "category": "capacitor",
-   "image": null
+   "image": "assets/circuits/q23.png"
   },
   {
    "id": "c24",
@@ -231,7 +231,7 @@
    "no": 27,
    "text": "27.请按电路图所示搭建实验电路，并按下列步骤进行演示，接通开关，灯泡不亮，按住电键，灯泡点亮；松开电键后，灯泡缓缓熄灭。",
    "category": "capacitor",
-   "image": null
+   "image": "assets/circuits/q27.png"
   },
   {
    "id": "c28",
@@ -406,7 +406,7 @@
    "no": 52,
    "text": "52、识图搭建并演示电路功能：按住电键，红、绿LED亮一会儿就自动熄灭；放开电键等待一会儿再次按住电键，红、绿LED又亮一会儿自动熄灭。可重复上述操作。",
    "category": "capacitor",
-   "image": null
+   "image": "assets/circuits/q52.png"
   },
   {
    "id": "c53",
@@ -441,7 +441,7 @@
    "no": 57,
    "text": "57、识图搭建，按要求演示并说出电路产生了怎样的现象？①接通开关并保持导通状态，现象是？②只按住电键S1，现象是？③只按住电键S2，现象是？④能同时按住电键S1、S2吗？现象是？",
    "category": "comprehensive",
-   "image": null
+   "image": "assets/circuits/q57.png"
   },
   {
    "id": "c58",
