@@ -5,13 +5,15 @@ import ChipSessionScreen, { type ChipSession } from "./ChipSessionScreen";
 
 export default function ChipExamScreen() {
   const [session, setSession] = useState<ChipSession | null>(null);
+  const [seed, setSeed] = useState(0);
 
   function start() {
+    setSeed((s) => s + 1); // 换 key 重挂会话组件：「再来一场」要清空进度/计时状态
     setSession({ mode: "exam", qs: sampleCircuitExam(CIRCUITS.questions, 4) });
   }
 
   if (session) {
-    return <ChipSessionScreen session={session} onExit={() => setSession(null)} onRestart={start} />;
+    return <ChipSessionScreen key={seed} session={session} onExit={() => setSession(null)} onRestart={start} />;
   }
 
   return (

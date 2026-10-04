@@ -150,12 +150,13 @@
     font-size: 19px; font-family: inherit; font-weight: 600;
     box-shadow: var(--shadow); transition: transform .12s, background .12s;
   }
-  .btn:hover { background: var(--green-deep); transform: translateY(-2px); }
+  .btn:hover:not(:disabled) { background: var(--green-deep); transform: translateY(-2px); }
   .btn.ghost { background: #fff; color: var(--green-deep); border: 2px solid var(--green); }
-  .btn.ghost:hover { background: var(--green-pale); }
+  .btn.ghost:hover:not(:disabled) { background: var(--green-pale); }
   .btn.warn { background: var(--orange); }
-  .btn.warn:hover { background: var(--orange-deep); }
+  .btn.warn:hover:not(:disabled) { background: var(--orange-deep); }
   .btn.small { min-height: 42px; padding: 8px 20px; font-size: 16px; }
+  .btn:disabled { opacity: .55; cursor: default; box-shadow: none; }
   .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
 
   /* ---- 学习模式题目卡 ---- */

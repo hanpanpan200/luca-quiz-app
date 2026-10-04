@@ -97,4 +97,100 @@ describe("chip 模块交互流", () => {
 
     expect(screen.getByRole("button", { name: /开始练习/ })).toBeDisabled();
   });
+
+  it("练习：做完的题计入成绩单（两题都完成后 2/2，不再显示 0/2）", () => {
+    vi.useFakeTimers();
+    render(<MemoryRouter initialEntries={["/chip/chipPractice"]}><ChipApp /></MemoryRouter>);
+
+    fireEvent.click(screen.getByRole("button", { name: /按题号/ }));
+    fireEvent.change(screen.getByLabelText(/起始题号/), { target: { value: "1" } });
+    fireEvent.change(screen.getByLabelText(/结束题号/), { target: { value: "2" } });
+    fireEvent.click(screen.getByRole("button", { name: /开始练习/ }));
+
+    for (let q = 1; q <= 2; q++) {
+      act(() => { vi.advanceTimersByTime(700); }); // 过防误触锁（开题/翻题后按钮暂锁）
+      fireEvent.click(screen.getByRole("button", { name: /开始计时/ }));
+      act(() => { vi.advanceTimersByTime(90_000); });
+      fireEvent.click(screen.getByRole("button", { name: /我做完了/ }));
+      act(() => { vi.advanceTimersByTime(700); });
+      if (q === 1) fireEvent.click(screen.getByRole("button", { name: /下一题/ }));
+    }
+    fireEvent.click(screen.getByRole("button", { name: /看结果/ }));
+
+    expect(screen.getByText(/本轮练习完成/)).toBeInTheDocument();
+    expect(document.querySelector(".score-hero")?.textContent).toContain("2 / 2 题");
+    vi.useRealTimers();
+  });
+
+  it("练习：做完一题后可一键「结束练习」，不必点完剩下的题", () => {
+    vi.useFakeTimers();
+    render(<MemoryRouter initialEntries={["/chip/chipPractice"]}><ChipApp /></MemoryRouter>);
+
+    fireEvent.click(screen.getByRole("button", { name: /按题号/ }));
+    fireEvent.change(screen.getByLabelText(/起始题号/), { target: { value: "1" } });
+    fireEvent.change(screen.getByLabelText(/结束题号/), { target: { value: "5" } });
+    fireEvent.click(screen.getByRole("button", { name: /开始练习/ }));
+
+    fireEvent.click(screen.getByRole("button", { name: /开始计时/ }));
+    act(() => { vi.advanceTimersByTime(60_000); });
+    fireEvent.click(screen.getByRole("button", { name: /我做完了/ }));
+    act(() => { vi.advanceTimersByTime(700); });
+    fireEvent.click(screen.getByRole("button", { name: /结束练习/ }));
+
+    expect(screen.getByText(/本轮练习完成/)).toBeInTheDocument();
+    expect(document.querySelector(".score-hero")?.textContent).toContain("1 / 5 题");
+    vi.useRealTimers();
+  });
+
+  it("练习：连点「我做完了」多出的几下不会串到下一屏按钮（防误触锁）", () => {
+    vi.useFakeTimers();
+    render(<MemoryRouter initialEntries={["/chip/chipPractice"]}><ChipApp /></MemoryRouter>);
+
+    fireEvent.click(screen.getByRole("button", { name: /按题号/ }));
+    fireEvent.change(screen.getByLabelText(/起始题号/), { target: { value: "1" } });
+    fireEvent.change(screen.getByLabelText(/结束题号/), { target: { value: "2" } });
+    fireEvent.click(screen.getByRole("button", { name: /开始练习/ }));
+
+    // 计时中锁过期后才点「我做完了」——此后立刻连点刚出现的「下一题」
+    fireEvent.click(screen.getByRole("button", { name: /开始计时/ }));
+    act(() => { vi.advanceTimersByTime(700); });
+    fireEvent.click(screen.getByRole("button", { name: /我做完了/ }));
+
+    // 锁定窗口内「下一题」点不动（disabled），仍在第 1 题
+    const next = screen.getByRole("button", { name: /下一题/ });
+    expect(next).toBeDisabled();
+    fireEvent.click(next);
+    expect(screen.getByText(/第 1 \/ 2 题/)).toBeInTheDocument();
+
+    // 锁过期后可正常翻题
+    act(() => { vi.advanceTimersByTime(700); });
+    fireEvent.click(screen.getByRole("button", { name: /下一题/ }));
+    expect(screen.getByText(/第 2 \/ 2 题/)).toBeInTheDocument();
+    vi.useRealTimers();
+  });
+
+  it("模拟考：成绩单「再来一场」重新抽题，从第 1 题重新开始", () => {
+    vi.useFakeTimers();
+    render(<MemoryRouter initialEntries={["/chip/chipExam"]}><ChipApp /></MemoryRouter>);
+
+    fireEvent.click(screen.getByRole("button", { name: /开始考试/ }));
+    fireEvent.click(screen.getByRole("button", { name: /开始计时/ }));
+    act(() => { vi.advanceTimersByTime(10_000); });
+    fireEvent.click(screen.getByRole("button", { name: /我做完了/ }));
+    act(() => { vi.advanceTimersByTime(700); });
+    fireEvent.click(screen.getByRole("button", { name: /结束考试/ }));
+
+    expect(screen.getByText(/模拟考成绩单/)).toBeInTheDocument();
+    expect(document.querySelector(".score-hero")?.textContent).toContain("1 / 4 题"); // 只做了1题
+
+    // 提前进考试也要留下本场记录（times_ms 含未做的 null）
+    const saved = JSON.parse(localStorage.getItem("swcode_chip_v1") || "{}");
+    expect(saved.exam_history).toHaveLength(1);
+    expect(saved.exam_history[0].times_ms).toEqual([10000, null, null, null]);
+
+    act(() => { vi.advanceTimersByTime(700); });
+    fireEvent.click(screen.getByRole("button", { name: /再来一场/ }));
+    expect(screen.getByText(/第 1 \/ 4 题/)).toBeInTheDocument(); // 新一场从头开始
+    vi.useRealTimers();
+  });
 });

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CIRCUITS } from "../../data";
 import { chipLimitMs, chipTimerStart, chipTimerStop, recordChipAttempt, type TimerState } from "../../domain/chipRules";
 import { fmtMs, todayLabel } from "../../domain/utils";
@@ -27,15 +27,20 @@ interface LastDone {
 const LIMIT_MS = chipLimitMs(CIRCUITS.time_limit_sec);
 const LIMIT_S = LIMIT_MS / 1000;
 
+/** 按钮防误触窗口：换屏后短暂锁定操作键，连点/手滑不会串到下一屏的按钮上 */
+const TAP_LOCK_MS = 600;
+
 /** 答题会话：电路图 + 题目 + 正计时（3 分钟变红）+ 声控/按钮，核心交互屏 */
 export default function ChipSessionScreen({ session, onExit, onRestart }: Props) {
   const { store, setStore } = useChipStore();
   const [i, setI] = useState(0);
-  const [times, setTimes] = useState<(number | null)[]>([]);
+  const [times, setTimes] = useState<(number | null)[]>(() => Array(session.qs.length).fill(null));
   const [timer, setTimer] = useState<TimerState | null>(null);
   const [lastDone, setLastDone] = useState<LastDone | null>(null);
   const [finished, setFinished] = useState(false);
   const [now, setNow] = useState(() => Date.now());
+  const [locked, setLocked] = useState(false);
+  const lockTimer = useRef<number>(undefined);
 
   // 计时中每 200ms 刷新显示（只更新时间文本，不重渲染整棵树）
   useEffect(() => {
@@ -44,17 +49,28 @@ export default function ChipSessionScreen({ session, onExit, onRestart }: Props)
     return () => clearInterval(id);
   }, [timer]);
 
+  useEffect(() => () => clearTimeout(lockTimer.current), []);
+
   const q = session.qs[i];
+
+  /** 每次换一组按钮就重新锁定：孩子连点「我做完了」时，多点的几下不会落到
+   *  刚出现在同一位置的「下一题 / 开始计时」上，避免一路误触冲到结尾。 */
+  function relock() {
+    setLocked(true);
+    clearTimeout(lockTimer.current);
+    lockTimer.current = window.setTimeout(() => setLocked(false), TAP_LOCK_MS);
+  }
 
   function startTimer() {
     if (timer || finished) return;
     setNow(Date.now()); // 同步刷新：否则首帧用过期的 now 减新 startAt 会闪负数
     setTimer(chipTimerStart(session.qs[i].id, Date.now()));
     setLastDone(null);
+    relock();
   }
 
   function finishTimer() {
-    if (!timer) return;
+    if (!timer || locked) return; // 锁内不记成绩：刚开计时就「做完」必是误触，避免 0 秒假记录
     const r = chipTimerStop(timer, Date.now(), LIMIT_MS);
     const rec = { overtime: false, graduated: false };
     setStore((s) => {
@@ -67,29 +83,37 @@ export default function ChipSessionScreen({ session, onExit, onRestart }: Props)
     setTimes((t) => t.map((x, idx) => (idx === i ? r.ms : x)));
     setTimer(null);
     setLastDone({ ms: r.ms, overtime: rec.overtime, graduated: rec.graduated });
+    relock();
   }
 
   function abandonTimer() {
     if (!timer) return;
     setTimer(null);
+    relock();
+  }
+
+  function endSession() {
+    if (session.mode === "exam") {
+      setStore((s) => ({
+        ...s,
+        exam_history: [...s.exam_history, {
+          d: todayLabel(),
+          qids: session.qs.map((x) => x.id),
+          times_ms: times.map((t) => t ?? null),
+        }].slice(-20),
+      }));
+    }
+    setFinished(true);
+    relock();
   }
 
   function next() {
     if (i + 1 >= session.qs.length) {
-      if (session.mode === "exam") {
-        setStore((s) => ({
-          ...s,
-          exam_history: [...s.exam_history, {
-            d: todayLabel(),
-            qids: session.qs.map((x) => x.id),
-            times_ms: times.map((t) => t ?? null),
-          }].slice(-20),
-        }));
-      }
-      setFinished(true);
+      endSession();
     } else {
       setI(i + 1);
       setLastDone(null);
+      relock();
     }
   }
 
@@ -103,8 +127,8 @@ export default function ChipSessionScreen({ session, onExit, onRestart }: Props)
   });
 
   if (finished) return session.mode === "exam"
-    ? <ExamSummary session={session} times={times} onExit={onExit} onRestart={onRestart} />
-    : <PracticeSummary session={session} times={times} onExit={onExit} />;
+    ? <ExamSummary session={session} times={times} locked={locked} onExit={onExit} onRestart={onRestart} />
+    : <PracticeSummary session={session} times={times} locked={locked} onExit={onExit} />;
 
   const cat = CIRCUITS.categories.find((c) => c.id === q.category);
   const head = session.mode === "exam"
@@ -126,8 +150,8 @@ export default function ChipSessionScreen({ session, onExit, onRestart }: Props)
             <div style={{ fontSize: 15, color: "var(--ink-soft)" }}>目标 {LIMIT_S / 60} 分钟内完成，超时数字会变红</div>
           </div>
           <div className="btn-row" style={{ justifyContent: "center" }}>
-            <button className="btn warn" onClick={finishTimer}>✅ 我做完了</button>
-            <button className="btn ghost" onClick={abandonTimer}>放弃（不计时间）</button>
+            <button className="btn warn" disabled={locked} onClick={finishTimer}>✅ 我做完了</button>
+            <button className="btn ghost" disabled={locked} onClick={abandonTimer}>放弃（不计时间）</button>
           </div>
         </>
       ) : lastDone ? (
@@ -143,7 +167,8 @@ export default function ChipSessionScreen({ session, onExit, onRestart }: Props)
             对照题目检查一下效果对不对，不对就再拼一次
           </div>
           <div className="btn-row" style={{ justifyContent: "center" }}>
-            <button className="btn" onClick={next}>{i + 1 >= session.qs.length ? "看结果 📋" : "下一题 ➡️"}</button>
+            <button className="btn" disabled={locked} onClick={next}>{i + 1 >= session.qs.length ? "看结果 📋" : "下一题 ➡️"}</button>
+            <button className="btn ghost" disabled={locked} onClick={endSession}>🏁 结束{session.mode === "exam" ? "考试" : "练习"}</button>
           </div>
         </>
       ) : (
@@ -152,7 +177,7 @@ export default function ChipSessionScreen({ session, onExit, onRestart }: Props)
             <div style={{ fontSize: 19, color: "var(--ink-soft)" }}>看懂电路图，准备好元件后开始计时</div>
           </div>
           <div className="btn-row" style={{ justifyContent: "center" }}>
-            <button className="btn warn" onClick={startTimer}>▶️ 开始计时</button>
+            <button className="btn warn" disabled={locked} onClick={startTimer}>▶️ 开始计时</button>
           </div>
         </>
       )}
@@ -187,21 +212,23 @@ export function CircuitImage({ q, big }: { q: CircuitQuestion; big?: boolean }) 
   );
 }
 
-function ExamSummary({ session, times, onExit, onRestart }: {
+function ExamSummary({ session, times, locked, onExit, onRestart }: {
   session: ChipSession;
   times: (number | null)[];
+  locked: boolean;
   onExit: () => void;
   onRestart: () => void;
 }) {
   const done = times.filter((t): t is number => t != null);
   const over = done.filter((t) => t > LIMIT_MS).length;
+  const passed = done.length - over; // 按时完成数：没计时/超时的都不算
   const total = done.reduce((s, t) => s + t, 0);
   return (
     <div className="card">
       <h2 className="sec">📋 模拟考成绩单 <small>按真实规则：完成数 + 用时</small></h2>
       <div className="score-hero">
-        <span className="confetti">{over === 0 ? "🎉🎓🎊" : "💪"}</span>
-        <div className={`num ${over === 0 ? "" : "fail"}`}>{session.qs.length - over}<span style={{ fontSize: 24 }}> / {session.qs.length} 题</span></div>
+        <span className="confetti">{passed === session.qs.length ? "🎉🎓🎊" : "💪"}</span>
+        <div className={`num ${passed === session.qs.length ? "" : "fail"}`}>{passed}<span style={{ fontSize: 24 }}> / {session.qs.length} 题</span></div>
         <div className="verdict">总用时 {fmtMs(total)} · 超时 {over} 题{over ? "（已进超时本）" : ""}</div>
       </div>
       {session.qs.map((q, idx) => {
@@ -218,14 +245,14 @@ function ExamSummary({ session, times, onExit, onRestart }: {
         );
       })}
       <div className="btn-row">
-        <button className="btn" onClick={onRestart}>🔁 再来一场</button>
-        <button className="btn ghost" onClick={onExit}>返回</button>
+        <button className="btn" disabled={locked} onClick={onRestart}>🔁 再来一场</button>
+        <button className="btn ghost" disabled={locked} onClick={onExit}>返回</button>
       </div>
     </div>
   );
 }
 
-function PracticeSummary({ session, times, onExit }: { session: ChipSession; times: (number | null)[]; onExit: () => void }) {
+function PracticeSummary({ session, times, locked, onExit }: { session: ChipSession; times: (number | null)[]; locked: boolean; onExit: () => void }) {
   const done = times.filter((t): t is number => t != null);
   const over = done.filter((t) => t > LIMIT_MS).length;
   return (
@@ -233,10 +260,10 @@ function PracticeSummary({ session, times, onExit }: { session: ChipSession; tim
       <h2 className="sec">✏️ 本轮练习完成</h2>
       <div className="score-hero">
         <div className="num">{done.length}<span style={{ fontSize: 24 }}> / {session.qs.length} 题</span></div>
-        <div className="verdict">超时 {over} 题{over ? "，去超时本再战 💪" : "，全部达标 🎉"}</div>
+        <div className="verdict">{over ? `超时 ${over} 题，去超时本再战 💪` : done.length ? "全部达标 🎉" : ""}</div>
       </div>
       <div className="btn-row" style={{ justifyContent: "center" }}>
-        <button className="btn" onClick={onExit}>返回</button>
+        <button className="btn" disabled={locked} onClick={onExit}>返回</button>
       </div>
     </div>
   );
