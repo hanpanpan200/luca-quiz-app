@@ -6,7 +6,13 @@ export const EXAM_QUOTA: Record<string, number> = { 基础版: 10, 进阶版: 6,
 export const EXAM_SIZE = Object.values(EXAM_QUOTA).reduce((s, n) => s + n, 0);
 export const PASS_SCORE = 60;
 
-/** 分层抽题：每库各抽配额数；某库可用题不足时从全局剩余题补齐，整体洗牌出卷 */
+/** 题面指纹：题干 + 选项。官方题库存在同题收编进多个库/多个章节（id 不同题面相同） */
+function questionKey(q: Bank["questions"][number]): string {
+  return `${q.text}｜${q.options.join("｜")}`;
+}
+
+/** 分层抽题：每库各抽配额数；某库可用题不足时从全局剩余题补齐，整体洗牌出卷。
+ *  同题面跨库/跨章节只出一遍（重复题进同一场考卷会让题目重复出现）。 */
 export function sampleExamQuestions(banks: readonly Bank[], quota: Record<string, number>) {
   const unknown = Object.keys(quota).filter((k) => !banks.some((b) => b.name === k));
   const missing = banks.filter((b) => quota[b.name] === undefined).map((b) => b.name);
@@ -15,8 +21,14 @@ export function sampleExamQuestions(banks: readonly Bank[], quota: Record<string
   }
   const picked: Bank["questions"] = [];
   const rest: Bank["questions"] = [];
+  const seen = new Set<string>();
   for (const b of banks) {
-    const pool = shuffle(answerable(b.questions));
+    const pool = shuffle(answerable(b.questions)).filter((q) => {
+      const key = questionKey(q);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
     const n = quota[b.name] ?? 0;
     picked.push(...pool.slice(0, n));
     rest.push(...pool.slice(n));

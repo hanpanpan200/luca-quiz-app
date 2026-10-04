@@ -32,6 +32,30 @@ describe("AI 模拟考分层抽样", () => {
     expect(qs.filter((q) => q.bank === "进阶版").length).toBe(2);
   });
 
+  it("同题面跨库/跨章节只出一遍：一场模拟考无重复题（官方题库有同题收编，重复200次）", () => {
+    const face = (q: { text: string; options: string[] }) => `${q.text}|${q.options.join("|")}`;
+    // 题库本身确实存在重复题面（基础版/进阶版、高阶版两个章节各收了一遍）
+    const all = QUESTIONS.banks.flatMap((b) => b.questions);
+    expect(new Set(all.map(face)).size).toBeLessThan(all.length);
+    for (let k = 0; k < 200; k++) {
+      const qs = sampleExamQuestions(QUESTIONS.banks, EXAM_QUOTA);
+      const faces = qs.map(face);
+      expect(new Set(faces).size).toBe(faces.length);
+    }
+  });
+
+  it("去重只认题面：同题面不同 id 的两题不会同卷出现", () => {
+    const q = { ...QUESTIONS.banks[0].questions[0], needs_review: false };
+    const clone = { ...q, id: "重复-1-1", bank: "进阶版" };
+    const banks = [
+      { name: "基础版", chapters: [], questions: [q] },
+      { name: "进阶版", chapters: [], questions: [clone] },
+      { name: "高阶版", chapters: [], questions: QUESTIONS.banks[2].questions },
+    ];
+    const qs = sampleExamQuestions(banks, { 基础版: 1, 进阶版: 1, 高阶版: 1 });
+    expect(qs.filter((x) => x.text === q.text).length).toBe(1);
+  });
+
   it("计分：20题全对=100，12对=60，与配额总数解耦", () => {
     expect(examScore(20, 20)).toBe(100);
     expect(examScore(12, 20)).toBe(60);
