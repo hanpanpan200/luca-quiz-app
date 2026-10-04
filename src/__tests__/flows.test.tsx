@@ -1,6 +1,7 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
+import { QUESTIONS } from "../data";
 import AiApp from "../screens/ai/AiApp";
 import ChipApp from "../screens/chip/ChipApp";
 
@@ -25,6 +26,48 @@ describe("AI 模块交互流", () => {
 
     await user.click(screen.getByRole("button", { name: /下一题/ }));
     expect(screen.queryByText(/答对啦|答错啦/)).not.toBeInTheDocument(); // 新题无反馈
+  });
+
+  it("模拟考：交卷后错题展示同时标出正确答案 ✅ 和考试时选错的选项 ❌", () => {
+    render(<MemoryRouter initialEntries={["/ai/exam"]}><AiApp /></MemoryRouter>);
+    fireEvent.click(screen.getByRole("button", { name: /开始考试/ }));
+
+    // 每题都选一个错误选项（正确答案的下一个），确保全部进错题展示
+    const all = QUESTIONS.banks.flatMap((b) => b.questions);
+    for (let k = 0; k < 20; k++) {
+      const text = document.querySelector(".q-text")?.textContent ?? "";
+      const q = all.find((x) => x.text === text)!;
+      const wrongIdx = ("ABCD".indexOf(q.answer) + 1) % 4;
+      fireEvent.click(document.querySelectorAll(".opt")[wrongIdx]); // 选完自动进下一题
+    }
+    fireEvent.click(screen.getByRole("button", { name: /交卷/ }));
+
+    expect(screen.getByText(/这几题答错了/)).toBeInTheDocument();
+    const rows = document.querySelectorAll(".study-q");
+    expect(rows.length).toBe(20);
+    for (const row of rows) {
+      expect(row.querySelector("li.correct")).toBeTruthy(); // 正确答案 ✅
+      expect(row.querySelector("li.wrong")?.textContent).toContain("你选的"); // 考试时选错的 ❌
+    }
+  });
+
+  it("模拟考：未作答的题交卷后带「未作答」标记", () => {
+    vi.spyOn(window, "confirm").mockReturnValue(true); // 允许带空题交卷
+    render(<MemoryRouter initialEntries={["/ai/exam"]}><AiApp /></MemoryRouter>);
+    fireEvent.click(screen.getByRole("button", { name: /开始考试/ }));
+
+    const all = QUESTIONS.banks.flatMap((b) => b.questions);
+    fireEvent.click(screen.getByRole("button", { name: /下一题/ })); // 第 1 题空着跳过
+    for (let k = 1; k < 20; k++) {
+      const text = document.querySelector(".q-text")?.textContent ?? "";
+      const q = all.find((x) => x.text === text)!;
+      const wrongIdx = ("ABCD".indexOf(q.answer) + 1) % 4;
+      fireEvent.click(document.querySelectorAll(".opt")[wrongIdx]);
+    }
+    fireEvent.click(screen.getByRole("button", { name: /交卷/ }));
+
+    expect(screen.getByText("未作答")).toBeInTheDocument();
+    expect(document.querySelector(".study-q")?.querySelector("li.wrong")).toBeNull(); // 第一题空着：只有未作答标记，没有选错标记
   });
 });
 

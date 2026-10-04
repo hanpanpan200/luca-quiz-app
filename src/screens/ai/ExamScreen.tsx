@@ -56,7 +56,10 @@ export default function ExamScreen() {
 
   if (exam.finished) {
     const pass = (exam.score ?? 0) >= PASS_SCORE;
-    const wrongQs = exam.qs.filter((q, i) => exam.answers[i] === null || LETTERS[exam.answers[i]!] !== q.answer);
+    // 连同当时选的选项一起留下：错题展示要标出「考试时选错的那个」
+    const wrongQs = exam.qs
+      .map((q, i) => ({ q, picked: exam.answers[i] }))
+      .filter(({ q, picked }) => picked === null || LETTERS[picked] !== q.answer);
     return (
       <div className="card">
         <div className="score-hero">
@@ -67,17 +70,24 @@ export default function ExamScreen() {
         {wrongQs.length ? (
           <>
             <h2 className="sec" style={{ marginTop: 18 }}>❌ 这几题答错了（已进错题本）</h2>
-            {wrongQs.map((q) => (
+            {wrongQs.map(({ q, picked }) => (
               <div className="study-q" key={q.id}>
                 <div className="q-head"><span className="no">·</span>
                   <div>
-                    <div style={{ fontSize: 18 }}>{q.text}</div>
+                    <div style={{ fontSize: 18 }}>
+                      {q.text}
+                      {picked === null && <span className="mini-badge">未作答</span>}
+                    </div>
                     <ul>
-                      {q.options.map((o, i) => (
-                        <li key={i} className={LETTERS[i] === q.answer ? "correct" : ""}>
-                          {LETTERS[i]}. {o}{LETTERS[i] === q.answer ? " ✅" : ""}
-                        </li>
-                      ))}
+                      {q.options.map((o, i) => {
+                        const isAns = LETTERS[i] === q.answer;
+                        const isPicked = picked !== null && i === picked;
+                        return (
+                          <li key={i} className={isAns ? "correct" : isPicked ? "wrong" : ""}>
+                            {LETTERS[i]}. {o}{isAns ? " ✅" : isPicked ? " ❌ 你选的" : ""}
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>
