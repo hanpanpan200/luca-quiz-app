@@ -88,6 +88,20 @@
   h2.sec { font-size: 21px; margin: 4px 0 12px; }
   h2.sec small { font-size: 14px; color: var(--ink-soft); font-weight: normal; }
 
+  /* ---- 首页分区：即将开始 / 已结束 ---- */
+  h3.sec-sub { font-size: 16px; font-weight: 600; color: var(--ink-soft); margin: 18px 0 10px; }
+  .card section:first-of-type h3.sec-sub { margin-top: 6px; }
+  .ended-tag {
+    display: inline-block; vertical-align: 3px; margin-left: 4px;
+    background: #EFF1EA; color: var(--ink-soft);
+    border: 1.5px solid var(--line); border-radius: 999px;
+    font-size: 12.5px; font-weight: 600; padding: 1px 10px; white-space: nowrap;
+  }
+  .tile.ended { border-style: dashed; }
+  .tile.ended:hover { transform: none; border-color: var(--line); }
+  .tile.ended .emoji { filter: grayscale(1); opacity: .55; }
+  .tile.ended b, .tile.ended .sub { color: var(--ink-soft); }
+
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .tile {
     background: #fff; border: 2px solid var(--line); border-radius: var(--radius);

@@ -21,10 +21,13 @@ describe("AI 编程题子模块（挂在各 tab 下）", () => {
     expect(tabs.map((b) => b.textContent).join("")).not.toContain("编程题");
   });
 
-  it("学习页：切换编程题可见 6 个任务及考察重点", () => {
+  it("学习页：切换编程题可见 10 个任务及考察重点", () => {
     render(<MemoryRouter initialEntries={["/ai/study"]}><AiApp /></MemoryRouter>);
     gotoProg();
-    for (const name of ["节能台灯", "走廊灯", "智能防盗门", "可变光控灯", "怕黑小车", "试衣室门禁"]) {
+    for (const name of [
+      "节能台灯", "走廊灯", "智能防盗门", "可变光控灯", "怕黑小车",
+      "试衣室门禁", "高铁洗手间提醒系统", "金库安保", "自动晾衣架", "智能楼道灯",
+    ]) {
       expect(screen.getAllByText(new RegExp(name)).length).toBeGreaterThan(0);
     }
     expect(screen.getByText(/进阶任务/)).toBeInTheDocument();
@@ -104,7 +107,7 @@ describe("AI 编程题子模块（挂在各 tab 下）", () => {
 
     render(<MemoryRouter initialEntries={["/ai/stats"]}><AiApp /></MemoryRouter>);
     expect(screen.getByText(/编程题任务/)).toBeInTheDocument();
-    expect(screen.getByText(/已练 1\/6/)).toBeInTheDocument();
+    expect(screen.getByText(/已练 1\/10/)).toBeInTheDocument();
     expect(screen.getByText(/节能台灯/)).toBeInTheDocument();
     expect(screen.getAllByText(/⏰ 超时中/).length).toBeGreaterThan(0);
   });

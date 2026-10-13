@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { CIRCUITS, QUESTIONS } from "../../data";
+import { PROGRAMMING_TASKS } from "../../data/programming";
 import { EXAM_QUOTA, EXAM_SIZE, PASS_SCORE, examScore, sampleExamQuestions } from "../aiExam";
 import { VOICE_START, chipLimitMs, chipTimerStart, chipTimerStop, matchPhrase, recordChipAttempt, sampleCircuitExam } from "../chipRules";
 import { recordAnswer, recordWrongQuiz } from "../aiRecords";
@@ -165,6 +166,20 @@ describe("数据完整性", () => {
       if (!q.image) continue;
       expect(q.image.startsWith("assets/circuits/")).toBe(true);
       expect(fs.existsSync(path.join(process.cwd(), "public", q.image))).toBe(true);
+    }
+  });
+
+  it("编程任务：5 基础 + 5 进阶、id 唯一、no 连续、字段齐全", () => {
+    expect(PROGRAMMING_TASKS.length).toBe(10);
+    expect(PROGRAMMING_TASKS.filter((t) => t.tier === "basic").length).toBe(5);
+    expect(PROGRAMMING_TASKS.filter((t) => t.tier === "advanced").length).toBe(5);
+    expect(new Set(PROGRAMMING_TASKS.map((t) => t.id)).size).toBe(10);
+    expect(PROGRAMMING_TASKS.map((t) => t.no)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    for (const t of PROGRAMMING_TASKS) {
+      expect(t.name.trim()).not.toBe("");
+      expect(t.description.trim()).not.toBe("");
+      expect(t.focus.trim()).not.toBe("");
+      expect(t.structure.trim()).not.toBe("");
     }
   });
 });
