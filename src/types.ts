@@ -22,6 +22,28 @@ export interface QuestionsData {
   banks: Bank[];
 }
 
+/** 校内科学·单元化题库（一个单元一个 JSON，见 src/data/science/；unitId 如 g3a-u2 = 三上第二单元） */
+export interface ScienceQuestion {
+  id: string;
+  text: string;
+  options: string[];
+  answer: string;
+  correct_idx: number;
+  /** 答题后显示的一句话解析，注明知识点出处 */
+  explanation: string;
+  chapter: string;
+  qno: number;
+}
+
+export interface ScienceUnit {
+  id: string;
+  name: string;
+  emoji: string;
+  generated_at: string;
+  chapters: string[];
+  questions: ScienceQuestion[];
+}
+
 /** 电子创芯赛题库 */
 export interface CircuitCategory {
   id: string;

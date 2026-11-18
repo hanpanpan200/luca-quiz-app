@@ -153,6 +153,13 @@
   .feedback.ok { background: var(--green-pale); color: var(--green-deep); }
   .feedback.no { background: var(--red-pale); color: var(--red); }
 
+  /* 答题后的知识点解析（校内复习板块） */
+  .explain {
+    margin-top: 10px; border-radius: 14px; padding: 12px 16px;
+    background: var(--blue-pale); color: var(--blue);
+    font-size: 16px; font-weight: 500; line-height: 1.7;
+  }
+
   .progress { height: 12px; background: #E9EFE4; border-radius: 99px; overflow: hidden; margin: 4px 0 18px; }
   .progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--green), #6BB287); border-radius: 99px; transition: width .4s; }
 

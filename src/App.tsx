@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
 import AiApp from "./screens/ai/AiApp";
 import ChipApp from "./screens/chip/ChipApp";
+import ScienceApp from "./screens/science/ScienceApp";
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
         <Route path="/" element={<HomeScreen />} />
         <Route path="/ai/*" element={<AiApp />} />
         <Route path="/chip/*" element={<ChipApp />} />
+        <Route path="/science/*" element={<ScienceApp />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <footer>数据存在这台电脑的浏览器里 · 记得在「统计」页定期导出备份哦</footer>

@@ -56,3 +56,22 @@ export function loadProgStore(): ProgStore {
 export function saveProgStore(store: ProgStore): void {
   localStorage.setItem(PROG_KEY, JSON.stringify(store));
 }
+
+/** 校内科学：一个单元一个 key（swcode_science_<unitId>_v1），进度互不干扰、新单元零迁移。
+ *  store 沿用 AiStore 形状，答题/错题/统计的领域逻辑（aiRecords）直接复用。 */
+const SCIENCE_KEY_PREFIX = "swcode_science_";
+const UNIT_ID_RE = /^g\d[ab]-u\d+$/;
+
+export function scienceKey(unitId: string): string {
+  if (!UNIT_ID_RE.test(unitId)) throw new Error(`非法的单元 id：${unitId}`);
+  return `${SCIENCE_KEY_PREFIX}${unitId}_v1`;
+}
+
+export function loadScienceStore(unitId: string): AiStore {
+  return load(scienceKey(unitId), freshAiStore, (s) =>
+    typeof (s as AiStore).answers === "object" && Array.isArray((s as AiStore).wrongBook));
+}
+
+export function saveScienceStore(unitId: string, store: AiStore): void {
+  localStorage.setItem(scienceKey(unitId), JSON.stringify(store));
+}
