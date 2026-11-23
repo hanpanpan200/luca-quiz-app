@@ -61,14 +61,14 @@ describe("科学·单元列表与练习", () => {
     expect(screen.getByText(new RegExp(q.text.slice(0, 8)))).toBeInTheDocument();
   });
 
-  it("模拟考：抽 20 题覆盖全部课，交卷出分且错题带解析", () => {
+  it("模拟考：出全部题且覆盖全部课，交卷出分且错题带解析", () => {
     render(<MemoryRouter initialEntries={["/science/g3a-u2/exam"]}><ScienceApp /></MemoryRouter>);
     fireEvent.click(screen.getByRole("button", { name: /开始考试/ }));
 
-    expect(document.querySelectorAll(".dot").length).toBe(20);
+    expect(document.querySelectorAll(".dot").length).toBe(U2.questions.length);
 
     const seenChapters = new Set<string>();
-    for (let k = 0; k < 20; k++) {
+    for (let k = 0; k < U2.questions.length; k++) {
       const text = document.querySelector(".q-text")?.textContent ?? "";
       const q = U2.questions.find((x) => x.text === text)!;
       seenChapters.add(q.chapter);
@@ -81,7 +81,7 @@ describe("科学·单元列表与练习", () => {
 
     expect(screen.getByText(/这几题答错了/)).toBeInTheDocument();
     const rows = document.querySelectorAll(".study-q");
-    expect(rows.length).toBe(20);
+    expect(rows.length).toBe(U2.questions.length);
     for (const row of rows) {
       expect(row.querySelector(".explain")).toBeTruthy(); // 每道错题都附解析
     }

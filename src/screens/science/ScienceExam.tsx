@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LETTERS } from "../../data";
 import { recordAnswer } from "../../domain/aiRecords";
-import { SCIENCE_EXAM_SIZE, SCIENCE_PASS_SCORE, sampleScienceExam } from "../../domain/science";
+import { SCIENCE_PASS_SCORE, sampleScienceExam } from "../../domain/science";
 import { examScore } from "../../domain/aiExam";
 import { todayLabel } from "../../domain/utils";
 import type { ScienceQuestion, ScienceUnit } from "../../types";
@@ -16,7 +16,7 @@ interface ExamSession {
   score?: number;
 }
 
-/** 单元模拟考：每课都考到的 20 题组卷，交卷出分、错题带解析 */
+/** 单元模拟考：题库全部题目乱序组卷，交卷出分、错题带解析 */
 export default function ScienceExam({ unit }: { unit: ScienceUnit }) {
   const navigate = useNavigate();
   const { store, setStore } = useScienceStore();
@@ -28,7 +28,7 @@ export default function ScienceExam({ unit }: { unit: ScienceUnit }) {
       <div className="card">
         <h2 className="sec">🏆 单元模拟考 <small>{unit.name}</small></h2>
         <div style={{ fontSize: 18, lineHeight: 2 }}>
-          <div>📝 每课都考到，共抽 <b>{SCIENCE_EXAM_SIZE} 题</b>，满分 100</div>
+          <div>📝 题库全部题目都考到，共 <b>{unit.questions.length} 题</b>，满分 100</div>
           <div>⏱ 不限时，认真读题，像真的考试一样</div>
           <div>💡 交卷后每道错题都附知识点解析</div>
           <div>✅ <b>{SCIENCE_PASS_SCORE} 分</b>过关 · ❌ 答错的题自动进错题本</div>
@@ -164,7 +164,7 @@ export default function ScienceExam({ unit }: { unit: ScienceUnit }) {
   }
 
   function startExam() {
-    const qs = sampleScienceExam(unit.questions);
+    const qs = sampleScienceExam(unit.questions, unit.questions.length); // 全部题目，仅乱序
     setExam({ qs, i: 0, answers: Array(qs.length).fill(null), finished: false });
   }
 }
